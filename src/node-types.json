@@ -10,21 +10,480 @@
         {
           "type": "comment",
           "named": true
+        },
+        {
+          "type": "host_declaration",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "host_declaration",
+    "named": true,
+    "fields": {
+      "argument": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "pattern",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "Host",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter",
+    "named": true,
+    "fields": {
+      "argument": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "ask",
+            "named": false
+          },
+          {
+            "type": "auto",
+            "named": false
+          },
+          {
+            "type": "autoask",
+            "named": false
+          },
+          {
+            "type": "cipher",
+            "named": true
+          },
+          {
+            "type": "confirm",
+            "named": false
+          },
+          {
+            "type": "inet",
+            "named": false
+          },
+          {
+            "type": "inet6",
+            "named": false
+          },
+          {
+            "type": "no",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "pattern",
+            "named": true
+          },
+          {
+            "type": "sig",
+            "named": true
+          },
+          {
+            "type": "time",
+            "named": true
+          },
+          {
+            "type": "yes",
+            "named": false
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "AddKeysToAgent",
+            "named": false
+          },
+          {
+            "type": "AddressFamily",
+            "named": false
+          },
+          {
+            "type": "BatchMode",
+            "named": false
+          },
+          {
+            "type": "BindAddress",
+            "named": false
+          },
+          {
+            "type": "BindInterface",
+            "named": false
+          },
+          {
+            "type": "CASignatureAlgorithms",
+            "named": false
+          },
+          {
+            "type": "CanonicalDomains",
+            "named": false
+          },
+          {
+            "type": "CanonicalizeFallbackLocal",
+            "named": false
+          },
+          {
+            "type": "CanonicalizeHostname",
+            "named": false
+          },
+          {
+            "type": "CanonicalizeMaxDots",
+            "named": false
+          },
+          {
+            "type": "CanonicalizePermittedCNAMEs",
+            "named": false
+          },
+          {
+            "type": "CertificateFile",
+            "named": false
+          },
+          {
+            "type": "CheckHostIP",
+            "named": false
+          },
+          {
+            "type": "Ciphers",
+            "named": false
+          },
+          {
+            "type": "ClearAllForwardings",
+            "named": false
+          },
+          {
+            "type": "Compression",
+            "named": false
+          },
+          {
+            "type": "ConnectTimeout",
+            "named": false
+          },
+          {
+            "type": "ConnectionAttempts",
+            "named": false
+          },
+          {
+            "type": "ControlMaster",
+            "named": false
+          },
+          {
+            "type": "ControlPath",
+            "named": false
+          },
+          {
+            "type": "ControlPersist",
+            "named": false
+          }
+        ]
+      },
+      "source_domain_list": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "pattern",
+            "named": true
+          }
+        ]
+      },
+      "target_domain_list": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "pattern",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "token",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "time",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "variable",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "!",
+    "named": false
   },
   {
     "type": "${",
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "?",
+    "named": false
+  },
+  {
+    "type": "AddKeysToAgent",
+    "named": false
+  },
+  {
+    "type": "AddressFamily",
+    "named": false
+  },
+  {
+    "type": "BatchMode",
+    "named": false
+  },
+  {
+    "type": "BindAddress",
+    "named": false
+  },
+  {
+    "type": "BindInterface",
+    "named": false
+  },
+  {
+    "type": "CASignatureAlgorithms",
+    "named": false
+  },
+  {
+    "type": "CanonicalDomains",
+    "named": false
+  },
+  {
+    "type": "CanonicalizeFallbackLocal",
+    "named": false
+  },
+  {
+    "type": "CanonicalizeHostname",
+    "named": false
+  },
+  {
+    "type": "CanonicalizeMaxDots",
+    "named": false
+  },
+  {
+    "type": "CanonicalizePermittedCNAMEs",
+    "named": false
+  },
+  {
+    "type": "CertificateFile",
+    "named": false
+  },
+  {
+    "type": "CheckHostIP",
+    "named": false
+  },
+  {
+    "type": "Ciphers",
+    "named": false
+  },
+  {
+    "type": "ClearAllForwardings",
+    "named": false
+  },
+  {
+    "type": "Compression",
+    "named": false
+  },
+  {
+    "type": "ConnectTimeout",
+    "named": false
+  },
+  {
+    "type": "ConnectionAttempts",
+    "named": false
+  },
+  {
+    "type": "ControlMaster",
+    "named": false
+  },
+  {
+    "type": "ControlPath",
+    "named": false
+  },
+  {
+    "type": "ControlPersist",
+    "named": false
+  },
+  {
+    "type": "Host",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "ask",
+    "named": false
+  },
+  {
+    "type": "auto",
+    "named": false
+  },
+  {
+    "type": "autoask",
+    "named": false
+  },
+  {
+    "type": "cipher",
+    "named": true
+  },
+  {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "confirm",
+    "named": false
+  },
+  {
+    "type": "inet",
+    "named": false
+  },
+  {
+    "type": "inet6",
+    "named": false
+  },
+  {
+    "type": "no",
+    "named": false
+  },
+  {
+    "type": "none",
+    "named": false
+  },
+  {
+    "type": "number",
+    "named": true
+  },
+  {
+    "type": "sig",
     "named": true
   },
   {
     "type": "token",
     "named": true
+  },
+  {
+    "type": "yes",
+    "named": false
   },
   {
     "type": "}",
