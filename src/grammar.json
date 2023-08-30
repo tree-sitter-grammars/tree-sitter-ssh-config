@@ -1,0 +1,667 @@
+{
+  "name": "ssh_config",
+  "rules": {
+    "config": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_space"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "comment"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_space"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\r?\\n"
+          }
+        ]
+      }
+    },
+    "cipher": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "3des-cbc"
+          },
+          {
+            "type": "STRING",
+            "value": "aes128-cbc"
+          },
+          {
+            "type": "STRING",
+            "value": "aes192-cbc"
+          },
+          {
+            "type": "STRING",
+            "value": "aes256-cbc"
+          },
+          {
+            "type": "STRING",
+            "value": "aes128-ctr"
+          },
+          {
+            "type": "STRING",
+            "value": "aes192-ctr"
+          },
+          {
+            "type": "STRING",
+            "value": "aes256-ctr"
+          },
+          {
+            "type": "STRING",
+            "value": "aes128-gcm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "aes256-gcm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "chacha20-poly1305@openssh.com"
+          }
+        ]
+      }
+    },
+    "cipher_auth": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "aes128-gcm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "aes256-gcm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "chacha20-poly1305@openssh.com"
+          }
+        ]
+      }
+    },
+    "compression": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "none"
+          },
+          {
+            "type": "STRING",
+            "value": "zlib@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "zlib"
+          }
+        ]
+      }
+    },
+    "kex": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "diffie-hellman-group1-sha1"
+          },
+          {
+            "type": "STRING",
+            "value": "diffie-hellman-group14-sha1"
+          },
+          {
+            "type": "STRING",
+            "value": "diffie-hellman-group14-sha256"
+          },
+          {
+            "type": "STRING",
+            "value": "diffie-hellman-group16-sha512"
+          },
+          {
+            "type": "STRING",
+            "value": "diffie-hellman-group18-sha512"
+          },
+          {
+            "type": "STRING",
+            "value": "diffie-hellman-group-exchange-sha1"
+          },
+          {
+            "type": "STRING",
+            "value": "diffie-hellman-group-exchange-sha256"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdh-sha2-nistp256"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdh-sha2-nistp384"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdh-sha2-nistp521"
+          },
+          {
+            "type": "STRING",
+            "value": "curve25519-sha256"
+          },
+          {
+            "type": "STRING",
+            "value": "curve25519-sha256@libssh.org"
+          },
+          {
+            "type": "STRING",
+            "value": "sntrup761x25519-sha512@openssh.com"
+          }
+        ]
+      }
+    },
+    "key": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "ssh-ed25519"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-ed25519-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ssh-ed25519@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ssh-ed25519-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp256"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp256-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp384"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp384-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp521"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp521-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ecdsa-sha2-nistp256@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ecdsa-sha2-nistp256-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-dss"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-dss-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-rsa"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-rsa-cert-v01@openssh.com"
+          }
+        ]
+      }
+    },
+    "key_cert": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "ssh-ed25519-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ssh-ed25519-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp256-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp384-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp521-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ecdsa-sha2-nistp256-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-dss-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-rsa-cert-v01@openssh.com"
+          }
+        ]
+      }
+    },
+    "key_plain": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "ssh-ed25519"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ssh-ed25519@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp256"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp384"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp521"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ecdsa-sha2-nistp256@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-dss"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-rsa"
+          }
+        ]
+      }
+    },
+    "key_sig": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "ssh-ed25519"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-ed25519-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ssh-ed25519@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ssh-ed25519-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp256"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp256-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp384"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp384-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp521"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp521-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ecdsa-sha2-nistp256@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ecdsa-sha2-nistp256-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "webauthn-sk-ecdsa-sha2-nistp256@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-dss"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-dss-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-rsa"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-rsa-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "rsa-sha2-256"
+          },
+          {
+            "type": "STRING",
+            "value": "rsa-sha2-256-cert-v01@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "rsa-sha2-512"
+          },
+          {
+            "type": "STRING",
+            "value": "rsa-sha2-512-cert-v01@openssh.com"
+          }
+        ]
+      }
+    },
+    "mac": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "hmac-sha1"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-sha1-96"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-sha2-256"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-sha2-512"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-md5"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-md5-96"
+          },
+          {
+            "type": "STRING",
+            "value": "umac-64@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "umac-128@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-sha1-etm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-sha1-96-etm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-sha2-256-etm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-sha2-512-etm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-md5-etm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "hmac-md5-96-etm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "umac-64-etm@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "umac-128-etm@openssh.com"
+          }
+        ]
+      }
+    },
+    "protocol_version": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "2"
+          }
+        ]
+      }
+    },
+    "sig": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "ssh-ed25519"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ssh-ed25519@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp256"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp384"
+          },
+          {
+            "type": "STRING",
+            "value": "ecdsa-sha2-nistp521"
+          },
+          {
+            "type": "STRING",
+            "value": "sk-ecdsa-sha2-nistp256@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "webauthn-sk-ecdsa-sha2-nistp256@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-dss"
+          },
+          {
+            "type": "STRING",
+            "value": "ssh-rsa"
+          },
+          {
+            "type": "STRING",
+            "value": "rsa-sha2-256"
+          },
+          {
+            "type": "STRING",
+            "value": "rsa-sha2-512"
+          }
+        ]
+      }
+    },
+    "_file_token": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "%[%CdhikLlnpru]"
+      },
+      "named": true,
+      "value": "token"
+    },
+    "_hosts_token": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "%[%CdhikLlnprufHIKt]"
+      },
+      "named": true,
+      "value": "token"
+    },
+    "_hostname_token": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "%[%h]"
+      },
+      "named": true,
+      "value": "token"
+    },
+    "_proxy_token": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "%[%hnpr]"
+      },
+      "named": true,
+      "value": "token"
+    },
+    "_token": {
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "%[%CdfHhIiKkLlnprTtu]"
+      },
+      "named": true,
+      "value": "token"
+    },
+    "variable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "${"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "PATTERN",
+            "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": "#.*"
+    },
+    "_space": {
+      "type": "PATTERN",
+      "value": "[ \\t]+"
+    }
+  },
+  "extras": [],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
+
