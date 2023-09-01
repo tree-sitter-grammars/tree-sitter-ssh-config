@@ -1,5 +1,10 @@
 [
   {
+    "type": "bytes",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "config",
     "named": true,
     "fields": {},
@@ -104,6 +109,10 @@
             "named": false
           },
           {
+            "type": "=",
+            "named": false
+          },
+          {
             "type": "?",
             "named": false
           },
@@ -117,6 +126,10 @@
           },
           {
             "type": "^",
+            "named": false
+          },
+          {
+            "type": "accept-new",
             "named": false
           },
           {
@@ -140,11 +153,27 @@
             "named": false
           },
           {
+            "type": "bytes",
+            "named": true
+          },
+          {
             "type": "cipher",
             "named": true
           },
           {
             "type": "confirm",
+            "named": false
+          },
+          {
+            "type": "default",
+            "named": false
+          },
+          {
+            "type": "force",
+            "named": false
+          },
+          {
+            "type": "host-bound",
             "named": false
           },
           {
@@ -188,6 +217,10 @@
             "named": true
           },
           {
+            "type": "off",
+            "named": false
+          },
+          {
             "type": "pattern",
             "named": true
           },
@@ -204,8 +237,16 @@
             "named": true
           },
           {
+            "type": "subsystem",
+            "named": false
+          },
+          {
             "type": "time",
             "named": true
+          },
+          {
+            "type": "unbound",
+            "named": false
           },
           {
             "type": "variable",
@@ -279,7 +320,7 @@
       },
       "keyword": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "AddKeysToAgent",
@@ -543,6 +584,70 @@
           },
           {
             "type": "PubkeyAcceptedAlgorithms",
+            "named": false
+          },
+          {
+            "type": "PubkeyAuthentication",
+            "named": false
+          },
+          {
+            "type": "RekeyLimit",
+            "named": false
+          },
+          {
+            "type": "RemoteCommand",
+            "named": false
+          },
+          {
+            "type": "RemoteForward",
+            "named": false
+          },
+          {
+            "type": "RequestTTY",
+            "named": false
+          },
+          {
+            "type": "RequiredRSASize",
+            "named": false
+          },
+          {
+            "type": "RevokedHostKeys",
+            "named": false
+          },
+          {
+            "type": "SecurityKeyProvider",
+            "named": false
+          },
+          {
+            "type": "SendEnv",
+            "named": false
+          },
+          {
+            "type": "ServerAliveCountMax",
+            "named": false
+          },
+          {
+            "type": "ServerAliveInterval",
+            "named": false
+          },
+          {
+            "type": "SessionType",
+            "named": false
+          },
+          {
+            "type": "StdinNull",
+            "named": false
+          },
+          {
+            "type": "StreamLocalBindMask",
+            "named": false
+          },
+          {
+            "type": "StreamLocalBindUnlink",
+            "named": false
+          },
+          {
+            "type": "StrictHostKeyChecking",
             "named": false
           }
         ]
@@ -994,11 +1099,79 @@
     "named": false
   },
   {
+    "type": "RekeyLimit",
+    "named": false
+  },
+  {
+    "type": "RemoteCommand",
+    "named": false
+  },
+  {
+    "type": "RemoteForward",
+    "named": false
+  },
+  {
+    "type": "RequestTTY",
+    "named": false
+  },
+  {
+    "type": "RequiredRSASize",
+    "named": false
+  },
+  {
+    "type": "RevokedHostKeys",
+    "named": false
+  },
+  {
     "type": "SSH_AUTH_SOCK",
     "named": false
   },
   {
+    "type": "SecurityKeyProvider",
+    "named": false
+  },
+  {
+    "type": "SendEnv",
+    "named": false
+  },
+  {
+    "type": "ServerAliveCountMax",
+    "named": false
+  },
+  {
+    "type": "ServerAliveInterval",
+    "named": false
+  },
+  {
+    "type": "SessionType",
+    "named": false
+  },
+  {
+    "type": "StdinNull",
+    "named": false
+  },
+  {
+    "type": "StreamLocalBindMask",
+    "named": false
+  },
+  {
+    "type": "StreamLocalBindUnlink",
+    "named": false
+  },
+  {
+    "type": "StrictHostKeyChecking",
+    "named": false
+  },
+  {
+    "type": "SyslogFacility",
+    "named": false
+  },
+  {
     "type": "^",
+    "named": false
+  },
+  {
+    "type": "accept-new",
     "named": false
   },
   {
@@ -1031,6 +1204,18 @@
   },
   {
     "type": "confirm",
+    "named": false
+  },
+  {
+    "type": "default",
+    "named": false
+  },
+  {
+    "type": "facility",
+    "named": true
+  },
+  {
+    "type": "force",
     "named": false
   },
   {
@@ -1074,12 +1259,20 @@
     "named": false
   },
   {
+    "type": "off",
+    "named": false
+  },
+  {
     "type": "sha256",
     "named": false
   },
   {
     "type": "sig",
     "named": true
+  },
+  {
+    "type": "subsystem",
+    "named": false
   },
   {
     "type": "token",

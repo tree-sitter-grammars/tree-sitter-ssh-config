@@ -21,6 +21,9 @@ module.exports = grammar({
     $._ipqos_arg,
     $._proxy_command_arg,
     $._proxy_jump_arg,
+    $._request_tty_arg,
+    $._security_key_provider_arg,
+    $._strict_host_key_checking_arg,
   ],
 
   rules: {
@@ -131,7 +134,23 @@ module.exports = grammar({
       $._proxy_jump,
       $._proxy_use_fdpass,
       $._pubkey_accepted_algorithms,
-      $._pubkey_authentication_arg,
+      $._pubkey_authentication,
+      $._rekey_limit,
+      $._remote_command,
+      $._remote_forward,
+      $._request_tty,
+      $._required_rsa_size,
+      $._revoked_host_keys,
+      $._security_key_provider,
+      $._send_env,
+      $._server_alive_count_max,
+      $._server_alive_interval,
+      $._session_type,
+      $._set_env,
+      $._stdin_null,
+      $._stream_local_bind_mask,
+      $._stream_local_bind_unlink,
+      $._strict_host_key_checking,
     ),
 
     _add_keys_to_agent: $ => seq(
@@ -497,12 +516,12 @@ module.exports = grammar({
     _local_forward: $ => seq(
       u.keyword('LocalForward'),
       $._sep,
-      u.argument($._local_forward_value1),
+      u.argument($._forward_value1),
       $._space,
-      u.argument($._local_forward_value2)
+      u.argument($._forward_value2)
     ),
 
-    _local_forward_value1: $ => choice(
+    _forward_value1: $ => choice(
       $._file_string,
       field('port', $.number),
       seq(
@@ -512,7 +531,7 @@ module.exports = grammar({
       )
     ),
 
-    _local_forward_value2: $ => choice(
+    _forward_value2: $ => choice(
       $._file_string,
       seq(
         field('host', choice('*', $.string)),
@@ -669,6 +688,152 @@ module.exports = grammar({
       'host-bound'
     ),
 
+    _rekey_limit: $ => prec.right(seq(
+      u.keyword('RekeyLimit'),
+      $._sep,
+      choice(
+        u.argument('none'),
+        u.argument($.bytes),
+        seq(
+          u.argument($.bytes),
+          $._space,
+          u.argument($.time)
+        )
+      )
+    )),
+
+    _remote_command: $ => seq(
+      u.keyword('RemoteCommand'),
+      $._sep,
+      u.argument(u.list($._space, $._file_string))
+    ),
+
+    _remote_forward: $ => seq(
+      u.keyword('RemoteForward'),
+      $._sep,
+      u.argument($._forward_value1),
+      $._space,
+      u.argument($._forward_value2)
+    ),
+
+    _request_tty: $ => seq(
+      u.keyword('RequestTTY'),
+      $._sep,
+      u.argument($._request_tty_arg)
+    ),
+
+    _request_tty_arg: $ => choice(
+      $._boolean,
+      'force',
+      'auto'
+    ),
+
+    _required_rsa_size: $ => seq(
+      u.keyword('RequiredRSASize'),
+      $._sep,
+      u.argument($.number)
+    ),
+
+    _revoked_host_keys: $ => seq(
+      u.keyword('RevokedHostKeys'),
+      $._sep,
+      u.argument($._file_string)
+    ),
+
+    _security_key_provider: $ => seq(
+      u.keyword('SecurityKeyProvider'),
+      $._sep,
+      u.argument($._security_key_provider_arg)
+    ),
+
+    _security_key_provider_arg: $ => choice(
+      $.string,
+      $._var_value
+    ),
+
+    _send_env: $ => seq(
+      u.keyword('SendEnv'),
+      $._sep,
+      u.list($._space, u.argument($._send_env_value))
+    ),
+
+    _send_env_value: $ => seq(
+      optional('-'),
+      alias(
+        u.pattern(/[a-zA-Z0-9_]/),
+        $.variable
+      )
+    ),
+
+    _server_alive_count_max: $ => seq(
+      u.keyword('ServerAliveCountMax'),
+      $._sep,
+      u.argument($.number)
+    ),
+
+    _server_alive_interval: $ => seq(
+      u.keyword('ServerAliveInterval'),
+      $._sep,
+      u.argument($.number)
+    ),
+
+    _session_type: $ => seq(
+      u.keyword('SessionType'),
+      $._sep,
+      u.argument(choice(
+        'none', 'subsystem', 'default'
+      ))
+    ),
+
+    _set_env: $ => seq(
+      u.keyword('SessionType'),
+      $._sep,
+      u.list($._space, u.argument($._set_env_value))
+    ),
+
+    _set_env_value: $ => seq(
+      alias($._var_name, $.variable),
+      '=',
+      $.string
+    ),
+
+    _stdin_null: $ => seq(
+      u.keyword('StdinNull'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _stream_local_bind_mask: $ => seq(
+      u.keyword('StreamLocalBindMask'),
+      $._sep,
+      u.argument(alias(/0?[0-7]{3}/, $.number))
+    ),
+
+    _stream_local_bind_unlink: $ => seq(
+      u.keyword('StreamLocalBindUnlink'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _strict_host_key_checking: $ => seq(
+      u.keyword('StrictHostKeyChecking'),
+      $._sep,
+      u.argument($._strict_host_key_checking_arg)
+    ),
+
+    _syslog_facility: $ => seq(
+      u.keyword('SyslogFacility'),
+      $._sep,
+      u.argument($.facility)
+    ),
+
+    _strict_host_key_checking_arg: $ => choice(
+      $._boolean,
+      'accept-new',
+      'off',
+      'ask'
+    ),
+
     ipqos: _ => token(choice(
       'af11', 'af12', 'af13',
       'af21', 'af22', 'af23',
@@ -685,6 +850,12 @@ module.exports = grammar({
     verbosity: _ => token(choice(
       'QUIET', 'FATAL', 'ERROR', 'INFO', 'VERBOSE',
       'DEBUG', 'DEBUG1', 'DEBUG2', 'DEBUG3'
+    )),
+
+    facility: _ => token(choice(
+      'DAEMON', 'USER', 'AUTH',
+      'LOCAL0', 'LOCAL1', 'LOCAL2', 'LOCAL3',
+      'LOCAL4', 'LOCAL5', 'LOCAL6', 'LOCAL7'
     )),
 
     authentication: _ => token(choice(
@@ -803,6 +974,11 @@ module.exports = grammar({
     _number: _ => /[1-9][0-9]*|0/,
 
     number: $ => $._number,
+
+    bytes: $ => seq(
+      $._number,
+      optional(/[kmgKMG]/)
+    ),
 
     time: $ => choice(
       $._number,
