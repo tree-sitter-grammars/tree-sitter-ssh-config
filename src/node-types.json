@@ -67,6 +67,11 @@
     }
   },
   {
+    "type": "number",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "parameter",
     "named": true,
     "fields": {
@@ -103,6 +108,10 @@
             "named": false
           },
           {
+            "type": "@",
+            "named": false
+          },
+          {
             "type": "SSH_AUTH_SOCK",
             "named": false
           },
@@ -111,8 +120,16 @@
             "named": false
           },
           {
+            "type": "any",
+            "named": false
+          },
+          {
             "type": "ask",
             "named": false
+          },
+          {
+            "type": "authentication",
+            "named": true
           },
           {
             "type": "auto",
@@ -148,6 +165,10 @@
           },
           {
             "type": "key_sig",
+            "named": true
+          },
+          {
+            "type": "mac",
             "named": true
           },
           {
@@ -243,7 +264,7 @@
         ]
       },
       "host": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -258,7 +279,7 @@
       },
       "keyword": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "AddKeysToAgent",
@@ -471,6 +492,58 @@
           {
             "type": "LogVerbose",
             "named": false
+          },
+          {
+            "type": "MACs",
+            "named": false
+          },
+          {
+            "type": "NoHostAuthenticationForLocalhost",
+            "named": false
+          },
+          {
+            "type": "NumberOfPasswordPrompts",
+            "named": false
+          },
+          {
+            "type": "PKCS11Provider",
+            "named": false
+          },
+          {
+            "type": "PasswordAuthentication",
+            "named": false
+          },
+          {
+            "type": "PermitLocalCommand",
+            "named": false
+          },
+          {
+            "type": "PermitRemoteOpen",
+            "named": false
+          },
+          {
+            "type": "Port",
+            "named": false
+          },
+          {
+            "type": "PreferredAuthentications",
+            "named": false
+          },
+          {
+            "type": "ProxyCommand",
+            "named": false
+          },
+          {
+            "type": "ProxyJump",
+            "named": false
+          },
+          {
+            "type": "ProxyUseFdpass",
+            "named": false
+          },
+          {
+            "type": "PubkeyAcceptedAlgorithms",
+            "named": false
           }
         ]
       },
@@ -503,6 +576,10 @@
         "required": false,
         "types": [
           {
+            "type": "*",
+            "named": false
+          },
+          {
             "type": "number",
             "named": true
           }
@@ -532,6 +609,16 @@
           },
           {
             "type": "pattern",
+            "named": true
+          }
+        ]
+      },
+      "user": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string",
             "named": true
           }
         ]
@@ -624,6 +711,10 @@
   },
   {
     "type": "?",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {
@@ -847,6 +938,62 @@
     "named": false
   },
   {
+    "type": "MACs",
+    "named": false
+  },
+  {
+    "type": "NoHostAuthenticationForLocalhost",
+    "named": false
+  },
+  {
+    "type": "NumberOfPasswordPrompts",
+    "named": false
+  },
+  {
+    "type": "PKCS11Provider",
+    "named": false
+  },
+  {
+    "type": "PasswordAuthentication",
+    "named": false
+  },
+  {
+    "type": "PermitLocalCommand",
+    "named": false
+  },
+  {
+    "type": "PermitRemoteOpen",
+    "named": false
+  },
+  {
+    "type": "Port",
+    "named": false
+  },
+  {
+    "type": "PreferredAuthentications",
+    "named": false
+  },
+  {
+    "type": "ProxyCommand",
+    "named": false
+  },
+  {
+    "type": "ProxyJump",
+    "named": false
+  },
+  {
+    "type": "ProxyUseFdpass",
+    "named": false
+  },
+  {
+    "type": "PubkeyAcceptedAlgorithms",
+    "named": false
+  },
+  {
+    "type": "PubkeyAuthentication",
+    "named": false
+  },
+  {
     "type": "SSH_AUTH_SOCK",
     "named": false
   },
@@ -855,8 +1002,16 @@
     "named": false
   },
   {
+    "type": "any",
+    "named": false
+  },
+  {
     "type": "ask",
     "named": false
+  },
+  {
+    "type": "authentication",
+    "named": true
   },
   {
     "type": "auto",
@@ -876,6 +1031,10 @@
   },
   {
     "type": "confirm",
+    "named": false
+  },
+  {
+    "type": "host-bound",
     "named": false
   },
   {
@@ -899,6 +1058,10 @@
     "named": true
   },
   {
+    "type": "mac",
+    "named": true
+  },
+  {
     "type": "md5",
     "named": false
   },
@@ -911,10 +1074,6 @@
     "named": false
   },
   {
-    "type": "number",
-    "named": true
-  },
-  {
     "type": "sha256",
     "named": false
   },
@@ -925,6 +1084,10 @@
   {
     "type": "token",
     "named": true
+  },
+  {
+    "type": "unbound",
+    "named": false
   },
   {
     "type": "verbosity",

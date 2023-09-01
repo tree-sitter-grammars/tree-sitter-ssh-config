@@ -19,6 +19,8 @@ module.exports = grammar({
     $._forward_agent_arg,
     $._identity_agent_arg,
     $._ipqos_arg,
+    $._proxy_command_arg,
+    $._proxy_jump_arg,
   ],
 
   rules: {
@@ -116,6 +118,20 @@ module.exports = grammar({
       $._local_forward,
       $._log_level,
       $._log_verbose,
+      $._macs,
+      $._no_host_authentication_for_localhost,
+      $._number_of_password_prompts,
+      $._password_authentication,
+      $._permit_local_command,
+      $._permit_remote_open,
+      $._pkcs11_provider,
+      $._port,
+      $._preferred_authentications,
+      $._proxy_command,
+      $._proxy_jump,
+      $._proxy_use_fdpass,
+      $._pubkey_accepted_algorithms,
+      $._pubkey_authentication_arg,
     ),
 
     _add_keys_to_agent: $ => seq(
@@ -179,7 +195,7 @@ module.exports = grammar({
     _canonicalize_max_dots: $ => seq(
       u.keyword('CanonicalizeMaxDots'),
       $._sep,
-      u.argument(alias($._number, $.number))
+      u.argument($.number)
     ),
 
     _canonicalize_permitted_cnames: $ => seq(
@@ -236,13 +252,13 @@ module.exports = grammar({
     _connection_attempts: $ => seq(
       u.keyword('ConnectionAttempts'),
       $._sep,
-      u.argument(alias($._number, $.number))
+      u.argument($.number)
     ),
 
     _connect_timeout: $ => seq(
       u.keyword('ConnectTimeout'),
       $._sep,
-      u.argument(alias($._number, $.number))
+      u.argument($.number)
     ),
 
     _control_master: $ => seq(
@@ -282,11 +298,11 @@ module.exports = grammar({
     ),
 
     _dynamic_forward_value: $ => choice(
-      field('port', alias($._number, $.number)),
+      field('port', $.number),
       seq(
         field('bind_address', choice('*', $.string)),
         ':',
-        field('port', alias($._number, $.number))
+        field('port', $.number)
       )
     ),
 
@@ -447,7 +463,7 @@ module.exports = grammar({
 
     _ipqos_arg: $ => choice(
       $.ipqos,
-      alias($._number, $.number),
+      $.number,
       'none'
     ),
 
@@ -475,7 +491,7 @@ module.exports = grammar({
     _local_command: $ => seq(
       u.keyword('LocalCommand'),
       $._sep,
-      u.argument($._token_string)
+      u.argument(u.list($._space, $._token_string))
     ),
 
     _local_forward: $ => seq(
@@ -488,11 +504,11 @@ module.exports = grammar({
 
     _local_forward_value1: $ => choice(
       $._file_string,
-      field('port', alias($._number, $.number)),
+      field('port', $.number),
       seq(
         field('bind_address', choice('*', $.string)),
         ':',
-        field('port', alias($._number, $.number))
+        field('port', $.number)
       )
     ),
 
@@ -501,7 +517,7 @@ module.exports = grammar({
       seq(
         field('host', choice('*', $.string)),
         ':',
-        field('port', alias($._number, $.number))
+        field('port', $.number)
       )
     ),
 
@@ -521,10 +537,137 @@ module.exports = grammar({
     ),
 
     _log_verbose_value: $ =>
-      u.override(/S/, alias($._number, $.number)),
+      u.override(/S/, $.number),
 
     _log_verbose_quoted: $ =>
-      u.override(/[^"]/, alias($._number, $.number)),
+      u.override(/[^"]/, $.number),
+
+    _macs: $ => seq(
+      u.keyword('MACs'),
+      $._sep,
+      u.algorithms('+-^', $.mac)
+    ),
+
+    _no_host_authentication_for_localhost: $ => seq(
+      u.keyword('NoHostAuthenticationForLocalhost'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _number_of_password_prompts: $ => seq(
+      u.keyword('NumberOfPasswordPrompts'),
+      $._sep,
+      u.argument($.number)
+    ),
+
+    _password_authentication: $ => seq(
+      u.keyword('PasswordAuthentication'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _permit_local_command: $ => seq(
+      u.keyword('PermitLocalCommand'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _permit_remote_open: $ => seq(
+      u.keyword('PermitRemoteOpen'),
+      $._sep,
+      u.argument(u.list($._space, $._permit_remote_open_value))
+    ),
+
+    _permit_remote_open_value: $ => choice(
+      'any',
+      'none',
+      seq(
+        field('host', choice('*', alias(/\S+/, $.string))),
+        ':',
+        field('port', choice('*', $.number))
+      ),
+      seq(
+        '"',
+        field('host', choice('*', alias(/[^"]+/, $.string))),
+        ':',
+        field('port', choice('*', $.number)),
+        '"'
+      ),
+    ),
+
+    _pkcs11_provider: $ => seq(
+      u.keyword('PKCS11Provider'),
+      $._sep,
+      u.argument($.string)
+    ),
+
+    _port: $ => seq(
+      u.keyword('Port'),
+      $._sep,
+      u.argument($.number)
+    ),
+
+    _preferred_authentications: $ => seq(
+      u.keyword('PreferredAuthentications'),
+      $._sep,
+      u.argument(u.list(',', $.authentication))
+    ),
+
+    _proxy_command: $ => seq(
+      u.keyword('ProxyCommand'),
+      $._sep,
+      u.argument($._proxy_command_arg)
+    ),
+
+    _proxy_command_arg: $ => choice(
+      'none', u.list($._space, $._proxy_string)
+    ),
+
+    _proxy_jump: $ => seq(
+      u.keyword('ProxyJump'),
+      $._sep,
+      u.argument($._proxy_jump_arg)
+    ),
+
+    _proxy_jump_arg: $ => choice(
+      'none',
+      seq(
+        optional(seq(
+          field('user', alias(/\S+/, $.string)),
+          '@'
+        )),
+        field('host', alias(/S+/, $.string)),
+        optional(seq(
+          ':',
+          field('port', $.number)
+        ))
+      ),
+      // TODO: support ssh URI
+    ),
+
+    _proxy_use_fdpass: $ => seq(
+      u.keyword('ProxyUseFdpass'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _pubkey_accepted_algorithms: $ => seq(
+      u.keyword('PubkeyAcceptedAlgorithms'),
+      $._sep,
+      u.algorithms('+-^', $.key_sig)
+    ),
+
+    _pubkey_authentication: $ => seq(
+      u.keyword('PubkeyAuthentication'),
+      $._sep,
+      u.argument($._pubkey_authentication_arg)
+    ),
+
+    _pubkey_authentication_arg: $ => choice(
+      $._boolean,
+      'unbound',
+      'host-bound'
+    ),
 
     ipqos: _ => token(choice(
       'af11', 'af12', 'af13',
@@ -542,6 +685,11 @@ module.exports = grammar({
     verbosity: _ => token(choice(
       'QUIET', 'FATAL', 'ERROR', 'INFO', 'VERBOSE',
       'DEBUG', 'DEBUG1', 'DEBUG2', 'DEBUG3'
+    )),
+
+    authentication: _ => token(choice(
+      'gssapi-with-mic', 'hostbased', 'publickey',
+      'keyboard-interactive', 'password'
     )),
 
     cipher: _ => u.query('cipher'),
@@ -587,32 +735,42 @@ module.exports = grammar({
 
     _file_string: $ => alias(
       choice(
-        repeat1(choice(/\S/, $._file_token, $.variable)),
-        seq('"', repeat1(choice(/[^"]/, $._file_token, $.variable)), '"'),
+        u.token(/\S/, $._file_token, $.variable),
+        seq('"', u.token(/[^"]/, $._file_token, $.variable), '"'),
       ),
       $.string
     ),
 
     _hosts_string: $ => alias(
       choice(
-        repeat1(choice(/\S/, $._hosts_token, $.variable)),
-        seq('"', repeat1(choice(/[^"]/, $._hosts_token, $.variable)), '"'),
+        u.token(/\S/, $._hosts_token, $.variable),
+        seq('"', u.token(/[^"]/, $._hosts_token, $.variable), '"'),
       ),
       $.string
     ),
 
     _hostname_string: $ => alias(
       choice(
-        repeat1(choice(/\S/, $._hostname_token)),
-        seq('"', repeat1(choice(/[^"]/, $._hostname_token)), '"'),
+        u.token(/\S/, $._hostname_token),
+        seq('"', u.token(/[^"]/, $._hostname_token), '"'),
+      ),
+      $.string
+    ),
+
+    _proxy_string_content: $ => u.token(/\S/, $._proxy_token),
+
+    _proxy_string: $ => alias(
+      choice(
+        $._proxy_string_content,
+        seq('"', u.token(/[^"]/, $._proxy_token), '"'),
       ),
       $.string
     ),
 
     _token_string: $ => alias(
       choice(
-        repeat1(choice(/\S/, $.token)),
-        seq('"', repeat1(choice(/[^"]/, $.token)), '"'),
+        u.token(/\S/, $.token),
+        seq('"', u.token(/[^"]/, $.token), '"'),
       ),
       $.string
     ),
@@ -643,6 +801,8 @@ module.exports = grammar({
     _boolean: _ => choice('yes', 'no'),
 
     _number: _ => /[1-9][0-9]*|0/,
+
+    number: $ => $._number,
 
     time: $ => choice(
       $._number,

@@ -12,18 +12,30 @@ const {execSync} = require('child_process');
  *           'sig'} AlgorithmSymbol
  */
 
+/** @param char {string} */
+const ci = (char) =>
+  (char >= 'a' && char <= 'z') ?
+    `[${char}${char.toUpperCase()}]` :
+    (char >= 'A' && char <= 'Z') ?
+      `[${char.toLowerCase()}${char}]` : char;
+
 /**
  * Run `ssh -Q`
  * @param option {AlgorithmType}
  */
 module.exports.query = (option) =>
-  token(choice(...execSync(`ssh -Q ${option}`).toString().split('\n').slice(0, -1)));
+  token(choice(
+    ...execSync(`ssh -Q ${option}`)
+    .toString().split('\n').slice(0, -1)
+  ));
 
 /**
  * @param word {string}
  */
 module.exports.keyword = (word) =>
-  field('keyword', alias(new RegExp(word, 'i'), word));
+  field('keyword', alias(
+    new RegExp(word.split('').map(ci).join('')), word
+  ));
 
 /**
  * @param arg {RuleOrLiteral}
@@ -46,6 +58,14 @@ module.exports.pattern = (content, ...extra) =>
   repeat1(choice('*', '?', content, ...extra));
 
 /**
+ * @param content {RegExp}
+ * @param token {Rule}
+ * @param extra {...Rule}
+ */
+module.exports.token = (content, token, ...extra) =>
+  repeat1(choice(content, token, ...extra));
+
+/**
  * @param prefix {'+-'|'+-^'}
  * @param option {SymbolRule<AlgorithmSymbol>}
  */
@@ -57,13 +77,13 @@ module.exports.algorithms = (prefix, option) =>
 
 /**
  * @param content {RegExp}
- * @param rule {AliasRule}
+ * @param rule {SymbolRule<'number'>}
  */
 module.exports.override = (content, rule) =>
   seq(
     field('file', module.exports.pattern(content)),
     ':',
-    field('function', module.exports.pattern(/[a-zA-Z0-9_()]/)),
+    field('function', module.exports.pattern(content)),
     ':',
     field('line', choice('*', rule))
   );
