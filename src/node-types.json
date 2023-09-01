@@ -127,7 +127,19 @@
             "named": false
           },
           {
+            "type": "key_sig",
+            "named": true
+          },
+          {
+            "type": "md5",
+            "named": false
+          },
+          {
             "type": "no",
+            "named": false
+          },
+          {
+            "type": "none",
             "named": false
           },
           {
@@ -139,11 +151,23 @@
             "named": true
           },
           {
+            "type": "sha256",
+            "named": false
+          },
+          {
             "type": "sig",
             "named": true
           },
           {
+            "type": "string",
+            "named": true
+          },
+          {
             "type": "time",
+            "named": true
+          },
+          {
+            "type": "variable",
             "named": true
           },
           {
@@ -152,9 +176,23 @@
           }
         ]
       },
+      "bind_address": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
       "keyword": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "AddKeysToAgent",
@@ -239,6 +277,102 @@
           {
             "type": "ControlPersist",
             "named": false
+          },
+          {
+            "type": "EnableEscapeCommandline",
+            "named": false
+          },
+          {
+            "type": "EnableSSHKeysign",
+            "named": false
+          },
+          {
+            "type": "EscapeChar",
+            "named": false
+          },
+          {
+            "type": "ExitOnForwardFailure",
+            "named": false
+          },
+          {
+            "type": "FingerprintHash",
+            "named": false
+          },
+          {
+            "type": "ForkAfterAuthentication",
+            "named": false
+          },
+          {
+            "type": "ForwardAgent",
+            "named": false
+          },
+          {
+            "type": "ForwardX11",
+            "named": false
+          },
+          {
+            "type": "ForwardX11Timeout",
+            "named": false
+          },
+          {
+            "type": "ForwardX11Trusted",
+            "named": false
+          },
+          {
+            "type": "GSSAPIAuthentication",
+            "named": false
+          },
+          {
+            "type": "GSSAPIDelegateCredentials",
+            "named": false
+          },
+          {
+            "type": "GlobalKnownHostsFile",
+            "named": false
+          },
+          {
+            "type": "HostKeyAlgorithms",
+            "named": false
+          },
+          {
+            "type": "HostKeyAlias",
+            "named": false
+          },
+          {
+            "type": "HostbasedAcceptedAlgorithms",
+            "named": false
+          },
+          {
+            "type": "HostbasedAuthentication",
+            "named": false
+          },
+          {
+            "type": "HostbasedKeyTypes",
+            "named": false
+          },
+          {
+            "type": "Hostname",
+            "named": false
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "port": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
           }
         ]
       },
@@ -292,6 +426,21 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "token",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "time",
     "named": true,
     "fields": {}
@@ -303,6 +452,10 @@
   },
   {
     "type": "!",
+    "named": false
+  },
+  {
+    "type": "\"",
     "named": false
   },
   {
@@ -422,7 +575,87 @@
     "named": false
   },
   {
+    "type": "DynamicForward",
+    "named": false
+  },
+  {
+    "type": "EnableEscapeCommandline",
+    "named": false
+  },
+  {
+    "type": "EnableSSHKeysign",
+    "named": false
+  },
+  {
+    "type": "EscapeChar",
+    "named": false
+  },
+  {
+    "type": "ExitOnForwardFailure",
+    "named": false
+  },
+  {
+    "type": "FingerprintHash",
+    "named": false
+  },
+  {
+    "type": "ForkAfterAuthentication",
+    "named": false
+  },
+  {
+    "type": "ForwardAgent",
+    "named": false
+  },
+  {
+    "type": "ForwardX11",
+    "named": false
+  },
+  {
+    "type": "ForwardX11Timeout",
+    "named": false
+  },
+  {
+    "type": "ForwardX11Trusted",
+    "named": false
+  },
+  {
+    "type": "GSSAPIAuthentication",
+    "named": false
+  },
+  {
+    "type": "GSSAPIDelegateCredentials",
+    "named": false
+  },
+  {
+    "type": "GlobalKnownHostsFile",
+    "named": false
+  },
+  {
     "type": "Host",
+    "named": false
+  },
+  {
+    "type": "HostKeyAlgorithms",
+    "named": false
+  },
+  {
+    "type": "HostKeyAlias",
+    "named": false
+  },
+  {
+    "type": "HostbasedAcceptedAlgorithms",
+    "named": false
+  },
+  {
+    "type": "HostbasedAuthentication",
+    "named": false
+  },
+  {
+    "type": "HostbasedKeyTypes",
+    "named": false
+  },
+  {
+    "type": "Hostname",
     "named": false
   },
   {
@@ -462,6 +695,14 @@
     "named": false
   },
   {
+    "type": "key_sig",
+    "named": true
+  },
+  {
+    "type": "md5",
+    "named": false
+  },
+  {
     "type": "no",
     "named": false
   },
@@ -472,6 +713,10 @@
   {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "sha256",
+    "named": false
   },
   {
     "type": "sig",

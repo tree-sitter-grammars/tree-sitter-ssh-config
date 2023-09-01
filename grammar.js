@@ -8,10 +8,20 @@
 const {execSync} = require('child_process');
 
 /**
+ * @typedef {'cipher'|'cipher-auth'|'compression'|
+ *           'kex'|'key'|'key-cert'|'key-plain'|
+ *           'key-sig'|'mac'|'protocol-version'|
+ *           'sig'} AlgorithmType
+ *
+ * @typedef {'cipher'|'cipher_auth'|'compression'|
+ *           'kex'|'key'|'key_cert'|'key_plain'|
+ *           'key_sig'|'mac'|'protocol_version'|
+ *           'sig'} AlgorithmSymbol
+ */
+
+/**
  * Run `ssh -Q`
- * @param option {'cipher'|'cipher-auth'|'compression'|
- *                'kex'|'key'|'key-cert'|'key-plain'|
- *                'key-sig'|'mac'|'protocol-version'|'sig'}
+ * @param option {AlgorithmType}
  */
 const query = (option) =>
   token(choice(...execSync(`ssh -Q ${option}`).toString().split('\n').slice(0, -1)));
@@ -23,7 +33,7 @@ const keyword = (word) =>
   field('keyword', alias(new RegExp(word, 'i'), word));
 
 /**
- * @param arg {Rule}
+ * @param arg {RuleOrLiteral}
  */
 const argument = (arg) =>
   field('argument', arg);
@@ -42,6 +52,16 @@ const list = (sep, rule) =>
 const pattern = (content, ...extra) =>
   repeat1(choice('*', '?', content, ...extra));
 
+/**
+ * @param prefix {'+-'|'+-^'}
+ * @param option {SymbolRule<AlgorithmSymbol>}
+ */
+const algorithms = (prefix, option) =>
+  argument(seq(
+    optional(choice(...prefix)),
+    list(',', option)
+  ));
+
 module.exports = grammar({
   name: 'ssh_config',
 
@@ -51,33 +71,40 @@ module.exports = grammar({
     $._add_keys_to_agent_arg,
     $._control_master_arg,
     $._control_persist_arg,
+    $._forward_agent_arg,
   ],
 
   rules: {
-    config: $ => repeat(
+    config: $ => repeat(choice(
       seq(
         optional($._space),
-        optional(
-          choice(
-            $.comment,
-            $.host_declaration,
-            // TODO: $.match_declaration,
-            $.parameter
-          ),
-        ),
+        optional($.comment),
+        $._eol
+      ),
+      seq(
         optional($._space),
-        /\r?\n/
+        $.host_declaration
+      ),
+      // TODO: seq(
+      //   optional($._space),
+      //   $.match_declaration
+      // ),
+      seq(
+        optional($._space),
+        $.parameter,
+        optional($._space),
+        $._eol
       )
-    ),
+    )),
 
     host_declaration: $ => prec.right(seq(
       keyword('Host'),
       $._sep,
       list($._space, argument(
-        seq(optional('!'), $._pattern)
+        seq(optional('!'), $.pattern)
       )),
       optional($._space),
-      /\r?\n/,
+      $._eol,
       $._declarations
     )),
 
@@ -86,7 +113,7 @@ module.exports = grammar({
         optional($._space),
         choice($.comment, $.parameter),
         optional($._space),
-        /\r?\n/
+        $._eol
       ))
     ),
 
@@ -112,6 +139,25 @@ module.exports = grammar({
       $._control_master,
       $._control_path,
       $._control_persist,
+      $._forward_value,
+      $._enable_escape_command_line,
+      $._enable_ssh_keysign,
+      $._escape_char,
+      $._exit_on_forward_failure,
+      $._fingerprint_hash,
+      $._fork_after_authentication,
+      $._forward_agent,
+      $._forward_x11,
+      $._forward_x11_timeout,
+      $._forward_x11_trusted,
+      $._global_known_hosts_file,
+      $._gssapi_authentication,
+      $._gssapi_delegate_credentials,
+      $._hostbased_accepted_algorithms,
+      $._hostbased_authentication,
+      $._host_key_algorithms,
+      $._host_key_alias,
+      $._hostname,
     ),
 
     _add_keys_to_agent: $ => seq(
@@ -145,19 +191,19 @@ module.exports = grammar({
     _bind_address: $ => seq(
       keyword('BindAddress'),
       $._sep,
-      argument($._pattern)
+      argument($.pattern)
     ),
 
     _bind_interface: $ => seq(
       keyword('BindInterface'),
       $._sep,
-      argument($._pattern)
+      argument($.pattern)
     ),
 
     _canonical_domains: $ => seq(
       keyword('CanonicalDomains'),
       $._sep,
-      list($._space, argument($._pattern))
+      list($._space, argument($.pattern))
     ),
 
     _canonicalize_fallback_local: $ => seq(
@@ -188,18 +234,15 @@ module.exports = grammar({
     ),
 
     _cnames_map: $ => seq(
-      field('source_domain_list', list(',', $._pattern)),
+      field('source_domain_list', list(',', $.pattern)),
       ':',
-      field('target_domain_list', list(',', $._pattern)),
+      field('target_domain_list', list(',', $.pattern)),
     ),
 
     _ca_signature_algorithms: $ => seq(
       keyword('CASignatureAlgorithms'),
       $._sep,
-      argument(seq(
-        optional(choice('+', '-')),
-        list(',', $.sig)
-      ))
+      algorithms('+-', $.sig)
     ),
 
     _certificate_file: $ => seq(
@@ -217,10 +260,7 @@ module.exports = grammar({
     _ciphers: $ => seq(
       keyword('Ciphers'),
       $._sep,
-      argument(seq(
-        optional(choice('+', '-', '^')),
-        list(',', $.cipher)
-      ))
+      algorithms('+-^', $.cipher)
     ),
 
     _clear_all_forwardings: $ => seq(
@@ -277,6 +317,141 @@ module.exports = grammar({
       argument($._file_pattern_vars)
     ),
 
+    _dynamic_forward: $ => seq(
+      keyword('DynamicForward'),
+      $._sep,
+      argument(list($._space, $._forward_value))
+    ),
+
+    _forward_value: $ => choice(
+      field('port', alias($._number, $.number)),
+      seq(
+        field('bind_address', choice('*', $.string)),
+        ':',
+        field('port', alias($._number, $.number))
+      )
+    ),
+
+    _enable_escape_command_line: $ => seq(
+      keyword('EnableEscapeCommandline'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _enable_ssh_keysign: $ => seq(
+      keyword('EnableSSHKeysign'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _escape_char: $ => seq(
+      keyword('EscapeChar'),
+      $._sep,
+      argument(choice(/\S|\^[A-Za-z]/, 'none'))
+    ),
+
+    _exit_on_forward_failure: $ => seq(
+      keyword('ExitOnForwardFailure'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _fingerprint_hash: $ => seq(
+      keyword('FingerprintHash'),
+      $._sep,
+      argument(choice('md5', 'sha256'))
+    ),
+
+    _fork_after_authentication: $ => seq(
+      keyword('ForkAfterAuthentication'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _forward_agent: $ => seq(
+      keyword('ForwardAgent'),
+      $._sep,
+      argument($._forward_agent_arg)
+    ),
+
+    _forward_agent_arg: $ => choice(
+        $._boolean,
+        $.string,
+        alias(
+          seq('$', field('name', $._var_name)),
+          $.variable
+        )
+    ),
+
+    _forward_x11: $ => seq(
+      keyword('ForwardX11'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _forward_x11_timeout: $ => seq(
+      keyword('ForwardX11Timeout'),
+      $._sep,
+      argument($.time)
+    ),
+
+    _forward_x11_trusted: $ => seq(
+      keyword('ForwardX11Trusted'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _global_known_hosts_file: $ => seq(
+      keyword('GlobalKnownHostsFile'),
+      $._sep,
+      list($._space, argument($.string))
+    ),
+
+    _gssapi_authentication: $ => seq(
+      keyword('GSSAPIAuthentication'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _gssapi_delegate_credentials: $ => seq(
+      keyword('GSSAPIDelegateCredentials'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _hostbased_accepted_algorithms: $ => seq(
+      choice(
+        keyword('HostbasedAcceptedAlgorithms'),
+        keyword('HostbasedKeyTypes')
+      ),
+      $._sep,
+      algorithms('+-^', $.key_sig)
+    ),
+
+    _hostbased_authentication: $ => seq(
+      keyword('HostbasedAuthentication'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _host_key_algorithms: $ => seq(
+      keyword('HostKeyAlgorithms'),
+      $._sep,
+      algorithms('+-^', $.key_sig)
+    ),
+
+    _host_key_alias: $ => seq(
+      keyword('HostKeyAlias'),
+      $._sep,
+      argument($.string)
+    ),
+
+    _hostname: $ => seq(
+      keyword('Hostname'),
+      $._sep,
+      argument($._hostname_string)
+    ),
+
     cipher: _ => query('cipher'),
 
     cipher_auth: _ => query('cipher-auth'),
@@ -309,13 +484,23 @@ module.exports = grammar({
 
     _token: $ => alias(/%[%CdfHhIiKkLlnprTtu]/, $.token),
 
-    variable: _ => seq(
-      '${', field('name', /[a-zA-Z_][a-zA-Z0-9_]*/), '}'
+    _var_name: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    variable: $ => seq('${', field('name', $._var_name), '}'),
+
+    _hostname_string: $ => alias(
+      choice(
+        repeat1(choice(/\S/, $._hostname_token)),
+        seq('"', repeat1(choice(/[^"]/, $._hostname_token)), '"'),
+      ),
+      $.string
     ),
+
+    string: _ => choice(/\S+/, seq('"', /[^"]+/, '"')),
 
     _file_pattern: $ => alias(
       choice(
-        seq(pattern(/\S/, $._file_token)),
+        pattern(/\S/, $._file_token),
         seq('"', pattern(/[^"]/, $._file_token), '"'),
       ),
       $.pattern
@@ -323,18 +508,15 @@ module.exports = grammar({
 
     _file_pattern_vars: $ => alias(
       choice(
-        seq(pattern(/\S/, $.variable, $._file_token)),
+        pattern(/\S/, $.variable, $._file_token),
         seq('"', pattern(/[^"]/, $.variable, $._file_token), '"'),
       ),
       $.pattern
     ),
 
-    _pattern: $ => alias(
-      choice(
-        seq(pattern(/\S/)),
+    pattern: _ => choice(
+        pattern(/\S/),
         seq('"', pattern(/[^"]/), '"'),
-      ),
-      $.pattern
     ),
 
     _boolean: _ => choice('yes', 'no'),
@@ -380,5 +562,7 @@ module.exports = grammar({
     ),
 
     _space: _ => /[ \t]+/,
+
+    _eol: _ => prec(1, /\r?\n/)
   }
 });
