@@ -72,6 +72,8 @@ module.exports = grammar({
     $._control_master_arg,
     $._control_persist_arg,
     $._forward_agent_arg,
+    $._identity_agent_arg,
+    $._ipqos_arg,
   ],
 
   rules: {
@@ -139,7 +141,6 @@ module.exports = grammar({
       $._control_master,
       $._control_path,
       $._control_persist,
-      $._forward_value,
       $._enable_escape_command_line,
       $._enable_ssh_keysign,
       $._escape_char,
@@ -158,6 +159,18 @@ module.exports = grammar({
       $._host_key_algorithms,
       $._host_key_alias,
       $._hostname,
+      $._identities_only,
+      $._identity_agent,
+      $._identity_file,
+      $._ignore_unknown,
+      $._ipqos,
+      $._kbd_interactive_authentication,
+      $._kex_algorithms,
+      $._known_hosts_command,
+      $._local_command,
+      $._local_forward,
+      $._log_level,
+      $._log_verbose,
     ),
 
     _add_keys_to_agent: $ => seq(
@@ -320,10 +333,10 @@ module.exports = grammar({
     _dynamic_forward: $ => seq(
       keyword('DynamicForward'),
       $._sep,
-      argument(list($._space, $._forward_value))
+      argument(list($._space, $._dynamic_forward_value))
     ),
 
-    _forward_value: $ => choice(
+    _dynamic_forward_value: $ => choice(
       field('port', alias($._number, $.number)),
       seq(
         field('bind_address', choice('*', $.string)),
@@ -375,12 +388,9 @@ module.exports = grammar({
     ),
 
     _forward_agent_arg: $ => choice(
-        $._boolean,
-        $.string,
-        alias(
-          seq('$', field('name', $._var_name)),
-          $.variable
-        )
+      $._boolean,
+      $.string,
+      $._var_value
     ),
 
     _forward_x11: $ => seq(
@@ -452,6 +462,153 @@ module.exports = grammar({
       argument($._hostname_string)
     ),
 
+    _identities_only: $ => seq(
+      keyword('IdentitiesOnly'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _identity_agent: $ => seq(
+      keyword('IdentityAgent'),
+      $._sep,
+      argument($._identity_agent_arg)
+    ),
+
+    _identity_agent_arg: $ => choice(
+      'none',
+      'SSH_AUTH_SOCK',
+      $._file_string,
+      $._var_value
+    ),
+
+    _identity_file: $ => seq(
+      keyword('IdentityFile'),
+      $._sep,
+      argument($._file_string)
+    ),
+
+    _ignore_unknown: $ => seq(
+      keyword('IgnoreUnknown'),
+      $._sep,
+      argument(list($._space, $.pattern))
+    ),
+
+    _ipqos: $ => prec.right(seq(
+      keyword('IPQoS'),
+      $._sep,
+      argument($._ipqos_arg),
+      optional(seq($._space, argument($._ipqos_arg)))
+    )),
+
+    _ipqos_arg: $ => choice(
+      $.ipqos,
+      alias($._number, $.number),
+      'none'
+    ),
+
+    _kbd_interactive_authentication: $ => seq(
+      choice(
+        keyword('KbdInteractiveAuthentication'),
+        keyword('ChallengeResponseAuthentication')
+      ),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _kex_algorithms: $ => seq(
+      keyword('KexAlgorithms'),
+      $._sep,
+      algorithms('+-^', $.kex)
+    ),
+
+    _known_hosts_command: $ => seq(
+      keyword('KnownHostsCommand'),
+      $._sep,
+      argument($._hosts_string)
+    ),
+
+    _local_command: $ => seq(
+      keyword('LocalCommand'),
+      $._sep,
+      argument($._token_string)
+    ),
+
+    _local_forward: $ => seq(
+      keyword('LocalForward'),
+      $._sep,
+      argument($._local_forward_value1),
+      $._space,
+      argument($._local_forward_value2)
+    ),
+
+    _local_forward_value1: $ => choice(
+      $._file_string,
+      field('port', alias($._number, $.number)),
+      seq(
+        field('bind_address', choice('*', $.string)),
+        ':',
+        field('port', alias($._number, $.number))
+      )
+    ),
+
+    _local_forward_value2: $ => choice(
+      $._file_string,
+      seq(
+        field('host', choice('*', $.string)),
+        ':',
+        field('port', alias($._number, $.number))
+      )
+    ),
+
+    _log_level: $ => seq(
+      keyword('LogLevel'),
+      $._sep,
+      argument($.verbosity)
+    ),
+
+    _log_verbose: $ => seq(
+      keyword('LogVerbose'),
+      $._sep,
+      argument(choice(
+        list(',', $._log_verbose_value),
+        seq('"', list(',', $._log_verbose_quoted), '"')
+      ))
+    ),
+
+    _log_verbose_value: $ => seq(
+      field('file', pattern(/\S/)),
+      ':',
+      field('function', pattern(/[a-zA-Z0-9_()]/)),
+      ':',
+      field('line', choice('*', alias($._number, $.number)))
+    ),
+
+    _log_verbose_quoted: $ => seq(
+      field('file', pattern(/[^"]/)),
+      ':',
+      field('function', pattern(/[a-zA-Z0-9_()]/)),
+      ':',
+      field('line', choice('*', alias($._number, $.number)))
+    ),
+
+    ipqos: _ => token(choice(
+      'af11', 'af12', 'af13',
+      'af21', 'af22', 'af23',
+      'af31', 'af32', 'af33',
+      'af41', 'af42', 'af43',
+      'cs0', 'cs1', 'cs2',
+      'cs3', 'cs4', 'cs5',
+      'cs6', 'cs7', 'ef',
+      'le', 'lowdelay',
+      'throughput',
+      'reliability'
+    )),
+
+    verbosity: _ => token(choice(
+      'QUIET', 'FATAL', 'ERROR', 'INFO', 'VERBOSE',
+      'DEBUG', 'DEBUG1', 'DEBUG2', 'DEBUG3'
+    )),
+
     cipher: _ => query('cipher'),
 
     cipher_auth: _ => query('cipher-auth'),
@@ -482,16 +639,45 @@ module.exports = grammar({
 
     _proxy_token: $ => alias(/%[%hnpr]/, $.token),
 
-    _token: $ => alias(/%[%CdfHhIiKkLlnprTtu]/, $.token),
+    token: _ => /%[%CdfHhIiKkLlnprTtu]/,
+
+    _var_value: $ => alias(
+      seq('$', field('name', $._var_name)),
+      $.variable
+    ),
 
     _var_name: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
     variable: $ => seq('${', field('name', $._var_name), '}'),
 
+    _file_string: $ => alias(
+      choice(
+        repeat1(choice(/\S/, $._file_token, $.variable)),
+        seq('"', repeat1(choice(/[^"]/, $._file_token, $.variable)), '"'),
+      ),
+      $.string
+    ),
+
+    _hosts_string: $ => alias(
+      choice(
+        repeat1(choice(/\S/, $._hosts_token, $.variable)),
+        seq('"', repeat1(choice(/[^"]/, $._hosts_token, $.variable)), '"'),
+      ),
+      $.string
+    ),
+
     _hostname_string: $ => alias(
       choice(
         repeat1(choice(/\S/, $._hostname_token)),
         seq('"', repeat1(choice(/[^"]/, $._hostname_token)), '"'),
+      ),
+      $.string
+    ),
+
+    _token_string: $ => alias(
+      choice(
+        repeat1(choice(/\S/, $.token)),
+        seq('"', repeat1(choice(/[^"]/, $.token)), '"'),
       ),
       $.string
     ),
@@ -563,6 +749,6 @@ module.exports = grammar({
 
     _space: _ => /[ \t]+/,
 
-    _eol: _ => prec(1, /\r?\n/)
+    _eol: _ => /\r?\n/
   }
 });

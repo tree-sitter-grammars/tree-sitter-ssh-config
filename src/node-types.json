@@ -75,6 +75,14 @@
         "required": false,
         "types": [
           {
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
             "type": "+",
             "named": false
           },
@@ -92,6 +100,14 @@
           },
           {
             "type": "=",
+            "named": false
+          },
+          {
+            "type": "?",
+            "named": false
+          },
+          {
+            "type": "SSH_AUTH_SOCK",
             "named": false
           },
           {
@@ -125,6 +141,14 @@
           {
             "type": "inet6",
             "named": false
+          },
+          {
+            "type": "ipqos",
+            "named": true
+          },
+          {
+            "type": "kex",
+            "named": true
           },
           {
             "type": "key_sig",
@@ -171,6 +195,10 @@
             "named": true
           },
           {
+            "type": "verbosity",
+            "named": true
+          },
+          {
             "type": "yes",
             "named": false
           }
@@ -190,9 +218,51 @@
           }
         ]
       },
-      "keyword": {
+      "file": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "?",
+            "named": false
+          }
+        ]
+      },
+      "function": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "?",
+            "named": false
+          }
+        ]
+      },
+      "host": {
         "multiple": false,
         "required": false,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
         "types": [
           {
             "type": "AddKeysToAgent",
@@ -240,6 +310,10 @@
           },
           {
             "type": "CertificateFile",
+            "named": false
+          },
+          {
+            "type": "ChallengeResponseAuthentication",
             "named": false
           },
           {
@@ -353,6 +427,68 @@
           {
             "type": "Hostname",
             "named": false
+          },
+          {
+            "type": "IPQoS",
+            "named": false
+          },
+          {
+            "type": "IdentitiesOnly",
+            "named": false
+          },
+          {
+            "type": "IdentityAgent",
+            "named": false
+          },
+          {
+            "type": "IdentityFile",
+            "named": false
+          },
+          {
+            "type": "IgnoreUnknown",
+            "named": false
+          },
+          {
+            "type": "KbdInteractiveAuthentication",
+            "named": false
+          },
+          {
+            "type": "KexAlgorithms",
+            "named": false
+          },
+          {
+            "type": "KnownHostsCommand",
+            "named": false
+          },
+          {
+            "type": "LocalCommand",
+            "named": false
+          },
+          {
+            "type": "LocalForward",
+            "named": false
+          },
+          {
+            "type": "LogLevel",
+            "named": false
+          },
+          {
+            "type": "LogVerbose",
+            "named": false
+          }
+        ]
+      },
+      "line": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
           }
         ]
       },
@@ -367,7 +503,7 @@
         ]
       },
       "port": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -435,6 +571,10 @@
       "types": [
         {
           "type": "token",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
@@ -536,6 +676,10 @@
   },
   {
     "type": "CertificateFile",
+    "named": false
+  },
+  {
+    "type": "ChallengeResponseAuthentication",
     "named": false
   },
   {
@@ -659,6 +803,58 @@
     "named": false
   },
   {
+    "type": "IPQoS",
+    "named": false
+  },
+  {
+    "type": "IdentitiesOnly",
+    "named": false
+  },
+  {
+    "type": "IdentityAgent",
+    "named": false
+  },
+  {
+    "type": "IdentityFile",
+    "named": false
+  },
+  {
+    "type": "IgnoreUnknown",
+    "named": false
+  },
+  {
+    "type": "KbdInteractiveAuthentication",
+    "named": false
+  },
+  {
+    "type": "KexAlgorithms",
+    "named": false
+  },
+  {
+    "type": "KnownHostsCommand",
+    "named": false
+  },
+  {
+    "type": "LocalCommand",
+    "named": false
+  },
+  {
+    "type": "LocalForward",
+    "named": false
+  },
+  {
+    "type": "LogLevel",
+    "named": false
+  },
+  {
+    "type": "LogVerbose",
+    "named": false
+  },
+  {
+    "type": "SSH_AUTH_SOCK",
+    "named": false
+  },
+  {
     "type": "^",
     "named": false
   },
@@ -695,6 +891,14 @@
     "named": false
   },
   {
+    "type": "ipqos",
+    "named": true
+  },
+  {
+    "type": "kex",
+    "named": true
+  },
+  {
     "type": "key_sig",
     "named": true
   },
@@ -724,6 +928,10 @@
   },
   {
     "type": "token",
+    "named": true
+  },
+  {
+    "type": "verbosity",
     "named": true
   },
   {
