@@ -538,7 +538,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "_sep"
+                        "name": "_space"
                       },
                       {
                         "type": "SYMBOL",
@@ -3054,7 +3054,7 @@
                 },
                 {
                   "type": "PATTERN",
-                  "value": "\\S"
+                  "value": "S"
                 }
               ]
             }
@@ -4749,37 +4749,13 @@
           "name": "_space"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_space"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "STRING",
-              "value": "="
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_space"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[ \\t]*=[ \\t]*"
+          },
+          "named": false,
+          "value": "="
         }
       ]
     },

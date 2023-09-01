@@ -1,5 +1,5 @@
 {
-  "files": ["grammar.js"],
+  "files": ["grammar.js", "utils.js"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "checkJs": true,
