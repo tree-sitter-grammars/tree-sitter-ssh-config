@@ -596,6 +596,46 @@
         {
           "type": "SYMBOL",
           "name": "_strict_host_key_checking"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_tcp_keep_alive"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_tunnel"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_tunnel_device"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_update_host_keys"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_user"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_user_known_hosts_file"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_verify_host_key_dns"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_visual_host_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_xauth_location"
         }
       ]
     },
@@ -4852,6 +4892,27 @@
         }
       ]
     },
+    "_strict_host_key_checking_arg": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_boolean"
+        },
+        {
+          "type": "STRING",
+          "value": "accept-new"
+        },
+        {
+          "type": "STRING",
+          "value": "off"
+        },
+        {
+          "type": "STRING",
+          "value": "ask"
+        }
+      ]
+    },
     "_syslog_facility": {
       "type": "SEQ",
       "members": [
@@ -4882,7 +4943,97 @@
         }
       ]
     },
-    "_strict_host_key_checking_arg": {
+    "_tcp_keep_alive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[tT][cC][pP][kK][eE][eE][pP][aA][lL][iI][vV][eE]"
+            },
+            "named": false,
+            "value": "TCPKeepAlive"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_boolean"
+          }
+        }
+      ]
+    },
+    "_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[tT][aA][gG]"
+            },
+            "named": false,
+            "value": "Tag"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "_tunnel": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[tT][uU][nN][nN][eE][lL]"
+            },
+            "named": false,
+            "value": "Tunnel"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_tunnel_arg"
+          }
+        }
+      ]
+    },
+    "_tunnel_arg": {
       "type": "CHOICE",
       "members": [
         {
@@ -4891,15 +5042,342 @@
         },
         {
           "type": "STRING",
-          "value": "accept-new"
+          "value": "point-to-point"
         },
         {
           "type": "STRING",
-          "value": "off"
+          "value": "ethernet"
+        }
+      ]
+    },
+    "_tunnel_device": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[tT][uU][nN][nN][eE][lL][dD][eE][vV][iI][cC][eE]"
+            },
+            "named": false,
+            "value": "TunnelDevice"
+          }
         },
         {
-          "type": "STRING",
-          "value": "ask"
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_tunnel_device_arg"
+          }
+        }
+      ]
+    },
+    "_tunnel_device_arg": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "local_tun",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "any"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "remote_tun",
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "any"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "number"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_update_host_keys": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[uU][pP][dD][aA][tT][eE][hH][oO][sS][tT][kK][eE][yY][sS]"
+            },
+            "named": false,
+            "value": "UpdateHostKeys"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_boolean"
+              },
+              {
+                "type": "STRING",
+                "value": "ask"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_user": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[uU][sS][eE][rR]"
+            },
+            "named": false,
+            "value": "User"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "_user_known_hosts_file": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[uU][sS][eE][rR][kK][nN][oO][wW][nN][hH][oO][sS][tT][sS][fF][iI][lL][eE]"
+            },
+            "named": false,
+            "value": "UserKnownHostsFile"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "PREC_RIGHT",
+          "value": 0,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "argument",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "none"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_file_string"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_space"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "argument",
+                      "content": {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "STRING",
+                            "value": "none"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "_file_string"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_verify_host_key_dns": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[vV][eE][rR][iI][fF][yY][hH][oO][sS][tT][kK][eE][yY][dD][nN][sS]"
+            },
+            "named": false,
+            "value": "VerifyHostKeyDNS"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_boolean"
+              },
+              {
+                "type": "STRING",
+                "value": "ask"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_visual_host_key": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[vV][iI][sS][uU][aA][lL][hH][oO][sS][tT][kK][eE][yY]"
+            },
+            "named": false,
+            "value": "VisualHostKey"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_boolean"
+          }
+        }
+      ]
+    },
+    "_xauth_location": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[xX][aA][uU][tT][hH][lL][oO][cC][aA][tT][iI][oO][nN]"
+            },
+            "named": false,
+            "value": "XAuthLocation"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
         }
       ]
     },
@@ -6651,7 +7129,9 @@
     "_proxy_jump_arg",
     "_request_tty_arg",
     "_security_key_provider_arg",
-    "_strict_host_key_checking_arg"
+    "_strict_host_key_checking_arg",
+    "_tunnel_arg",
+    "_tunnel_device_arg"
   ],
   "supertypes": []
 }

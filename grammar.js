@@ -24,6 +24,8 @@ module.exports = grammar({
     $._request_tty_arg,
     $._security_key_provider_arg,
     $._strict_host_key_checking_arg,
+    $._tunnel_arg,
+    $._tunnel_device_arg,
   ],
 
   rules: {
@@ -151,6 +153,16 @@ module.exports = grammar({
       $._stream_local_bind_mask,
       $._stream_local_bind_unlink,
       $._strict_host_key_checking,
+      $._tcp_keep_alive,
+      $._tag,
+      $._tunnel,
+      $._tunnel_device,
+      $._update_host_keys,
+      $._user,
+      $._user_known_hosts_file,
+      $._verify_host_key_dns,
+      $._visual_host_key,
+      $._xauth_location,
     ),
 
     _add_keys_to_agent: $ => seq(
@@ -821,17 +833,93 @@ module.exports = grammar({
       u.argument($._strict_host_key_checking_arg)
     ),
 
+    _strict_host_key_checking_arg: $ => choice(
+      $._boolean,
+      'accept-new',
+      'off',
+      'ask'
+    ),
+
     _syslog_facility: $ => seq(
       u.keyword('SyslogFacility'),
       $._sep,
       u.argument($.facility)
     ),
 
-    _strict_host_key_checking_arg: $ => choice(
+    _tcp_keep_alive: $ => seq(
+      u.keyword('TCPKeepAlive'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _tag: $ => seq(
+      u.keyword('Tag'),
+      $._sep,
+      u.argument($.string)
+    ),
+
+    _tunnel: $ => seq(
+      u.keyword('Tunnel'),
+      $._sep,
+      u.argument($._tunnel_arg)
+    ),
+
+    _tunnel_arg: $ => choice(
       $._boolean,
-      'accept-new',
-      'off',
-      'ask'
+      'point-to-point',
+      'ethernet'
+    ),
+
+    _tunnel_device: $ => seq(
+      u.keyword('TunnelDevice'),
+      $._sep,
+      u.argument($._tunnel_device_arg)
+    ),
+
+    _tunnel_device_arg: $ => seq(
+      field('local_tun', choice('any', $.number)),
+      optional(seq(
+        ':',
+        field('remote_tun', choice('any', $.number))
+      ))
+    ),
+
+    _update_host_keys: $ => seq(
+      u.keyword('UpdateHostKeys'),
+      $._sep,
+      u.argument(choice($._boolean, 'ask'))
+    ),
+
+    _user: $ => seq(
+      u.keyword('User'),
+      $._sep,
+      u.argument($.string)
+    ),
+
+    _user_known_hosts_file: $ => seq(
+      u.keyword('UserKnownHostsFile'),
+      $._sep,
+      u.list($._space, u.argument(
+        choice('none', $._file_string)
+      ))
+    ),
+
+    _verify_host_key_dns: $ => seq(
+      u.keyword('VerifyHostKeyDNS'),
+      $._sep,
+      u.argument(choice($._boolean, 'ask'))
+    ),
+
+    _visual_host_key: $ => seq(
+      u.keyword('VisualHostKey'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _xauth_location: $ => seq(
+      u.keyword('XAuthLocation'),
+      $._sep,
+      u.argument($.string)
     ),
 
     ipqos: _ => token(choice(

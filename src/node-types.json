@@ -169,6 +169,10 @@
             "named": false
           },
           {
+            "type": "ethernet",
+            "named": false
+          },
+          {
             "type": "force",
             "named": false
           },
@@ -223,6 +227,10 @@
           {
             "type": "pattern",
             "named": true
+          },
+          {
+            "type": "point-to-point",
+            "named": false
           },
           {
             "type": "sha256",
@@ -649,6 +657,46 @@
           {
             "type": "StrictHostKeyChecking",
             "named": false
+          },
+          {
+            "type": "TCPKeepAlive",
+            "named": false
+          },
+          {
+            "type": "Tag",
+            "named": false
+          },
+          {
+            "type": "Tunnel",
+            "named": false
+          },
+          {
+            "type": "TunnelDevice",
+            "named": false
+          },
+          {
+            "type": "UpdateHostKeys",
+            "named": false
+          },
+          {
+            "type": "User",
+            "named": false
+          },
+          {
+            "type": "UserKnownHostsFile",
+            "named": false
+          },
+          {
+            "type": "VerifyHostKeyDNS",
+            "named": false
+          },
+          {
+            "type": "VisualHostKey",
+            "named": false
+          },
+          {
+            "type": "XAuthLocation",
+            "named": false
           }
         ]
       },
@@ -658,6 +706,20 @@
         "types": [
           {
             "type": "*",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "local_tun": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "any",
             "named": false
           },
           {
@@ -682,6 +744,20 @@
         "types": [
           {
             "type": "*",
+            "named": false
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "remote_tun": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "any",
             "named": false
           },
           {
@@ -1167,6 +1243,46 @@
     "named": false
   },
   {
+    "type": "TCPKeepAlive",
+    "named": false
+  },
+  {
+    "type": "Tag",
+    "named": false
+  },
+  {
+    "type": "Tunnel",
+    "named": false
+  },
+  {
+    "type": "TunnelDevice",
+    "named": false
+  },
+  {
+    "type": "UpdateHostKeys",
+    "named": false
+  },
+  {
+    "type": "User",
+    "named": false
+  },
+  {
+    "type": "UserKnownHostsFile",
+    "named": false
+  },
+  {
+    "type": "VerifyHostKeyDNS",
+    "named": false
+  },
+  {
+    "type": "VisualHostKey",
+    "named": false
+  },
+  {
+    "type": "XAuthLocation",
+    "named": false
+  },
+  {
     "type": "^",
     "named": false
   },
@@ -1208,6 +1324,10 @@
   },
   {
     "type": "default",
+    "named": false
+  },
+  {
+    "type": "ethernet",
     "named": false
   },
   {
@@ -1260,6 +1380,10 @@
   },
   {
     "type": "off",
+    "named": false
+  },
+  {
+    "type": "point-to-point",
     "named": false
   },
   {
