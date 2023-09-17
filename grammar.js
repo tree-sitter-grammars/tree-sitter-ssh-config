@@ -55,7 +55,7 @@ module.exports = grammar({
       u.keyword('Host'),
       $._sep,
       u.list($._space, u.argument(
-        seq(optional('!'), $.pattern)
+        seq(optional('!'), $._pattern)
       )),
       optional($._space),
       $._eol,
@@ -101,12 +101,9 @@ module.exports = grammar({
     _match_exec: $ => seq(
       u.keyword('exec', 'criteria'),
       $._sep,
-      u.argument(alias(
-        choice(
-          u.token(/\S/, $._file_token),
-          seq('"', u.token(/[^"]/, $._file_token), '"'),
-        ),
-        $.string
+      u.argument(choice(
+        alias(u.token(/\S/, $._file_token), $.string),
+        seq('"', alias(u.token(/[^"]/, $._file_token), $.string), '"')
       ))
     ),
 
@@ -213,7 +210,6 @@ module.exports = grammar({
       $._identity_agent,
       $._identity_file,
       $._ignore_unknown,
-      $._include,
       $._ipqos,
       $._kbd_interactive_authentication,
       $._kex_algorithms,
@@ -296,19 +292,19 @@ module.exports = grammar({
     _bind_address: $ => seq(
       u.keyword('BindAddress'),
       $._sep,
-      u.argument($.pattern)
+      u.argument($._pattern)
     ),
 
     _bind_interface: $ => seq(
       u.keyword('BindInterface'),
       $._sep,
-      u.argument($.pattern)
+      u.argument($._pattern)
     ),
 
     _canonical_domains: $ => seq(
       u.keyword('CanonicalDomains'),
       $._sep,
-      u.list($._space, u.argument($.pattern))
+      u.list($._space, u.argument($._pattern))
     ),
 
     _canonicalize_fallback_local: $ => seq(
@@ -339,9 +335,9 @@ module.exports = grammar({
     ),
 
     _cnames_map: $ => seq(
-      field('source_domain_list', u.list(',', $.pattern)),
+      field('source_domain_list', u.list(',', $._pattern)),
       ':',
-      field('target_domain_list', u.list(',', $.pattern)),
+      field('target_domain_list', u.list(',', $._pattern)),
     ),
 
     _ca_signature_algorithms: $ => seq(
@@ -431,7 +427,7 @@ module.exports = grammar({
     _dynamic_forward_value: $ => choice(
       field('port', $.number),
       seq(
-        field('bind_address', choice('*', $.string)),
+        field('bind_address', choice('*', $._string)),
         ':',
         field('port', $.number)
       )
@@ -481,7 +477,7 @@ module.exports = grammar({
 
     _forward_agent_arg: $ => choice(
       $._boolean,
-      $.string,
+      $._string,
       $._var_value
     ),
 
@@ -506,7 +502,7 @@ module.exports = grammar({
     _global_known_hosts_file: $ => seq(
       u.keyword('GlobalKnownHostsFile'),
       $._sep,
-      u.list($._space, u.argument($.string))
+      u.list($._space, u.argument($._string))
     ),
 
     _gssapi_authentication: $ => seq(
@@ -545,7 +541,7 @@ module.exports = grammar({
     _host_key_alias: $ => seq(
       u.keyword('HostKeyAlias'),
       $._sep,
-      u.argument($.string)
+      u.argument($._string)
     ),
 
     _hostname: $ => seq(
@@ -582,13 +578,13 @@ module.exports = grammar({
     _ignore_unknown: $ => seq(
       u.keyword('IgnoreUnknown'),
       $._sep,
-      u.argument(u.list($._space, $.pattern))
+      u.argument(u.list($._space, $._pattern))
     ),
 
     _include: $ => seq(
       u.keyword('Include'),
       $._sep,
-      u.argument($.pattern)
+      u.argument($._pattern)
     ),
 
     _ipqos: $ => prec.right(seq(
@@ -643,7 +639,7 @@ module.exports = grammar({
       $._file_string,
       field('port', $.number),
       seq(
-        field('bind_address', choice('*', $.string)),
+        field('bind_address', choice('*', $._string)),
         ':',
         field('port', $.number)
       )
@@ -652,7 +648,7 @@ module.exports = grammar({
     _forward_value2: $ => choice(
       $._file_string,
       seq(
-        field('host', choice('*', $.string)),
+        field('host', choice('*', $._string)),
         ':',
         field('port', $.number)
       )
@@ -735,7 +731,7 @@ module.exports = grammar({
     _pkcs11_provider: $ => seq(
       u.keyword('PKCS11Provider'),
       $._sep,
-      u.argument($.string)
+      u.argument($._string)
     ),
 
     _port: $ => seq(
@@ -866,7 +862,7 @@ module.exports = grammar({
     ),
 
     _security_key_provider_arg: $ => choice(
-      $.string,
+      $._string,
       $._var_value
     ),
 
@@ -913,7 +909,7 @@ module.exports = grammar({
     _set_env_value: $ => seq(
       alias($._var_name, $.variable),
       '=',
-      $.string
+      $._string
     ),
 
     _stdin_null: $ => seq(
@@ -962,7 +958,7 @@ module.exports = grammar({
     _tag: $ => seq(
       u.keyword('Tag'),
       $._sep,
-      u.argument($.string)
+      u.argument($._string)
     ),
 
     _tunnel: $ => seq(
@@ -1000,7 +996,7 @@ module.exports = grammar({
     _user: $ => seq(
       u.keyword('User'),
       $._sep,
-      u.argument($.string)
+      u.argument($._string)
     ),
 
     _user_known_hosts_file: $ => seq(
@@ -1026,7 +1022,7 @@ module.exports = grammar({
     _xauth_location: $ => seq(
       u.keyword('XAuthLocation'),
       $._sep,
-      u.argument($.string)
+      u.argument($._string)
     ),
 
     ipqos: _ => token(choice(
@@ -1087,28 +1083,19 @@ module.exports = grammar({
 
     variable: $ => seq('${', field('name', $._var_name), '}'),
 
-    _file_string: $ => alias(
-      choice(
-        u.token(/\S/, $._file_token, $.variable),
-        seq('"', u.token(/[^"]/, $._file_token, $.variable), '"'),
-      ),
-      $.string
+    _file_string: $ => choice(
+      alias(u.token(/\S/, $._file_token, $.variable), $.string),
+      seq('"', alias(u.token(/[^"]/, $._file_token, $.variable), $.string), '"'),
     ),
 
-    _hosts_string: $ => alias(
-      choice(
-        u.token(/\S/, $._hosts_token, $.variable),
-        seq('"', u.token(/[^"]/, $._hosts_token, $.variable), '"'),
-      ),
-      $.string
+    _hosts_string: $ => choice(
+      alias(u.token(/\S/, $._hosts_token, $.variable), $.string),
+      seq('"', alias(u.token(/[^"]/, $._hosts_token, $.variable), $.string), '"')
     ),
 
-    _hostname_string: $ => alias(
-      choice(
-        u.token(/\S/, $._hostname_token),
-        seq('"', u.token(/[^"]/, $._hostname_token), '"'),
-      ),
-      $.string
+    _hostname_string: $ => choice(
+      alias(u.token(/\S/, $._hostname_token), $.string),
+      seq('"', alias(u.token(/[^"]/, $._hostname_token), $.string), '"')
     ),
 
     _proxy_string: $ => alias(
@@ -1116,35 +1103,29 @@ module.exports = grammar({
       $.string
     ),
 
-    _token_string: $ => alias(
-      choice(
-        u.token(/\S/, $.token),
-        seq('"', u.token(/[^"]/, $.token), '"'),
-      ),
-      $.string
+    _token_string: $ => choice(
+      alias(u.token(/\S/, $.token), $.string),
+      seq('"', alias(u.token(/[^"]/, $.token), $.string), '"')
     ),
 
-    string: _ => choice(/\S+/, seq('"', /[^"]+/, '"')),
-
-    _file_pattern: $ => alias(
-      choice(
-        u.pattern(/\S/, $._file_token),
-        seq('"', u.pattern(/[^"]/, $._file_token), '"'),
-      ),
-      $.pattern
+    _string: $ => choice(
+      alias(/\S+/, $.string),
+      seq('"', alias(/[^"]+/, $.string), '"')
     ),
 
-    _file_pattern_vars: $ => alias(
-      choice(
-        u.pattern(/\S/, $.variable, $._file_token),
-        seq('"', u.pattern(/[^"]/, $.variable, $._file_token), '"'),
-      ),
-      $.pattern
+    _file_pattern: $ => choice(
+      alias(u.pattern(/\S/, $._file_token), $.pattern),
+      seq('"', alias(u.pattern(/[^"]/, $._file_token), $.pattern), '"'),
     ),
 
-    pattern: _ => choice(
-        u.pattern(/\S/),
-        seq('"', u.pattern(/[^"]/), '"'),
+    _file_pattern_vars: $ => choice(
+      alias(u.pattern(/\S/, $.variable, $._file_token), $.pattern),
+      seq('"', alias(u.pattern(/[^"]/, $.variable, $._file_token), $.pattern), '"')
+    ),
+
+    _pattern: $ => choice(
+      alias(u.pattern(/\S/), $.pattern),
+      seq('"', alias(u.pattern(/[^"]/), $.pattern), '"')
     ),
 
     _boolean: _ => choice('yes', 'no'),

@@ -83,10 +83,8 @@ Match host vm.example.com exec "/usr/local/bin/cloudflared access ssh-gen --host
     (condition
       (pattern))
     (condition
-      (string)
       (string
-        (token))
-      (string))
+        (token)))
     (parameter
       (string))
     (parameter

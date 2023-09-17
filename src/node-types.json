@@ -118,6 +118,10 @@
             "named": false
           },
           {
+            "type": "\"",
+            "named": false
+          },
+          {
             "type": "pattern",
             "named": true
           }
@@ -391,9 +395,13 @@
         ]
       },
       "bind_address": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "\"",
+            "named": false
+          },
           {
             "type": "*",
             "named": false
@@ -436,6 +444,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "\"",
+            "named": false
+          },
           {
             "type": "*",
             "named": false
@@ -632,10 +644,6 @@
           },
           {
             "type": "IgnoreUnknown",
-            "named": false
-          },
-          {
-            "type": "Include",
             "named": false
           },
           {
@@ -899,6 +907,10 @@
         "required": false,
         "types": [
           {
+            "type": "\"",
+            "named": false
+          },
+          {
             "type": ",",
             "named": false
           },
@@ -912,6 +924,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "\"",
+            "named": false
+          },
           {
             "type": ",",
             "named": false
