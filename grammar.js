@@ -39,10 +39,10 @@ module.exports = grammar({
         optional($._space),
         $.host_declaration
       ),
-      // TODO: seq(
-      //   optional($._space),
-      //   $.match_declaration
-      // ),
+      seq(
+        optional($._space),
+        $.match_declaration
+      ),
       seq(
         optional($._space),
         $.parameter,
@@ -61,6 +61,102 @@ module.exports = grammar({
       $._eol,
       $._declarations
     )),
+
+    match_declaration: $ => prec.right(seq(
+      u.keyword('Match'),
+      $._sep,
+      choice(
+        $._all,
+        repeat1(choice(
+          $._match_canonical,
+          $._match_final,
+          $._match_exec,
+          $._match_localnetwork,
+          $._match_host,
+          $._match_originalhost,
+          $._match_tagged,
+          $._match_user,
+          $._match_localuser
+        ))
+      ),
+      optional($._space),
+      $._eol,
+      $._declarations
+    )),
+
+    _all: _ => alias(/[aA][lL][lL]/, 'all'),
+
+    _match_canonical: $ => prec.right(seq(
+      u.keyword('canonical', 'criteria'),
+      optional(seq($._sep, $._all))
+    )),
+
+    _match_final: $ => prec.right(seq(
+      u.keyword('final', 'criteria'),
+      optional(seq($._sep, $._all))
+    )),
+
+    _match_exec: $ => seq(
+      u.keyword('exec', 'criteria'),
+      $._sep,
+      u.argument(alias(
+        choice(
+          u.token(/\S/, $._file_token),
+          seq('"', u.token(/[^"]/, $._file_token), '"'),
+        ),
+        $.string
+      ))
+    ),
+
+    _match_localnetwork: $ => seq(
+      u.keyword('localnetwork', 'criteria'),
+      $._sep,
+      u.argument(choice(
+        u.list(',', seq(optional('!'), alias(/\S+/, $.string))),
+        seq('"', u.list(',', alias(/[^"]+/, $.string)), '"')
+      ))
+    ),
+
+    _match_host: $ => seq(
+      u.keyword('host', 'criteria'),
+      $._sep,
+      u.argument($._match_value)
+    ),
+
+    _match_originalhost: $ => seq(
+      u.keyword('originalhost', 'criteria'),
+      $._sep,
+      u.argument($._match_value)
+    ),
+
+    _match_tagged: $ => seq(
+      u.keyword('tagged', 'criteria'),
+      $._sep,
+      u.argument($._match_value)
+    ),
+
+    _match_user: $ => seq(
+      u.keyword('user', 'criteria'),
+      $._sep,
+      u.argument($._match_value)
+    ),
+
+    _match_localuser: $ => seq(
+      u.keyword('localuser', 'criteria'),
+      $._sep,
+      u.argument($._match_value)
+    ),
+
+    _match_value: $ => choice(
+      u.list(',', alias(
+        seq(optional('!'), u.pattern(/\S/)),
+        $.pattern
+      )),
+      seq('"', u.list(',', alias(
+        seq(optional('!'), u.pattern(/[^"]/)),
+        $.pattern
+      )), '"')
+    ),
 
     _declarations: $ => prec.right(
       repeat1(seq(
@@ -153,6 +249,7 @@ module.exports = grammar({
       $._stream_local_bind_mask,
       $._stream_local_bind_unlink,
       $._strict_host_key_checking,
+      $._syslog_facility,
       $._tcp_keep_alive,
       $._tag,
       $._tunnel,
@@ -673,7 +770,7 @@ module.exports = grammar({
           field('port', $.number)
         ))
       ),
-      // TODO: support ssh URI
+      field('uri', alias(/ssh:\/\/\S+/, $.uri))
     ),
 
     _proxy_use_fdpass: $ => seq(
@@ -953,23 +1050,11 @@ module.exports = grammar({
 
     cipher: _ => u.query('cipher'),
 
-    cipher_auth: _ => u.query('cipher-auth'),
-
-    compression: _ => u.query('compression'),
-
     kex: _ => u.query('kex'),
-
-    key: _ => u.query('key'),
-
-    key_cert: _ => u.query('key-cert'),
-
-    key_plain: _ => u.query('key-plain'),
 
     key_sig: _ => u.query('key-sig'),
 
     mac: _ => u.query('mac'),
-
-    protocol_version: _ => u.query('protocol-version'),
 
     sig: _ => u.query('sig'),
 

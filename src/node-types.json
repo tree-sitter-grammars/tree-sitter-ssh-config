@@ -21,6 +21,10 @@
           "named": true
         },
         {
+          "type": "match_declaration",
+          "named": true
+        },
+        {
           "type": "parameter",
           "named": true
         }
@@ -51,6 +55,104 @@
         "types": [
           {
             "type": "Host",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "match_declaration",
+    "named": true,
+    "fields": {
+      "argument": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "pattern",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "criteria": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "canonical",
+            "named": false
+          },
+          {
+            "type": "exec",
+            "named": false
+          },
+          {
+            "type": "final",
+            "named": false
+          },
+          {
+            "type": "host",
+            "named": false
+          },
+          {
+            "type": "localnetwork",
+            "named": false
+          },
+          {
+            "type": "localuser",
+            "named": false
+          },
+          {
+            "type": "originalhost",
+            "named": false
+          },
+          {
+            "type": "tagged",
+            "named": false
+          },
+          {
+            "type": "user",
+            "named": false
+          }
+        ]
+      },
+      "keyword": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "Match",
             "named": false
           }
         ]
@@ -173,6 +275,10 @@
             "named": false
           },
           {
+            "type": "facility",
+            "named": true
+          },
+          {
             "type": "force",
             "named": false
           },
@@ -255,6 +361,10 @@
           {
             "type": "unbound",
             "named": false
+          },
+          {
+            "type": "uri",
+            "named": true
           },
           {
             "type": "variable",
@@ -659,6 +769,10 @@
             "named": false
           },
           {
+            "type": "SyslogFacility",
+            "named": false
+          },
+          {
             "type": "TCPKeepAlive",
             "named": false
           },
@@ -790,6 +904,16 @@
           },
           {
             "type": "pattern",
+            "named": true
+          }
+        ]
+      },
+      "uri": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "uri",
             "named": true
           }
         ]
@@ -1123,6 +1247,10 @@
     "named": false
   },
   {
+    "type": "Match",
+    "named": false
+  },
+  {
     "type": "NoHostAuthenticationForLocalhost",
     "named": false
   },
@@ -1291,6 +1419,10 @@
     "named": false
   },
   {
+    "type": "all",
+    "named": false
+  },
+  {
     "type": "any",
     "named": false
   },
@@ -1308,6 +1440,10 @@
   },
   {
     "type": "autoask",
+    "named": false
+  },
+  {
+    "type": "canonical",
     "named": false
   },
   {
@@ -1331,11 +1467,23 @@
     "named": false
   },
   {
+    "type": "exec",
+    "named": false
+  },
+  {
     "type": "facility",
     "named": true
   },
   {
+    "type": "final",
+    "named": false
+  },
+  {
     "type": "force",
+    "named": false
+  },
+  {
+    "type": "host",
     "named": false
   },
   {
@@ -1363,6 +1511,14 @@
     "named": true
   },
   {
+    "type": "localnetwork",
+    "named": false
+  },
+  {
+    "type": "localuser",
+    "named": false
+  },
+  {
     "type": "mac",
     "named": true
   },
@@ -1383,6 +1539,10 @@
     "named": false
   },
   {
+    "type": "originalhost",
+    "named": false
+  },
+  {
     "type": "point-to-point",
     "named": false
   },
@@ -1399,11 +1559,23 @@
     "named": false
   },
   {
+    "type": "tagged",
+    "named": false
+  },
+  {
     "type": "token",
     "named": true
   },
   {
     "type": "unbound",
+    "named": false
+  },
+  {
+    "type": "uri",
+    "named": true
+  },
+  {
+    "type": "user",
     "named": false
   },
   {

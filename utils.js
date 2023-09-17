@@ -1,17 +1,5 @@
 const {execSync} = require('child_process');
 
-/**
- * @typedef {'cipher'|'cipher-auth'|'compression'|
- *           'kex'|'key'|'key-cert'|'key-plain'|
- *           'key-sig'|'mac'|'protocol-version'|
- *           'sig'} AlgorithmType
- *
- * @typedef {'cipher'|'cipher_auth'|'compression'|
- *           'kex'|'key'|'key_cert'|'key_plain'|
- *           'key_sig'|'mac'|'protocol_version'|
- *           'sig'} AlgorithmSymbol
- */
-
 /** @param char {string} */
 const ci = (char) =>
   (char >= 'a' && char <= 'z') ?
@@ -21,7 +9,9 @@ const ci = (char) =>
 
 /**
  * Run `ssh -Q`
- * @param option {AlgorithmType}
+ * @param option {'cipher'|'cipher-auth'|'compression'|
+ *                'kex'|'key'|'key-cert'|'key-plain'|
+ *                'key-sig'|'mac'|'protocol-version'|'sig'}
  */
 module.exports.query = (option) =>
   token(choice(
@@ -31,9 +21,10 @@ module.exports.query = (option) =>
 
 /**
  * @param word {string}
+ * @param name {'keyword'|'criteria'}
  */
-module.exports.keyword = (word) =>
-  field('keyword', alias(
+module.exports.keyword = (word, name = 'keyword') =>
+  field(name, alias(
     new RegExp(word.split('').map(ci).join('')), word
   ));
 
@@ -67,7 +58,7 @@ module.exports.token = (content, token, ...extra) =>
 
 /**
  * @param prefix {'+-'|'+-^'}
- * @param option {SymbolRule<AlgorithmSymbol>}
+ * @param option {SymbolRule<'cipher'|'kex'|'key_sig'|'mac'|'sig'>}
  */
 module.exports.algorithms = (prefix, option) =>
   module.exports.argument(seq(
