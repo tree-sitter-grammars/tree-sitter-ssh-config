@@ -5,6 +5,80 @@
     "fields": {}
   },
   {
+    "type": "condition",
+    "named": true,
+    "fields": {
+      "argument": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "!",
+            "named": false
+          },
+          {
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "pattern",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "criteria": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "canonical",
+            "named": false
+          },
+          {
+            "type": "exec",
+            "named": false
+          },
+          {
+            "type": "final",
+            "named": false
+          },
+          {
+            "type": "host",
+            "named": false
+          },
+          {
+            "type": "localnetwork",
+            "named": false
+          },
+          {
+            "type": "localuser",
+            "named": false
+          },
+          {
+            "type": "originalhost",
+            "named": false
+          },
+          {
+            "type": "tagged",
+            "named": false
+          },
+          {
+            "type": "user",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "config",
     "named": true,
     "fields": {},
@@ -79,74 +153,6 @@
     "type": "match_declaration",
     "named": true,
     "fields": {
-      "argument": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "!",
-            "named": false
-          },
-          {
-            "type": "\"",
-            "named": false
-          },
-          {
-            "type": ",",
-            "named": false
-          },
-          {
-            "type": "pattern",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      },
-      "criteria": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "canonical",
-            "named": false
-          },
-          {
-            "type": "exec",
-            "named": false
-          },
-          {
-            "type": "final",
-            "named": false
-          },
-          {
-            "type": "host",
-            "named": false
-          },
-          {
-            "type": "localnetwork",
-            "named": false
-          },
-          {
-            "type": "localuser",
-            "named": false
-          },
-          {
-            "type": "originalhost",
-            "named": false
-          },
-          {
-            "type": "tagged",
-            "named": false
-          },
-          {
-            "type": "user",
-            "named": false
-          }
-        ]
-      },
       "keyword": {
         "multiple": false,
         "required": true,
@@ -164,6 +170,10 @@
       "types": [
         {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "condition",
           "named": true
         },
         {
@@ -622,6 +632,10 @@
           },
           {
             "type": "IgnoreUnknown",
+            "named": false
+          },
+          {
+            "type": "Include",
             "named": false
           },
           {
@@ -1212,6 +1226,10 @@
   },
   {
     "type": "IgnoreUnknown",
+    "named": false
+  },
+  {
+    "type": "Include",
     "named": false
   },
   {

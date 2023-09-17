@@ -67,22 +67,24 @@ module.exports = grammar({
       $._sep,
       choice(
         $._all,
-        repeat1(choice(
-          $._match_canonical,
-          $._match_final,
-          $._match_exec,
-          $._match_localnetwork,
-          $._match_host,
-          $._match_originalhost,
-          $._match_tagged,
-          $._match_user,
-          $._match_localuser
-        ))
+        u.list($._space, $.condition)
       ),
       optional($._space),
       $._eol,
       $._declarations
     )),
+
+    condition: $ => choice(
+      $._match_canonical,
+      $._match_final,
+      $._match_exec,
+      $._match_localnetwork,
+      $._match_host,
+      $._match_originalhost,
+      $._match_tagged,
+      $._match_user,
+      $._match_localuser
+    ),
 
     _all: _ => alias(/[aA][lL][lL]/, 'all'),
 
@@ -211,6 +213,7 @@ module.exports = grammar({
       $._identity_agent,
       $._identity_file,
       $._ignore_unknown,
+      $._include,
       $._ipqos,
       $._kbd_interactive_authentication,
       $._kex_algorithms,
@@ -281,7 +284,7 @@ module.exports = grammar({
     _address_family: $ => seq(
       u.keyword('AddressFamily'),
       $._sep,
-      u.argument(choice('inet', 'inet6'))
+      u.argument(choice('any', 'inet', 'inet6'))
     ),
 
     _batch_mode: $ => seq(
@@ -582,6 +585,12 @@ module.exports = grammar({
       u.argument(u.list($._space, $.pattern))
     ),
 
+    _include: $ => seq(
+      u.keyword('Include'),
+      $._sep,
+      u.argument($.pattern)
+    ),
+
     _ipqos: $ => prec.right(seq(
       u.keyword('IPQoS'),
       $._sep,
@@ -748,7 +757,8 @@ module.exports = grammar({
     ),
 
     _proxy_command_arg: $ => choice(
-      'none', u.list($._space, $._proxy_string)
+      'none',
+      $._proxy_string
     ),
 
     _proxy_jump: $ => seq(
@@ -1101,13 +1111,8 @@ module.exports = grammar({
       $.string
     ),
 
-    _proxy_string_content: $ => u.token(/\S/, $._proxy_token),
-
     _proxy_string: $ => alias(
-      choice(
-        $._proxy_string_content,
-        seq('"', u.token(/[^"]/, $._proxy_token), '"'),
-      ),
+      u.token(/[^\r\n]/, $._proxy_token),
       $.string
     ),
 

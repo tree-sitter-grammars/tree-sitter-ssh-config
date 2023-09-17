@@ -269,45 +269,30 @@
                 "name": "_all"
               },
               {
-                "type": "REPEAT1",
+                "type": "PREC_RIGHT",
+                "value": 0,
                 "content": {
-                  "type": "CHOICE",
+                  "type": "SEQ",
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "_match_canonical"
+                      "name": "condition"
                     },
                     {
-                      "type": "SYMBOL",
-                      "name": "_match_final"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_match_exec"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_match_localnetwork"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_match_host"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_match_originalhost"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_match_tagged"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_match_user"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_match_localuser"
+                      "type": "REPEAT",
+                      "content": {
+                        "type": "SEQ",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_space"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "condition"
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
@@ -336,6 +321,47 @@
           }
         ]
       }
+    },
+    "condition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_match_canonical"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_final"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_exec"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_localnetwork"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_host"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_originalhost"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_tagged"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_user"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_match_localuser"
+        }
+      ]
     },
     "_all": {
       "type": "ALIAS",
@@ -1277,6 +1303,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_include"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_ipqos"
         },
         {
@@ -1580,6 +1610,10 @@
           "content": {
             "type": "CHOICE",
             "members": [
+              {
+                "type": "STRING",
+                "value": "any"
+              },
               {
                 "type": "STRING",
                 "value": "inet"
@@ -3445,6 +3479,36 @@
         }
       ]
     },
+    "_include": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[iI][nN][cC][lL][uU][dD][eE]"
+            },
+            "named": false,
+            "value": "Include"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pattern"
+          }
+        }
+      ]
+    },
     "_ipqos": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -4693,33 +4757,8 @@
           "value": "none"
         },
         {
-          "type": "PREC_RIGHT",
-          "value": 0,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_proxy_string"
-              },
-              {
-                "type": "REPEAT",
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_space"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_proxy_string"
-                    }
-                  ]
-                }
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "_proxy_string"
         }
       ]
     },
@@ -7052,61 +7091,23 @@
       "named": true,
       "value": "string"
     },
-    "_proxy_string_content": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "\\S"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_proxy_token"
-          }
-        ]
-      }
-    },
     "_proxy_string": {
       "type": "ALIAS",
       "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_proxy_string_content"
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "\""
-              },
-              {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "PATTERN",
-                      "value": "[^\"]"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_proxy_token"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "STRING",
-                "value": "\""
-              }
-            ]
-          }
-        ]
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "[^\\r\\n]"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_proxy_token"
+            }
+          ]
+        }
       },
       "named": true,
       "value": "string"
