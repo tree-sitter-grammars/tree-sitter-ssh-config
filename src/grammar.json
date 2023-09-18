@@ -3773,33 +3773,8 @@
           "type": "FIELD",
           "name": "argument",
           "content": {
-            "type": "PREC_RIGHT",
-            "value": 0,
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_token_string"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_space"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_token_string"
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
+            "type": "SYMBOL",
+            "name": "_token_string"
           }
         }
       ]
@@ -5146,33 +5121,29 @@
           "type": "FIELD",
           "name": "argument",
           "content": {
-            "type": "PREC_RIGHT",
-            "value": 0,
+            "type": "ALIAS",
             "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_file_string"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_space"
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_file_string"
-                      }
-                    ]
+              "type": "REPEAT1",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "[^\\r\\n]"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_file_token"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "variable"
                   }
-                }
-              ]
-            }
+                ]
+              }
+            },
+            "named": true,
+            "value": "string"
           }
         }
       ]
@@ -6980,72 +6951,29 @@
       ]
     },
     "_hosts_string": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "\\S"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_hosts_token"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "variable"
-                }
-              ]
-            }
-          },
-          "named": true,
-          "value": "string"
-        },
-        {
-          "type": "SEQ",
+      "type": "ALIAS",
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "\""
+              "type": "PATTERN",
+              "value": "[^\\r\\n]"
             },
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "PATTERN",
-                      "value": "[^\"]"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_hosts_token"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "variable"
-                    }
-                  ]
-                }
-              },
-              "named": true,
-              "value": "string"
+              "type": "SYMBOL",
+              "name": "_hosts_token"
             },
             {
-              "type": "STRING",
-              "value": "\""
+              "type": "SYMBOL",
+              "name": "variable"
             }
           ]
         }
-      ]
+      },
+      "named": true,
+      "value": "string"
     },
     "_hostname_string": {
       "type": "CHOICE",
@@ -7129,64 +7057,25 @@
       "value": "string"
     },
     "_token_string": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "REPEAT1",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "\\S"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "token"
-                }
-              ]
-            }
-          },
-          "named": true,
-          "value": "string"
-        },
-        {
-          "type": "SEQ",
+      "type": "ALIAS",
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "\""
+              "type": "PATTERN",
+              "value": "[^\\r\\n]"
             },
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "REPEAT1",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "PATTERN",
-                      "value": "[^\"]"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "token"
-                    }
-                  ]
-                }
-              },
-              "named": true,
-              "value": "string"
-            },
-            {
-              "type": "STRING",
-              "value": "\""
+              "type": "SYMBOL",
+              "name": "token"
             }
           ]
         }
-      ]
+      },
+      "named": true,
+      "value": "string"
     },
     "_string": {
       "type": "CHOICE",

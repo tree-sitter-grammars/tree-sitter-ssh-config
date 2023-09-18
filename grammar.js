@@ -624,7 +624,7 @@ module.exports = grammar({
     _local_command: $ => seq(
       u.keyword('LocalCommand'),
       $._sep,
-      u.argument(u.list($._space, $._token_string))
+      u.argument($._token_string)
     ),
 
     _local_forward: $ => seq(
@@ -820,7 +820,10 @@ module.exports = grammar({
     _remote_command: $ => seq(
       u.keyword('RemoteCommand'),
       $._sep,
-      u.argument(u.list($._space, $._file_string))
+      u.argument(alias(
+        u.token(/[^\r\n]/, $._file_token, $.variable),
+        $.string
+      ))
     ),
 
     _remote_forward: $ => seq(
@@ -1088,9 +1091,9 @@ module.exports = grammar({
       seq('"', alias(u.token(/[^"]/, $._file_token, $.variable), $.string), '"'),
     ),
 
-    _hosts_string: $ => choice(
-      alias(u.token(/\S/, $._hosts_token, $.variable), $.string),
-      seq('"', alias(u.token(/[^"]/, $._hosts_token, $.variable), $.string), '"')
+    _hosts_string: $ => alias(
+      u.token(/[^\r\n]/, $._hosts_token, $.variable),
+      $.string
     ),
 
     _hostname_string: $ => choice(
@@ -1103,9 +1106,9 @@ module.exports = grammar({
       $.string
     ),
 
-    _token_string: $ => choice(
-      alias(u.token(/\S/, $.token), $.string),
-      seq('"', alias(u.token(/[^"]/, $.token), $.string), '"')
+    _token_string: $ => alias(
+      u.token(/[^\r\n]/, $.token),
+      $.string
     ),
 
     _string: $ => choice(
