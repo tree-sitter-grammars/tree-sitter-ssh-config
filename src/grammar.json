@@ -1220,6 +1220,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_dynamic_forward"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_enable_escape_command_line"
         },
         {
@@ -2501,36 +2505,74 @@
           "name": "_sep"
         },
         {
-          "type": "FIELD",
-          "name": "argument",
+          "type": "PREC_RIGHT",
+          "value": 0,
           "content": {
-            "type": "PREC_RIGHT",
-            "value": 0,
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "argument",
+                "content": {
                   "type": "SYMBOL",
                   "name": "_dynamic_forward_value"
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "SYMBOL",
-                        "name": "_space"
-                      },
-                      {
+                }
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_space"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "argument",
+                      "content": {
                         "type": "SYMBOL",
                         "name": "_dynamic_forward_value"
                       }
-                    ]
-                  }
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_forward_value_inner": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "bind_address",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "*"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_string"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "port",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
           }
         }
       ]
@@ -2547,36 +2589,23 @@
           }
         },
         {
+          "type": "SYMBOL",
+          "name": "_forward_value_inner"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
-              "type": "FIELD",
-              "name": "bind_address",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "*"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_string"
-                  }
-                ]
-              }
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_forward_value_inner"
             },
             {
               "type": "STRING",
-              "value": ":"
-            },
-            {
-              "type": "FIELD",
-              "name": "port",
-              "content": {
-                "type": "SYMBOL",
-                "name": "number"
-              }
+              "value": "\""
             }
           ]
         }
@@ -3837,36 +3866,23 @@
           }
         },
         {
+          "type": "SYMBOL",
+          "name": "_forward_value_inner"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
-              "type": "FIELD",
-              "name": "bind_address",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "*"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_string"
-                  }
-                ]
-              }
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_forward_value_inner"
             },
             {
               "type": "STRING",
-              "value": ":"
-            },
-            {
-              "type": "FIELD",
-              "name": "port",
-              "content": {
-                "type": "SYMBOL",
-                "name": "number"
-              }
+              "value": "\""
             }
           ]
         }
@@ -3880,36 +3896,23 @@
           "name": "_file_string"
         },
         {
+          "type": "SYMBOL",
+          "name": "_forward_value_inner"
+        },
+        {
           "type": "SEQ",
           "members": [
             {
-              "type": "FIELD",
-              "name": "host",
-              "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "*"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_string"
-                  }
-                ]
-              }
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_forward_value_inner"
             },
             {
               "type": "STRING",
-              "value": ":"
-            },
-            {
-              "type": "FIELD",
-              "name": "port",
-              "content": {
-                "type": "SYMBOL",
-                "name": "number"
-              }
+              "value": "\""
             }
           ]
         }
@@ -5149,46 +5152,63 @@
       ]
     },
     "_remote_forward": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "keyword",
-          "content": {
-            "type": "ALIAS",
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "keyword",
             "content": {
-              "type": "PATTERN",
-              "value": "[rR][eE][mM][oO][tT][eE][fF][oO][rR][wW][aA][rR][dD]"
-            },
-            "named": false,
-            "value": "RemoteForward"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_sep"
-        },
-        {
-          "type": "FIELD",
-          "name": "argument",
-          "content": {
+              "type": "ALIAS",
+              "content": {
+                "type": "PATTERN",
+                "value": "[rR][eE][mM][oO][tT][eE][fF][oO][rR][wW][aA][rR][dD]"
+              },
+              "named": false,
+              "value": "RemoteForward"
+            }
+          },
+          {
             "type": "SYMBOL",
-            "name": "_forward_value1"
+            "name": "_sep"
+          },
+          {
+            "type": "FIELD",
+            "name": "argument",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_forward_value1"
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_space"
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "argument",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_forward_value2"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_space"
-        },
-        {
-          "type": "FIELD",
-          "name": "argument",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_forward_value2"
-          }
-        }
-      ]
+        ]
+      }
     },
     "_request_tty": {
       "type": "SEQ",
@@ -7083,8 +7103,11 @@
         {
           "type": "ALIAS",
           "content": {
-            "type": "PATTERN",
-            "value": "\\S+"
+            "type": "REPEAT1",
+            "content": {
+              "type": "PATTERN",
+              "value": "\\S"
+            }
           },
           "named": true,
           "value": "string"
@@ -7099,8 +7122,11 @@
             {
               "type": "ALIAS",
               "content": {
-                "type": "PATTERN",
-                "value": "[^\"]+"
+                "type": "REPEAT1",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[^\"]"
+                }
               },
               "named": true,
               "value": "string"
@@ -7359,8 +7385,12 @@
       "value": "[1-9][0-9]*|0"
     },
     "number": {
-      "type": "SYMBOL",
-      "name": "_number"
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SYMBOL",
+        "name": "_number"
+      }
     },
     "bytes": {
       "type": "SEQ",
@@ -7699,7 +7729,12 @@
     }
   },
   "extras": [],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "_file_string",
+      "_string"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [

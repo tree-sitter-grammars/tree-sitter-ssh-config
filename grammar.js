@@ -12,6 +12,11 @@ module.exports = grammar({
 
   extras: _ => [],
 
+  conflicts: $ => [
+    // XXX: conflict in _forward_value[12]
+    [$._file_string, $._string]
+  ],
+
   inline: $ => [
     $._add_keys_to_agent_arg,
     $._control_master_arg,
@@ -188,6 +193,7 @@ module.exports = grammar({
       $._control_master,
       $._control_path,
       $._control_persist,
+      $._dynamic_forward,
       $._enable_escape_command_line,
       $._enable_ssh_keysign,
       $._escape_char,
@@ -421,16 +427,19 @@ module.exports = grammar({
     _dynamic_forward: $ => seq(
       u.keyword('DynamicForward'),
       $._sep,
-      u.argument(u.list($._space, $._dynamic_forward_value))
+      u.list($._space, u.argument($._dynamic_forward_value))
+    ),
+
+    _forward_value_inner: $ => seq(
+        field('bind_address', choice('*', $._string)),
+        ':',
+        field('port', $.number)
     ),
 
     _dynamic_forward_value: $ => choice(
       field('port', $.number),
-      seq(
-        field('bind_address', choice('*', $._string)),
-        ':',
-        field('port', $.number)
-      )
+      $._forward_value_inner,
+      seq('"', $._forward_value_inner, '"')
     ),
 
     _enable_escape_command_line: $ => seq(
@@ -638,20 +647,14 @@ module.exports = grammar({
     _forward_value1: $ => choice(
       $._file_string,
       field('port', $.number),
-      seq(
-        field('bind_address', choice('*', $._string)),
-        ':',
-        field('port', $.number)
-      )
+      $._forward_value_inner,
+      seq('"', $._forward_value_inner, '"')
     ),
 
     _forward_value2: $ => choice(
       $._file_string,
-      seq(
-        field('host', choice('*', $._string)),
-        ':',
-        field('port', $.number)
-      )
+      $._forward_value_inner,
+      seq('"', $._forward_value_inner, '"')
     ),
 
     _log_level: $ => seq(
@@ -826,13 +829,15 @@ module.exports = grammar({
       ))
     ),
 
-    _remote_forward: $ => seq(
+    _remote_forward: $ => prec.right(seq(
       u.keyword('RemoteForward'),
       $._sep,
       u.argument($._forward_value1),
-      $._space,
-      u.argument($._forward_value2)
-    ),
+      optional(seq(
+        $._space,
+        u.argument($._forward_value2)
+      ))
+    )),
 
     _request_tty: $ => seq(
       u.keyword('RequestTTY'),
@@ -1112,8 +1117,8 @@ module.exports = grammar({
     ),
 
     _string: $ => choice(
-      alias(/\S+/, $.string),
-      seq('"', alias(/[^"]+/, $.string), '"')
+      alias(repeat1(/\S/), $.string),
+      seq('"', alias(repeat1(/[^"]/), $.string), '"')
     ),
 
     _file_pattern: $ => choice(
@@ -1135,7 +1140,7 @@ module.exports = grammar({
 
     _number: _ => /[1-9][0-9]*|0/,
 
-    number: $ => $._number,
+    number: $ => prec(1, $._number),
 
     bytes: $ => seq(
       $._number,

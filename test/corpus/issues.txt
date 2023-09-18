@@ -1,0 +1,23 @@
+==================
+RemoteForward (#1)
+==================
+
+RemoteForward 2224
+RemoteForward "127.0.0.1:2225" "127.0.0.1:2225"
+RemoteForward [127.0.0.1]:2226 [127.0.0.1]:2226
+
+----
+
+(config
+  (parameter
+    port: (number))
+  (parameter
+    bind_address: (string)
+    port: (number)
+    bind_address: (string)
+    port: (number))
+  (parameter
+    bind_address: (string)
+    port: (number)
+    bind_address: (string)
+    port: (number)))

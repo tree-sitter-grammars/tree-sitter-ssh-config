@@ -445,10 +445,6 @@
         "required": false,
         "types": [
           {
-            "type": "\"",
-            "named": false
-          },
-          {
             "type": "*",
             "named": false
           },
@@ -548,6 +544,10 @@
           },
           {
             "type": "ControlPersist",
+            "named": false
+          },
+          {
+            "type": "DynamicForward",
             "named": false
           },
           {
