@@ -646,14 +646,14 @@ module.exports = grammar({
     ),
 
     _forward_value1: $ => choice(
-      $._file_string,
+      field('socket', $._file_string),
       field('port', $.number),
       $._forward_value_inner,
       seq('"', $._forward_value_inner, '"')
     ),
 
     _forward_value2: $ => choice(
-      $._file_string,
+      field('socket', $._file_string),
       $._forward_value_inner,
       seq('"', $._forward_value_inner, '"')
     ),

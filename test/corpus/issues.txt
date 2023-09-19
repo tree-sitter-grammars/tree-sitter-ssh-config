@@ -21,3 +21,26 @@ RemoteForward [127.0.0.1]:2226 [127.0.0.1]:2226
     port: (number)
     bind_address: (string)
     port: (number)))
+
+=================
+LocalForward (#3)
+=================
+
+LocalForward /home/me/some.sock /var/run/socks/sock.sock
+LocalForward 8080 localhost:80
+LocalForward 8443 localhost:443
+
+----
+
+(config
+  (parameter
+    socket: (string)
+    socket: (string))
+  (parameter
+    port: (number)
+    bind_address: (string)
+    port: (number))
+  (parameter
+    port: (number)
+    bind_address: (string)
+    port: (number)))

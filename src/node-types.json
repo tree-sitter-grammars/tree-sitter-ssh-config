@@ -906,6 +906,20 @@
           }
         ]
       },
+      "socket": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "\"",
+            "named": false
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
       "source_domain_list": {
         "multiple": true,
         "required": false,
