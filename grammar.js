@@ -216,6 +216,7 @@ module.exports = grammar({
       $._identity_agent,
       $._identity_file,
       $._ignore_unknown,
+      $._include,
       $._ipqos,
       $._kbd_interactive_authentication,
       $._kex_algorithms,
