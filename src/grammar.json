@@ -1492,6 +1492,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_use_keychain"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_user"
         },
         {
@@ -6062,6 +6066,32 @@
               }
             ]
           }
+        }
+      ]
+    },
+    "_use_keychain": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[uU][sS][eE][kK][eE][yY][cC][hH][aA][iI][nN]"
+            },
+            "named": false,
+            "value": "UseKeychain"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_boolean"
         }
       ]
     },

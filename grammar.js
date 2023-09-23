@@ -261,6 +261,7 @@ module.exports = grammar({
       $._tunnel,
       $._tunnel_device,
       $._update_host_keys,
+      $._use_keychain,
       $._user,
       $._user_known_hosts_file,
       $._verify_host_key_dns,
@@ -1000,6 +1001,12 @@ module.exports = grammar({
       u.keyword('UpdateHostKeys'),
       $._sep,
       u.argument(choice($._boolean, 'ask'))
+    ),
+
+    _use_keychain: $ => seq(
+      u.keyword('UseKeychain'),
+      $._sep,
+      $._boolean
     ),
 
     _user: $ => seq(
