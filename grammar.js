@@ -791,7 +791,10 @@ module.exports = grammar({
     ),
 
     _pubkey_accepted_algorithms: $ => seq(
-      u.keyword('PubkeyAcceptedAlgorithms'),
+      choice(
+        u.keyword('PubkeyAcceptedAlgorithms'),
+        u.keyword('PubkeyAcceptedKeyTypes')
+      ),
       $._sep,
       u.algorithms('+-^', $.key_sig)
     ),

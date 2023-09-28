@@ -4916,17 +4916,35 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "FIELD",
-          "name": "keyword",
-          "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "[pP][uU][bB][kK][eE][yY][aA][cC][cC][eE][pP][tT][eE][dD][aA][lL][gG][oO][rR][iI][tT][hH][mM][sS]"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "keyword",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[pP][uU][bB][kK][eE][yY][aA][cC][cC][eE][pP][tT][eE][dD][aA][lL][gG][oO][rR][iI][tT][hH][mM][sS]"
+                },
+                "named": false,
+                "value": "PubkeyAcceptedAlgorithms"
+              }
             },
-            "named": false,
-            "value": "PubkeyAcceptedAlgorithms"
-          }
+            {
+              "type": "FIELD",
+              "name": "keyword",
+              "content": {
+                "type": "ALIAS",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[pP][uU][bB][kK][eE][yY][aA][cC][cC][eE][pP][tT][eE][dD][kK][eE][yY][tT][yY][pP][eE][sS]"
+                },
+                "named": false,
+                "value": "PubkeyAcceptedKeyTypes"
+              }
+            }
+          ]
         },
         {
           "type": "SYMBOL",

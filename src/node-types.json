@@ -731,6 +731,10 @@
             "named": false
           },
           {
+            "type": "PubkeyAcceptedKeyTypes",
+            "named": false
+          },
+          {
             "type": "PubkeyAuthentication",
             "named": false
           },
@@ -1352,6 +1356,10 @@
   },
   {
     "type": "PubkeyAcceptedAlgorithms",
+    "named": false
+  },
+  {
+    "type": "PubkeyAcceptedKeyTypes",
     "named": false
   },
   {
