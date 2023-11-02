@@ -44,3 +44,20 @@ LocalForward 8443 localhost:443
     port: (number)
     bind_address: (string)
     port: (number)))
+
+==========
+Match (#6)
+==========
+
+Match host 10.177.18.*,11.187.1.* exec "$SHELL ~/.ssh/demo.sh %h"
+
+----
+
+(config
+  (match_declaration
+    (condition
+      (pattern)
+      (pattern))
+    (condition
+      (string
+        (token)))))

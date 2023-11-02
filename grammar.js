@@ -76,7 +76,7 @@ module.exports = grammar({
       ),
       optional($._space),
       $._eol,
-      $._declarations
+      optional($._declarations)
     )),
 
     condition: $ => choice(

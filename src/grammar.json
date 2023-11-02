@@ -316,8 +316,16 @@
             "name": "_eol"
           },
           {
-            "type": "SYMBOL",
-            "name": "_declarations"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_declarations"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           }
         ]
       }
