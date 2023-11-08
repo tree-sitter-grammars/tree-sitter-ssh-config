@@ -2,7 +2,6 @@
  * @file Tree-sitter grammar definition
  * @author ObserverOfTime
  * @license MIT
- * @see {@link https://man.openbsd.org/ssh_config|OpenSSH manual}
  */
 
 const u = require('./utils');
