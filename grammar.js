@@ -24,7 +24,6 @@ module.exports = grammar({
     $._identity_agent_arg,
     $._ipqos_arg,
     $._proxy_command_arg,
-    $._proxy_jump_arg,
     $._request_tty_arg,
     $._security_key_provider_arg,
     $._strict_host_key_checking_arg,
@@ -761,17 +760,17 @@ module.exports = grammar({
     _proxy_jump: $ => seq(
       u.keyword('ProxyJump'),
       $._sep,
-      u.argument($._proxy_jump_arg)
+      u.list(',', u.argument($._proxy_jump_value))
     ),
 
-    _proxy_jump_arg: $ => choice(
+    _proxy_jump_value: $ => choice(
       'none',
       seq(
         optional(seq(
-          field('user', alias(/\S+/, $.string)),
+          field('user', alias(/[\w+-]+/, $.string)),
           '@'
         )),
-        field('host', alias(/\S+/, $.string)),
+        field('host', alias(/[\w.+-]+/, $.string)),
         optional(seq(
           ':',
           field('port', $.number)

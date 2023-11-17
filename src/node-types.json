@@ -965,7 +965,7 @@
         ]
       },
       "uri": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -975,7 +975,7 @@
         ]
       },
       "user": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {

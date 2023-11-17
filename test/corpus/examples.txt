@@ -114,18 +114,23 @@ Match host ipv6only.example.org !exec "route -n get -inet6 %h"
 (config
   (comment)
   (host_declaration
-    (pattern)
+    argument: (pattern)
     (parameter
-      (string))
+      argument: (string))
     (parameter
-      (string))
+      user: (string)
+      host: (string)
+      port: (number)
+      user: (string)
+      host: (string)
+      port: (number))
     (parameter
-      (string)))
+      argument: (string)))
   (match_declaration
     (condition
-      (pattern))
+      argument: (pattern))
     (condition
-      (string
+      argument: (string
         (token)))
     (parameter
-      (string))))
+      host: (string))))
