@@ -94,3 +94,38 @@ Match host vm.example.com exec "/usr/local/bin/cloudflared access ssh-gen --host
       (string))
     (parameter
       (pattern))))
+
+======================
+Proxies and Jump Hosts
+======================
+
+# https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Proxies_and_Jump_Hosts
+
+Host server3
+        HostName 192.168.5.38
+        ProxyJump user1@jumphost1.example.org:22,user2@jumphost2.example.org:2222
+        User fred
+
+Match host ipv6only.example.org !exec "route -n get -inet6 %h"
+        ProxyJump dualstack.example.org
+
+-----
+
+(config
+  (comment)
+  (host_declaration
+    (pattern)
+    (parameter
+      (string))
+    (parameter
+      (string))
+    (parameter
+      (string)))
+  (match_declaration
+    (condition
+      (pattern))
+    (condition
+      (string
+        (token)))
+    (parameter
+      (string))))

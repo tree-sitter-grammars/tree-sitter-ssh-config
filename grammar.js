@@ -78,16 +78,19 @@ module.exports = grammar({
       optional($._declarations)
     )),
 
-    condition: $ => choice(
-      $._match_canonical,
-      $._match_final,
-      $._match_exec,
-      $._match_localnetwork,
-      $._match_host,
-      $._match_originalhost,
-      $._match_tagged,
-      $._match_user,
-      $._match_localuser
+    condition: $ => seq(
+      optional('!'),
+      choice(
+        $._match_canonical,
+        $._match_final,
+        $._match_exec,
+        $._match_localnetwork,
+        $._match_host,
+        $._match_originalhost,
+        $._match_tagged,
+        $._match_user,
+        $._match_localuser
+      )
     ),
 
     _all: _ => alias(/[aA][lL][lL]/, 'all'),
@@ -115,7 +118,7 @@ module.exports = grammar({
       u.keyword('localnetwork', 'criteria'),
       $._sep,
       u.argument(choice(
-        u.list(',', seq(optional('!'), alias(/\S+/, $.string))),
+        u.list(',', alias(/\S+/, $.string)),
         seq('"', u.list(',', alias(/[^"]+/, $.string)), '"')
       ))
     ),
@@ -151,14 +154,8 @@ module.exports = grammar({
     ),
 
     _match_value: $ => choice(
-      u.list(',', alias(
-        seq(optional('!'), u.pattern(/\S/)),
-        $.pattern
-      )),
-      seq('"', u.list(',', alias(
-        seq(optional('!'), u.pattern(/[^"]/)),
-        $.pattern
-      )), '"')
+      u.list(',', alias(u.pattern(/\S/), $.pattern)),
+      seq('"', u.list(',', alias(u.pattern(/[^"]/), $.pattern)), '"')
     ),
 
     _declarations: $ => prec.right(
