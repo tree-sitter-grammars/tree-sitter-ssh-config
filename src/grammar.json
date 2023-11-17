@@ -5616,10 +5616,10 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][eE][sS][sS][iI][oO][nN][tT][yY][pP][eE]"
+              "value": "[sS][eE][tT][eE][nN][vV]"
             },
             "named": false,
-            "value": "SessionType"
+            "value": "SetEnv"
           }
         },
         {

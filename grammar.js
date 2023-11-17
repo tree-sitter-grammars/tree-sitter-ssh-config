@@ -913,7 +913,7 @@ module.exports = grammar({
     ),
 
     _set_env: $ => seq(
-      u.keyword('SessionType'),
+      u.keyword('SetEnv'),
       $._sep,
       u.list($._space, u.argument($._set_env_value))
     ),

@@ -783,6 +783,10 @@
             "named": false
           },
           {
+            "type": "SetEnv",
+            "named": false
+          },
+          {
             "type": "StdinNull",
             "named": false
           },
@@ -1412,6 +1416,10 @@
   },
   {
     "type": "SessionType",
+    "named": false
+  },
+  {
+    "type": "SetEnv",
     "named": false
   },
   {
