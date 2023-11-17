@@ -774,7 +774,7 @@ module.exports = grammar({
           field('user', alias(/\S+/, $.string)),
           '@'
         )),
-        field('host', alias(/S+/, $.string)),
+        field('host', alias(/\S+/, $.string)),
         optional(seq(
           ':',
           field('port', $.number)
