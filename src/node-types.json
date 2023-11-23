@@ -599,6 +599,10 @@
             "named": false
           },
           {
+            "type": "HashKnownHosts",
+            "named": false
+          },
+          {
             "type": "HostKeyAlgorithms",
             "named": false
           },
@@ -1220,6 +1224,10 @@
   },
   {
     "type": "GlobalKnownHostsFile",
+    "named": false
+  },
+  {
+    "type": "HashKnownHosts",
     "named": false
   },
   {

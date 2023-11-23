@@ -202,6 +202,7 @@ module.exports = grammar({
       $._global_known_hosts_file,
       $._gssapi_authentication,
       $._gssapi_delegate_credentials,
+      $._hash_known_hosts,
       $._hostbased_accepted_algorithms,
       $._hostbased_authentication,
       $._host_key_algorithms,
@@ -519,6 +520,12 @@ module.exports = grammar({
 
     _gssapi_delegate_credentials: $ => seq(
       u.keyword('GSSAPIDelegateCredentials'),
+      $._sep,
+      u.argument($._boolean)
+    ),
+
+    _hash_known_hosts: $ => seq(
+      u.keyword('HashKnownHosts'),
       $._sep,
       u.argument($._boolean)
     ),

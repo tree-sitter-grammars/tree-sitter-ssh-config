@@ -1199,6 +1199,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_hash_known_hosts"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_hostbased_accepted_algorithms"
         },
         {
@@ -2980,6 +2984,36 @@
             },
             "named": false,
             "value": "GSSAPIDelegateCredentials"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_boolean"
+          }
+        }
+      ]
+    },
+    "_hash_known_hosts": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[hH][aA][sS][hH][kK][nN][oO][wW][nN][hH][oO][sS][tT][sS]"
+            },
+            "named": false,
+            "value": "HashKnownHosts"
           }
         },
         {
