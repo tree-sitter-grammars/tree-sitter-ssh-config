@@ -16,7 +16,7 @@ A tree-sitter parser for OpenSSH client configuration files.
 ## Editors
 
 - [x] Neovim
-- [ ] Helix
+- [ ] Helix _(has alternative)_
 - [ ] Emacs
 
 [badge]: https://badgen.net/github/checks/ObserverOfTime/tree-sitter-ssh-config?label=CI&icon=github
