@@ -1,6 +1,8 @@
 # tree-sitter-ssh-config
 
-[![CI][badge]](https://github.com/ObserverOfTime/tree-sitter-ssh-config/actions)
+[![CI][ci]](https://github.com/tree-sitter-grammars/tree-sitter-ssh-config/actions/workflows/ci.yml)
+[![discord][discord]](https://discord.gg/w7nTvsVJhm)
+[![matrix][matrix]](https://matrix.to/#/#nvim-treesitter:matrix.org)
 
 A tree-sitter parser for OpenSSH client configuration files.
 
@@ -18,5 +20,8 @@ A tree-sitter parser for OpenSSH client configuration files.
 - [x] Neovim
 - [ ] Helix _(has alternative)_
 - [ ] Emacs
+- [ ] Zed
 
-[badge]: https://badgen.net/github/checks/ObserverOfTime/tree-sitter-ssh-config?label=CI&icon=github
+[ci]: https://img.shields.io/github/actions/workflow/status/tree-sitter-grammars/tree-sitter-ssh-config/ci.yml?logo=github&label=CI
+[discord]: https://img.shields.io/discord/1063097320771698699?logo=discord&label=tree-sitter
+[matrix]: https://img.shields.io/matrix/nvim-treesitter%3Amatrix.org?logo=matrix&label=nvim-treesitter

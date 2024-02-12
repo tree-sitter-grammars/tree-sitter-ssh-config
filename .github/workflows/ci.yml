@@ -2,21 +2,20 @@ name: Test grammar
 
 on:
   push:
-    branches: [master]
+    branches: ["*"]
+    paths:
+      - grammar.js
+      - src/**
+      - bindings/**
+      - binding.gyp
   pull_request:
-    branches: [master]
+    branches: ["*"]
+    paths:
+      - grammar.js
+      - src/**
+      - bindings/**
+      - binding.gyp
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        name: Checkout repository
-      - uses: actions/setup-node@v4
-        name: Set up NodeJS
-        with:
-          node-version: 18
-      - run: npm install
-        name: Install dependencies
-      - run: npm test
-        name: Run tests
+    uses: tree-sitter-grammars/.github/.github/workflows/ci.yml@main
