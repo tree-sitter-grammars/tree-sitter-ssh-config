@@ -41,6 +41,9 @@ pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
 /// The syntax highlighting queries.
 pub const HIGHLIGHTS_QUERY: &str = include_str!("../../queries/highlights.scm");
 
+/// The language injection queries.
+pub const INJECTIONS_QUERY: &str = include_str!("../../queries/injections.scm");
+
 #[cfg(test)]
 mod tests {
     #[test]

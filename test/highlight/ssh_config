@@ -1,0 +1,20 @@
+ControlMaster auto
+#             ^^^^ @constant.builtin
+ControlPath /tmp/ssh-%C
+#           ^^^^^^^^^ @string.regexp
+#                    ^^ @string.special.symbol
+
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ @string.special
+#                                         ^ @punctuation.delimiter
+#                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ @string.special
+
+Match host=github.com
+# <- @module
+#     ^^^^ @variable.parameter
+#         ^ @operator
+#          ^^^^^^^^^^ @string.regexp
+    IdentityFile ~/.ssh/id_rsa
+    User git
+#   ^^^^ @keyword
+#        ^^^ @string

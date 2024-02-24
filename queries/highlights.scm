@@ -48,16 +48,16 @@
 
 ; Keywords
 
-[ "Host" "Match" ] @keyword
+[ "Host" "Match" ] @module
 
 (parameter keyword: _ @keyword)
 
 (host_declaration argument: _ @tag)
 
 (match_declaration
-  (condition criteria: _ @attribute))
+  (condition criteria: _ @variable.parameter))
 
-"all" @attribute
+"all" @variable.parameter
 
 ; Misc
 
@@ -67,8 +67,6 @@
 ] @constant
 
 (comment) @comment
-
-(ERROR) @error
 
 ; Punctuation
 

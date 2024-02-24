@@ -31,7 +31,9 @@
     {
       "scope": "text.ssh_config",
       "highlights": "queries/highlights.scm",
-      "content-regex": "^\\s*IdentityFile"
+      "injections": "queries/injections.scm",
+      "content-regex": "^\\s*IdentityFile",
+      "file-types": ["ssh_config"]
     }
   ]
 }
