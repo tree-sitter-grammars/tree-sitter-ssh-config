@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-ssh-config",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "description": "OpenSSH config grammar for tree-sitter",
   "repository": "tree-sitter-grammars/tree-sitter-ssh-config",
@@ -12,11 +12,11 @@
   "keywords": [
     "tree-sitter",
     "parser",
-    "lexer"
+    "lexer",
+    "ssh"
   ],
   "scripts": {
-    "generate": "tree-sitter generate",
-    "highlight": "tree-sitter highlight",
+    "build": "tree-sitter generate --no-bindings",
     "parse": "tree-sitter parse",
     "test": "tree-sitter test"
   },
@@ -25,11 +25,12 @@
     "nan": "^2.18.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "~0.21.0-pre-release-1"
+    "tree-sitter-cli": "~0.21.0"
   },
   "tree-sitter": [
     {
       "scope": "text.ssh_config",
+      "highlights": "queries/highlights.scm",
       "content-regex": "^\\s*IdentityFile"
     }
   ]

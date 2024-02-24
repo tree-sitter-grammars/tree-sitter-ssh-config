@@ -8,11 +8,10 @@
       ],
       "sources": [
         "bindings/node/binding.cc",
-        "src/parser.c",
+        "src/parser.c"
       ],
       "cflags_c": [
-        "-std=c99",
-        "-Wno-unused-but-set-variable"
+        "-std=c99"
       ],
       "cflags_cc": [
         "-Wno-cast-function-type"

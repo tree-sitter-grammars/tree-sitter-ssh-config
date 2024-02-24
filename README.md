@@ -2,7 +2,7 @@
 
 [![CI][ci]](https://github.com/tree-sitter-grammars/tree-sitter-ssh-config/actions/workflows/ci.yml)
 [![discord][discord]](https://discord.gg/w7nTvsVJhm)
-[![matrix][matrix]](https://matrix.to/#/#nvim-treesitter:matrix.org)
+[![matrix][matrix]](https://matrix.to/#/#tree-sitter-chat:matrix.org)
 
 A tree-sitter parser for OpenSSH client configuration files.
 
@@ -23,5 +23,5 @@ A tree-sitter parser for OpenSSH client configuration files.
 - [ ] Zed
 
 [ci]: https://img.shields.io/github/actions/workflow/status/tree-sitter-grammars/tree-sitter-ssh-config/ci.yml?logo=github&label=CI
-[discord]: https://img.shields.io/discord/1063097320771698699?logo=discord&label=tree-sitter
-[matrix]: https://img.shields.io/matrix/nvim-treesitter%3Amatrix.org?logo=matrix&label=nvim-treesitter
+[discord]: https://img.shields.io/discord/1063097320771698699?logo=discord&label=discord
+[matrix]: https://img.shields.io/matrix/tree-sitter-chat%3Amatrix.org?logo=matrix&label=matrix
