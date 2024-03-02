@@ -1,12 +1,5 @@
 const {execSync} = require('child_process');
 
-/** @param char {string} */
-const ci = (char) =>
-  (char >= 'a' && char <= 'z') ?
-    `[${char}${char.toUpperCase()}]` :
-    (char >= 'A' && char <= 'Z') ?
-      `[${char.toLowerCase()}${char}]` : char;
-
 /**
  * Run `ssh -Q`
  * @param option {'cipher'|'cipher-auth'|'compression'|
@@ -24,9 +17,7 @@ module.exports.query = (option) =>
  * @param name {'keyword'|'criteria'}
  */
 module.exports.keyword = (word, name = 'keyword') =>
-  field(name, alias(
-    new RegExp(word.split('').map(ci).join('')), word
-  ));
+  field(name, alias(new RegExp(word, 'i'), word));
 
 /**
  * @param arg {RuleOrLiteral}

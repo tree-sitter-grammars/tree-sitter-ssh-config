@@ -134,7 +134,8 @@
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
-                "value": "[hH][oO][sS][tT]"
+                "value": "Host",
+                "flags": "i"
               },
               "named": false,
               "value": "Host"
@@ -251,7 +252,8 @@
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
-                "value": "[mM][aA][tT][cC][hH]"
+                "value": "Match",
+                "flags": "i"
               },
               "named": false,
               "value": "Match"
@@ -410,7 +412,8 @@
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
-                "value": "[cC][aA][nN][oO][nN][iI][cC][aA][lL]"
+                "value": "canonical",
+                "flags": "i"
               },
               "named": false,
               "value": "canonical"
@@ -453,7 +456,8 @@
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
-                "value": "[fF][iI][nN][aA][lL]"
+                "value": "final",
+                "flags": "i"
               },
               "named": false,
               "value": "final"
@@ -493,7 +497,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[eE][xX][eE][cC]"
+              "value": "exec",
+              "flags": "i"
             },
             "named": false,
             "value": "exec"
@@ -579,7 +584,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[lL][oO][cC][aA][lL][nN][eE][tT][wW][oO][rR][kK]"
+              "value": "localnetwork",
+              "flags": "i"
             },
             "named": false,
             "value": "localnetwork"
@@ -701,7 +707,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[hH][oO][sS][tT]"
+              "value": "host",
+              "flags": "i"
             },
             "named": false,
             "value": "host"
@@ -731,7 +738,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[oO][rR][iI][gG][iI][nN][aA][lL][hH][oO][sS][tT]"
+              "value": "originalhost",
+              "flags": "i"
             },
             "named": false,
             "value": "originalhost"
@@ -761,7 +769,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[tT][aA][gG][gG][eE][dD]"
+              "value": "tagged",
+              "flags": "i"
             },
             "named": false,
             "value": "tagged"
@@ -791,7 +800,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[uU][sS][eE][rR]"
+              "value": "user",
+              "flags": "i"
             },
             "named": false,
             "value": "user"
@@ -821,7 +831,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[lL][oO][cC][aA][lL][uU][sS][eE][rR]"
+              "value": "localuser",
+              "flags": "i"
             },
             "named": false,
             "value": "localuser"
@@ -1453,7 +1464,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[aA][dD][dD][kK][eE][yY][sS][tT][oO][aA][gG][eE][nN][tT]"
+              "value": "AddKeysToAgent",
+              "flags": "i"
             },
             "named": false,
             "value": "AddKeysToAgent"
@@ -1534,7 +1546,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[aA][dD][dD][rR][eE][sS][sS][fF][aA][mM][iI][lL][yY]"
+              "value": "AddressFamily",
+              "flags": "i"
             },
             "named": false,
             "value": "AddressFamily"
@@ -1577,7 +1590,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[bB][aA][tT][cC][hH][mM][oO][dD][eE]"
+              "value": "BatchMode",
+              "flags": "i"
             },
             "named": false,
             "value": "BatchMode"
@@ -1607,7 +1621,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[bB][iI][nN][dD][aA][dD][dD][rR][eE][sS][sS]"
+              "value": "BindAddress",
+              "flags": "i"
             },
             "named": false,
             "value": "BindAddress"
@@ -1637,7 +1652,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[bB][iI][nN][dD][iI][nN][tT][eE][rR][fF][aA][cC][eE]"
+              "value": "BindInterface",
+              "flags": "i"
             },
             "named": false,
             "value": "BindInterface"
@@ -1667,7 +1683,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][aA][nN][oO][nN][iI][cC][aA][lL][dD][oO][mM][aA][iI][nN][sS]"
+              "value": "CanonicalDomains",
+              "flags": "i"
             },
             "named": false,
             "value": "CanonicalDomains"
@@ -1726,7 +1743,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][aA][nN][oO][nN][iI][cC][aA][lL][iI][zZ][eE][fF][aA][lL][lL][bB][aA][cC][kK][lL][oO][cC][aA][lL]"
+              "value": "CanonicalizeFallbackLocal",
+              "flags": "i"
             },
             "named": false,
             "value": "CanonicalizeFallbackLocal"
@@ -1756,7 +1774,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][aA][nN][oO][nN][iI][cC][aA][lL][iI][zZ][eE][hH][oO][sS][tT][nN][aA][mM][eE]"
+              "value": "CanonicalizeHostname",
+              "flags": "i"
             },
             "named": false,
             "value": "CanonicalizeHostname"
@@ -1786,7 +1805,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][aA][nN][oO][nN][iI][cC][aA][lL][iI][zZ][eE][mM][aA][xX][dD][oO][tT][sS]"
+              "value": "CanonicalizeMaxDots",
+              "flags": "i"
             },
             "named": false,
             "value": "CanonicalizeMaxDots"
@@ -1816,7 +1836,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][aA][nN][oO][nN][iI][cC][aA][lL][iI][zZ][eE][pP][eE][rR][mM][iI][tT][tT][eE][dD][cC][nN][aA][mM][eE][sS]"
+              "value": "CanonicalizePermittedCNAMEs",
+              "flags": "i"
             },
             "named": false,
             "value": "CanonicalizePermittedCNAMEs"
@@ -1959,7 +1980,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][aA][sS][iI][gG][nN][aA][tT][uU][rR][eE][aA][lL][gG][oO][rR][iI][tT][hH][mM][sS]"
+              "value": "CASignatureAlgorithms",
+              "flags": "i"
             },
             "named": false,
             "value": "CASignatureAlgorithms"
@@ -2040,7 +2062,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][eE][rR][tT][iI][fF][iI][cC][aA][tT][eE][fF][iI][lL][eE]"
+              "value": "CertificateFile",
+              "flags": "i"
             },
             "named": false,
             "value": "CertificateFile"
@@ -2070,7 +2093,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][hH][eE][cC][kK][hH][oO][sS][tT][iI][pP]"
+              "value": "CheckHostIP",
+              "flags": "i"
             },
             "named": false,
             "value": "CheckHostIP"
@@ -2100,7 +2124,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][iI][pP][hH][eE][rR][sS]"
+              "value": "Ciphers",
+              "flags": "i"
             },
             "named": false,
             "value": "Ciphers"
@@ -2185,7 +2210,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][lL][eE][aA][rR][aA][lL][lL][fF][oO][rR][wW][aA][rR][dD][iI][nN][gG][sS]"
+              "value": "ClearAllForwardings",
+              "flags": "i"
             },
             "named": false,
             "value": "ClearAllForwardings"
@@ -2215,7 +2241,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][oO][mM][pP][rR][eE][sS][sS][iI][oO][nN]"
+              "value": "Compression",
+              "flags": "i"
             },
             "named": false,
             "value": "Compression"
@@ -2245,7 +2272,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][oO][nN][nN][eE][cC][tT][iI][oO][nN][aA][tT][tT][eE][mM][pP][tT][sS]"
+              "value": "ConnectionAttempts",
+              "flags": "i"
             },
             "named": false,
             "value": "ConnectionAttempts"
@@ -2275,7 +2303,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][oO][nN][nN][eE][cC][tT][tT][iI][mM][eE][oO][uU][tT]"
+              "value": "ConnectTimeout",
+              "flags": "i"
             },
             "named": false,
             "value": "ConnectTimeout"
@@ -2305,7 +2334,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][oO][nN][tT][rR][oO][lL][mM][aA][sS][tT][eE][rR]"
+              "value": "ControlMaster",
+              "flags": "i"
             },
             "named": false,
             "value": "ControlMaster"
@@ -2356,7 +2386,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][oO][nN][tT][rR][oO][lL][pP][eE][rR][sS][iI][sS][tT]"
+              "value": "ControlPersist",
+              "flags": "i"
             },
             "named": false,
             "value": "ControlPersist"
@@ -2399,7 +2430,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[cC][oO][nN][tT][rR][oO][lL][pP][aA][tT][hH]"
+              "value": "ControlPath",
+              "flags": "i"
             },
             "named": false,
             "value": "ControlPath"
@@ -2429,7 +2461,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[dD][yY][nN][aA][mM][iI][cC][fF][oO][rR][wW][aA][rR][dD]"
+              "value": "DynamicForward",
+              "flags": "i"
             },
             "named": false,
             "value": "DynamicForward"
@@ -2556,7 +2589,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[eE][nN][aA][bB][lL][eE][eE][sS][cC][aA][pP][eE][cC][oO][mM][mM][aA][nN][dD][lL][iI][nN][eE]"
+              "value": "EnableEscapeCommandline",
+              "flags": "i"
             },
             "named": false,
             "value": "EnableEscapeCommandline"
@@ -2586,7 +2620,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[eE][nN][aA][bB][lL][eE][sS][sS][hH][kK][eE][yY][sS][iI][gG][nN]"
+              "value": "EnableSSHKeysign",
+              "flags": "i"
             },
             "named": false,
             "value": "EnableSSHKeysign"
@@ -2616,7 +2651,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[eE][sS][cC][aA][pP][eE][cC][hH][aA][rR]"
+              "value": "EscapeChar",
+              "flags": "i"
             },
             "named": false,
             "value": "EscapeChar"
@@ -2655,7 +2691,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[eE][xX][iI][tT][oO][nN][fF][oO][rR][wW][aA][rR][dD][fF][aA][iI][lL][uU][rR][eE]"
+              "value": "ExitOnForwardFailure",
+              "flags": "i"
             },
             "named": false,
             "value": "ExitOnForwardFailure"
@@ -2685,7 +2722,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[fF][iI][nN][gG][eE][rR][pP][rR][iI][nN][tT][hH][aA][sS][hH]"
+              "value": "FingerprintHash",
+              "flags": "i"
             },
             "named": false,
             "value": "FingerprintHash"
@@ -2724,7 +2762,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[fF][oO][rR][kK][aA][fF][tT][eE][rR][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN]"
+              "value": "ForkAfterAuthentication",
+              "flags": "i"
             },
             "named": false,
             "value": "ForkAfterAuthentication"
@@ -2754,7 +2793,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[fF][oO][rR][wW][aA][rR][dD][aA][gG][eE][nN][tT]"
+              "value": "ForwardAgent",
+              "flags": "i"
             },
             "named": false,
             "value": "ForwardAgent"
@@ -2801,7 +2841,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[fF][oO][rR][wW][aA][rR][dD][xX]11"
+              "value": "ForwardX11",
+              "flags": "i"
             },
             "named": false,
             "value": "ForwardX11"
@@ -2831,7 +2872,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[fF][oO][rR][wW][aA][rR][dD][xX]11[tT][iI][mM][eE][oO][uU][tT]"
+              "value": "ForwardX11Timeout",
+              "flags": "i"
             },
             "named": false,
             "value": "ForwardX11Timeout"
@@ -2861,7 +2903,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[fF][oO][rR][wW][aA][rR][dD][xX]11[tT][rR][uU][sS][tT][eE][dD]"
+              "value": "ForwardX11Trusted",
+              "flags": "i"
             },
             "named": false,
             "value": "ForwardX11Trusted"
@@ -2891,7 +2934,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[gG][lL][oO][bB][aA][lL][kK][nN][oO][wW][nN][hH][oO][sS][tT][sS][fF][iI][lL][eE]"
+              "value": "GlobalKnownHostsFile",
+              "flags": "i"
             },
             "named": false,
             "value": "GlobalKnownHostsFile"
@@ -2950,7 +2994,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[gG][sS][sS][aA][pP][iI][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN]"
+              "value": "GSSAPIAuthentication",
+              "flags": "i"
             },
             "named": false,
             "value": "GSSAPIAuthentication"
@@ -2980,7 +3025,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[gG][sS][sS][aA][pP][iI][dD][eE][lL][eE][gG][aA][tT][eE][cC][rR][eE][dD][eE][nN][tT][iI][aA][lL][sS]"
+              "value": "GSSAPIDelegateCredentials",
+              "flags": "i"
             },
             "named": false,
             "value": "GSSAPIDelegateCredentials"
@@ -3010,7 +3056,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[hH][aA][sS][hH][kK][nN][oO][wW][nN][hH][oO][sS][tT][sS]"
+              "value": "HashKnownHosts",
+              "flags": "i"
             },
             "named": false,
             "value": "HashKnownHosts"
@@ -3043,7 +3090,8 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[hH][oO][sS][tT][bB][aA][sS][eE][dD][aA][cC][cC][eE][pP][tT][eE][dD][aA][lL][gG][oO][rR][iI][tT][hH][mM][sS]"
+                  "value": "HostbasedAcceptedAlgorithms",
+                  "flags": "i"
                 },
                 "named": false,
                 "value": "HostbasedAcceptedAlgorithms"
@@ -3056,7 +3104,8 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[hH][oO][sS][tT][bB][aA][sS][eE][dD][kK][eE][yY][tT][yY][pP][eE][sS]"
+                  "value": "HostbasedKeyTypes",
+                  "flags": "i"
                 },
                 "named": false,
                 "value": "HostbasedKeyTypes"
@@ -3143,7 +3192,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[hH][oO][sS][tT][bB][aA][sS][eE][dD][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN]"
+              "value": "HostbasedAuthentication",
+              "flags": "i"
             },
             "named": false,
             "value": "HostbasedAuthentication"
@@ -3173,7 +3223,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[hH][oO][sS][tT][kK][eE][yY][aA][lL][gG][oO][rR][iI][tT][hH][mM][sS]"
+              "value": "HostKeyAlgorithms",
+              "flags": "i"
             },
             "named": false,
             "value": "HostKeyAlgorithms"
@@ -3258,7 +3309,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[hH][oO][sS][tT][kK][eE][yY][aA][lL][iI][aA][sS]"
+              "value": "HostKeyAlias",
+              "flags": "i"
             },
             "named": false,
             "value": "HostKeyAlias"
@@ -3288,7 +3340,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[hH][oO][sS][tT][nN][aA][mM][eE]"
+              "value": "Hostname",
+              "flags": "i"
             },
             "named": false,
             "value": "Hostname"
@@ -3318,7 +3371,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[iI][dD][eE][nN][tT][iI][tT][iI][eE][sS][oO][nN][lL][yY]"
+              "value": "IdentitiesOnly",
+              "flags": "i"
             },
             "named": false,
             "value": "IdentitiesOnly"
@@ -3348,7 +3402,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[iI][dD][eE][nN][tT][iI][tT][yY][aA][gG][eE][nN][tT]"
+              "value": "IdentityAgent",
+              "flags": "i"
             },
             "named": false,
             "value": "IdentityAgent"
@@ -3399,7 +3454,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[iI][dD][eE][nN][tT][iI][tT][yY][fF][iI][lL][eE]"
+              "value": "IdentityFile",
+              "flags": "i"
             },
             "named": false,
             "value": "IdentityFile"
@@ -3429,7 +3485,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[iI][gG][nN][oO][rR][eE][uU][nN][kK][nN][oO][wW][nN]"
+              "value": "IgnoreUnknown",
+              "flags": "i"
             },
             "named": false,
             "value": "IgnoreUnknown"
@@ -3484,7 +3541,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[iI][nN][cC][lL][uU][dD][eE]"
+              "value": "Include",
+              "flags": "i"
             },
             "named": false,
             "value": "Include"
@@ -3517,7 +3575,8 @@
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
-                "value": "[iI][pP][qQ][oO][sS]"
+                "value": "IPQoS",
+                "flags": "i"
               },
               "named": false,
               "value": "IPQoS"
@@ -3593,7 +3652,8 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[kK][bB][dD][iI][nN][tT][eE][rR][aA][cC][tT][iI][vV][eE][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN]"
+                  "value": "KbdInteractiveAuthentication",
+                  "flags": "i"
                 },
                 "named": false,
                 "value": "KbdInteractiveAuthentication"
@@ -3606,7 +3666,8 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[cC][hH][aA][lL][lL][eE][nN][gG][eE][rR][eE][sS][pP][oO][nN][sS][eE][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN]"
+                  "value": "ChallengeResponseAuthentication",
+                  "flags": "i"
                 },
                 "named": false,
                 "value": "ChallengeResponseAuthentication"
@@ -3638,7 +3699,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[kK][eE][xX][aA][lL][gG][oO][rR][iI][tT][hH][mM][sS]"
+              "value": "KexAlgorithms",
+              "flags": "i"
             },
             "named": false,
             "value": "KexAlgorithms"
@@ -3723,7 +3785,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[kK][nN][oO][wW][nN][hH][oO][sS][tT][sS][cC][oO][mM][mM][aA][nN][dD]"
+              "value": "KnownHostsCommand",
+              "flags": "i"
             },
             "named": false,
             "value": "KnownHostsCommand"
@@ -3753,7 +3816,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[lL][oO][cC][aA][lL][cC][oO][mM][mM][aA][nN][dD]"
+              "value": "LocalCommand",
+              "flags": "i"
             },
             "named": false,
             "value": "LocalCommand"
@@ -3783,7 +3847,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[lL][oO][cC][aA][lL][fF][oO][rR][wW][aA][rR][dD]"
+              "value": "LocalForward",
+              "flags": "i"
             },
             "named": false,
             "value": "LocalForward"
@@ -3901,7 +3966,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[lL][oO][gG][lL][eE][vV][eE][lL]"
+              "value": "LogLevel",
+              "flags": "i"
             },
             "named": false,
             "value": "LogLevel"
@@ -3931,7 +3997,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[lL][oO][gG][vV][eE][rR][bB][oO][sS][eE]"
+              "value": "LogVerbose",
+              "flags": "i"
             },
             "named": false,
             "value": "LogVerbose"
@@ -4189,7 +4256,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[mM][aA][cC][sS]"
+              "value": "MACs",
+              "flags": "i"
             },
             "named": false,
             "value": "MACs"
@@ -4274,7 +4342,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[nN][oO][hH][oO][sS][tT][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN][fF][oO][rR][lL][oO][cC][aA][lL][hH][oO][sS][tT]"
+              "value": "NoHostAuthenticationForLocalhost",
+              "flags": "i"
             },
             "named": false,
             "value": "NoHostAuthenticationForLocalhost"
@@ -4304,7 +4373,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[nN][uU][mM][bB][eE][rR][oO][fF][pP][aA][sS][sS][wW][oO][rR][dD][pP][rR][oO][mM][pP][tT][sS]"
+              "value": "NumberOfPasswordPrompts",
+              "flags": "i"
             },
             "named": false,
             "value": "NumberOfPasswordPrompts"
@@ -4334,7 +4404,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][aA][sS][sS][wW][oO][rR][dD][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN]"
+              "value": "PasswordAuthentication",
+              "flags": "i"
             },
             "named": false,
             "value": "PasswordAuthentication"
@@ -4364,7 +4435,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][eE][rR][mM][iI][tT][lL][oO][cC][aA][lL][cC][oO][mM][mM][aA][nN][dD]"
+              "value": "PermitLocalCommand",
+              "flags": "i"
             },
             "named": false,
             "value": "PermitLocalCommand"
@@ -4394,7 +4466,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][eE][rR][mM][iI][tT][rR][eE][mM][oO][tT][eE][oO][pP][eE][nN]"
+              "value": "PermitRemoteOpen",
+              "flags": "i"
             },
             "named": false,
             "value": "PermitRemoteOpen"
@@ -4566,7 +4639,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][kK][cC][sS]11[pP][rR][oO][vV][iI][dD][eE][rR]"
+              "value": "PKCS11Provider",
+              "flags": "i"
             },
             "named": false,
             "value": "PKCS11Provider"
@@ -4596,7 +4670,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][oO][rR][tT]"
+              "value": "Port",
+              "flags": "i"
             },
             "named": false,
             "value": "Port"
@@ -4626,7 +4701,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][rR][eE][fF][eE][rR][rR][eE][dD][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN][sS]"
+              "value": "PreferredAuthentications",
+              "flags": "i"
             },
             "named": false,
             "value": "PreferredAuthentications"
@@ -4681,7 +4757,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][rR][oO][xX][yY][cC][oO][mM][mM][aA][nN][dD]"
+              "value": "ProxyCommand",
+              "flags": "i"
             },
             "named": false,
             "value": "ProxyCommand"
@@ -4724,7 +4801,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][rR][oO][xX][yY][jJ][uU][mM][pP]"
+              "value": "ProxyJump",
+              "flags": "i"
             },
             "named": false,
             "value": "ProxyJump"
@@ -4878,7 +4956,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][rR][oO][xX][yY][uU][sS][eE][fF][dD][pP][aA][sS][sS]"
+              "value": "ProxyUseFdpass",
+              "flags": "i"
             },
             "named": false,
             "value": "ProxyUseFdpass"
@@ -4911,7 +4990,8 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[pP][uU][bB][kK][eE][yY][aA][cC][cC][eE][pP][tT][eE][dD][aA][lL][gG][oO][rR][iI][tT][hH][mM][sS]"
+                  "value": "PubkeyAcceptedAlgorithms",
+                  "flags": "i"
                 },
                 "named": false,
                 "value": "PubkeyAcceptedAlgorithms"
@@ -4924,7 +5004,8 @@
                 "type": "ALIAS",
                 "content": {
                   "type": "PATTERN",
-                  "value": "[pP][uU][bB][kK][eE][yY][aA][cC][cC][eE][pP][tT][eE][dD][kK][eE][yY][tT][yY][pP][eE][sS]"
+                  "value": "PubkeyAcceptedKeyTypes",
+                  "flags": "i"
                 },
                 "named": false,
                 "value": "PubkeyAcceptedKeyTypes"
@@ -5011,7 +5092,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[pP][uU][bB][kK][eE][yY][aA][uU][tT][hH][eE][nN][tT][iI][cC][aA][tT][iI][oO][nN]"
+              "value": "PubkeyAuthentication",
+              "flags": "i"
             },
             "named": false,
             "value": "PubkeyAuthentication"
@@ -5061,7 +5143,8 @@
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
-                "value": "[rR][eE][kK][eE][yY][lL][iI][mM][iI][tT]"
+                "value": "RekeyLimit",
+                "flags": "i"
               },
               "named": false,
               "value": "RekeyLimit"
@@ -5130,7 +5213,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[rR][eE][mM][oO][tT][eE][cC][oO][mM][mM][aA][nN][dD]"
+              "value": "RemoteCommand",
+              "flags": "i"
             },
             "named": false,
             "value": "RemoteCommand"
@@ -5184,7 +5268,8 @@
               "type": "ALIAS",
               "content": {
                 "type": "PATTERN",
-                "value": "[rR][eE][mM][oO][tT][eE][fF][oO][rR][wW][aA][rR][dD]"
+                "value": "RemoteForward",
+                "flags": "i"
               },
               "named": false,
               "value": "RemoteForward"
@@ -5240,7 +5325,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[rR][eE][qQ][uU][eE][sS][tT][tT][tT][yY]"
+              "value": "RequestTTY",
+              "flags": "i"
             },
             "named": false,
             "value": "RequestTTY"
@@ -5287,7 +5373,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[rR][eE][qQ][uU][iI][rR][eE][dD][rR][sS][aA][sS][iI][zZ][eE]"
+              "value": "RequiredRSASize",
+              "flags": "i"
             },
             "named": false,
             "value": "RequiredRSASize"
@@ -5317,7 +5404,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[rR][eE][vV][oO][kK][eE][dD][hH][oO][sS][tT][kK][eE][yY][sS]"
+              "value": "RevokedHostKeys",
+              "flags": "i"
             },
             "named": false,
             "value": "RevokedHostKeys"
@@ -5347,7 +5435,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][eE][cC][uU][rR][iI][tT][yY][kK][eE][yY][pP][rR][oO][vV][iI][dD][eE][rR]"
+              "value": "SecurityKeyProvider",
+              "flags": "i"
             },
             "named": false,
             "value": "SecurityKeyProvider"
@@ -5390,7 +5479,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][eE][nN][dD][eE][nN][vV]"
+              "value": "SendEnv",
+              "flags": "i"
             },
             "named": false,
             "value": "SendEnv"
@@ -5491,7 +5581,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][eE][rR][vV][eE][rR][aA][lL][iI][vV][eE][cC][oO][uU][nN][tT][mM][aA][xX]"
+              "value": "ServerAliveCountMax",
+              "flags": "i"
             },
             "named": false,
             "value": "ServerAliveCountMax"
@@ -5521,7 +5612,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][eE][rR][vV][eE][rR][aA][lL][iI][vV][eE][iI][nN][tT][eE][rR][vV][aA][lL]"
+              "value": "ServerAliveInterval",
+              "flags": "i"
             },
             "named": false,
             "value": "ServerAliveInterval"
@@ -5551,7 +5643,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][eE][sS][sS][iI][oO][nN][tT][yY][pP][eE]"
+              "value": "SessionType",
+              "flags": "i"
             },
             "named": false,
             "value": "SessionType"
@@ -5594,7 +5687,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][eE][tT][eE][nN][vV]"
+              "value": "SetEnv",
+              "flags": "i"
             },
             "named": false,
             "value": "SetEnv"
@@ -5675,7 +5769,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][tT][dD][iI][nN][nN][uU][lL][lL]"
+              "value": "StdinNull",
+              "flags": "i"
             },
             "named": false,
             "value": "StdinNull"
@@ -5705,7 +5800,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][tT][rR][eE][aA][mM][lL][oO][cC][aA][lL][bB][iI][nN][dD][mM][aA][sS][kK]"
+              "value": "StreamLocalBindMask",
+              "flags": "i"
             },
             "named": false,
             "value": "StreamLocalBindMask"
@@ -5740,7 +5836,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][tT][rR][eE][aA][mM][lL][oO][cC][aA][lL][bB][iI][nN][dD][uU][nN][lL][iI][nN][kK]"
+              "value": "StreamLocalBindUnlink",
+              "flags": "i"
             },
             "named": false,
             "value": "StreamLocalBindUnlink"
@@ -5770,7 +5867,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][tT][rR][iI][cC][tT][hH][oO][sS][tT][kK][eE][yY][cC][hH][eE][cC][kK][iI][nN][gG]"
+              "value": "StrictHostKeyChecking",
+              "flags": "i"
             },
             "named": false,
             "value": "StrictHostKeyChecking"
@@ -5821,7 +5919,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[sS][yY][sS][lL][oO][gG][fF][aA][cC][iI][lL][iI][tT][yY]"
+              "value": "SyslogFacility",
+              "flags": "i"
             },
             "named": false,
             "value": "SyslogFacility"
@@ -5851,7 +5950,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[tT][cC][pP][kK][eE][eE][pP][aA][lL][iI][vV][eE]"
+              "value": "TCPKeepAlive",
+              "flags": "i"
             },
             "named": false,
             "value": "TCPKeepAlive"
@@ -5881,7 +5981,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[tT][aA][gG]"
+              "value": "Tag",
+              "flags": "i"
             },
             "named": false,
             "value": "Tag"
@@ -5911,7 +6012,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[tT][uU][nN][nN][eE][lL]"
+              "value": "Tunnel",
+              "flags": "i"
             },
             "named": false,
             "value": "Tunnel"
@@ -5958,7 +6060,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[tT][uU][nN][nN][eE][lL][dD][eE][vV][iI][cC][eE]"
+              "value": "TunnelDevice",
+              "flags": "i"
             },
             "named": false,
             "value": "TunnelDevice"
@@ -6044,7 +6147,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[uU][pP][dD][aA][tT][eE][hH][oO][sS][tT][kK][eE][yY][sS]"
+              "value": "UpdateHostKeys",
+              "flags": "i"
             },
             "named": false,
             "value": "UpdateHostKeys"
@@ -6083,7 +6187,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[uU][sS][eE][kK][eE][yY][cC][hH][aA][iI][nN]"
+              "value": "UseKeychain",
+              "flags": "i"
             },
             "named": false,
             "value": "UseKeychain"
@@ -6109,7 +6214,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[uU][sS][eE][rR]"
+              "value": "User",
+              "flags": "i"
             },
             "named": false,
             "value": "User"
@@ -6139,7 +6245,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[uU][sS][eE][rR][kK][nN][oO][wW][nN][hH][oO][sS][tT][sS][fF][iI][lL][eE]"
+              "value": "UserKnownHostsFile",
+              "flags": "i"
             },
             "named": false,
             "value": "UserKnownHostsFile"
@@ -6216,7 +6323,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[vV][eE][rR][iI][fF][yY][hH][oO][sS][tT][kK][eE][yY][dD][nN][sS]"
+              "value": "VerifyHostKeyDNS",
+              "flags": "i"
             },
             "named": false,
             "value": "VerifyHostKeyDNS"
@@ -6255,7 +6363,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[vV][iI][sS][uU][aA][lL][hH][oO][sS][tT][kK][eE][yY]"
+              "value": "VisualHostKey",
+              "flags": "i"
             },
             "named": false,
             "value": "VisualHostKey"
@@ -6285,7 +6394,8 @@
             "type": "ALIAS",
             "content": {
               "type": "PATTERN",
-              "value": "[xX][aA][uU][tT][hH][lL][oO][cC][aA][tT][iI][oO][nN]"
+              "value": "XAuthLocation",
+              "flags": "i"
             },
             "named": false,
             "value": "XAuthLocation"
@@ -7799,4 +7909,3 @@
   ],
   "supertypes": []
 }
-
