@@ -229,10 +229,6 @@
             "named": false
           },
           {
-            "type": "@",
-            "named": false
-          },
-          {
             "type": "SSH_AUTH_SOCK",
             "named": false
           },
@@ -371,10 +367,6 @@
           {
             "type": "unbound",
             "named": false
-          },
-          {
-            "type": "uri",
-            "named": true
           },
           {
             "type": "variable",

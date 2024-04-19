@@ -61,3 +61,15 @@ Match host 10.177.18.*,11.187.1.* exec "$SHELL ~/.ssh/demo.sh %h"
     (condition
       (string
         (token)))))
+
+===============
+ProxyJump (#10)
+===============
+
+ProxyJump bar
+
+----
+
+(config
+  (parameter
+    host: (string)))

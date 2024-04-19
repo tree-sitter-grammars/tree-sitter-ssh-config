@@ -12,8 +12,8 @@ module.exports = grammar({
   extras: _ => [],
 
   conflicts: $ => [
-    // XXX: conflict in _forward_value[12]
-    [$._file_string, $._string]
+    [$._file_string, $._string],
+    [$._file_string, $._plain_string]
   ],
 
   inline: $ => [
@@ -767,17 +767,17 @@ module.exports = grammar({
     _proxy_jump: $ => seq(
       u.keyword('ProxyJump'),
       $._sep,
-      u.list(',', u.argument($._proxy_jump_value))
+      u.list(',', $._proxy_jump_value)
     ),
 
     _proxy_jump_value: $ => choice(
-      'none',
+      u.argument('none'),
       seq(
         optional(seq(
-          field('user', alias(/[\w+-]+/, $.string)),
+          field('user', $._plain_string),
           '@'
         )),
-        field('host', alias(/[\w.+-]+/, $.string)),
+        field('host', $._plain_string),
         optional(seq(
           ':',
           field('port', $.number)
@@ -1130,9 +1130,11 @@ module.exports = grammar({
     ),
 
     _string: $ => choice(
-      alias(repeat1(/\S/), $.string),
+      $._plain_string,
       seq('"', alias(repeat1(/[^"]/), $.string), '"')
     ),
+
+    _plain_string: $ => alias(repeat1(/\S/), $.string),
 
     _file_pattern: $ => choice(
       alias(u.pattern(/\S/, $._file_token), $.pattern),
