@@ -2,20 +2,31 @@
   "targets": [
     {
       "target_name": "tree_sitter_ssh_config_binding",
+      "dependencies": [
+        "<!(node -p \"require('node-addon-api').targets\"):node_addon_api_except",
+      ],
       "include_dirs": [
-        "<!(node -e \"require('nan')\")",
-        "src"
+        "src",
       ],
       "sources": [
         "bindings/node/binding.cc",
-        "src/parser.c"
+        "src/parser.c",
+        "src/scanner.c",
       ],
-      "cflags_c": [
-        "-std=c99"
+      "conditions": [
+        ["OS!='win'", {
+          "cflags_c": [
+            "-std=c11",
+            "-Wno-unused-variable",
+          ],
+        }, { # OS == "win"
+          "cflags_c": [
+            "/std:c11",
+            "/utf-8",
+            "/wd4189",
+          ],
+        }],
       ],
-      "cflags_cc": [
-        "-Wno-cast-function-type"
-      ]
     }
   ]
 }
