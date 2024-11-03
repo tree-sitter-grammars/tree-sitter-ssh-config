@@ -4,7 +4,65 @@
  * @license MIT
  */
 
-const u = require('./utils');
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
+
+/**
+ * @param word {string}
+ * @param name {'keyword'|'criteria'}
+ */
+const keyword = (word, name = 'keyword') =>
+  field(name, alias(new RegExp(word, 'i'), word));
+
+/**
+ * @param arg {RuleOrLiteral}
+ */
+const argument = (arg) => field('argument', arg);
+
+/**
+ * @param sep {','|SymbolRule<'_space'>}
+ * @param rule {Rule}
+ */
+const list = (sep, rule) =>
+  prec.right(seq(rule, repeat(seq(sep, rule))));
+
+/**
+ * @param content {RegExp}
+ * @param extra {...Rule}
+ */
+const pattern = (content, ...extra) =>
+  repeat1(choice('*', '?', content, ...extra));
+
+/**
+ * @param content {RegExp}
+ * @param token {Rule}
+ * @param extra {...Rule}
+ */
+const token_ = (content, token, ...extra) =>
+  repeat1(choice(content, token, ...extra));
+
+/**
+ * @param prefix {'+-'|'+-^'}
+ * @param option {SymbolRule<'cipher'|'kex'|'key_sig'|'mac'|'sig'>}
+ */
+const algorithms = (prefix, option) =>
+  argument(seq(
+    optional(choice(...prefix)),
+    list(',', option)
+  ));
+
+/**
+ * @param content {RegExp}
+ * @param rule {SymbolRule<'number'>}
+ */
+const override = (content, rule) =>
+  seq(
+    field('file', pattern(content)),
+    ':',
+    field('function', pattern(content)),
+    ':',
+    field('line', choice('*', rule))
+  );
 
 module.exports = grammar({
   name: 'ssh_config',
@@ -55,9 +113,9 @@ module.exports = grammar({
     )),
 
     host_declaration: $ => prec.right(seq(
-      u.keyword('Host'),
+      keyword('Host'),
       $._sep,
-      u.list($._space, u.argument(
+      list($._space, argument(
         seq(optional('!'), $._pattern)
       )),
       optional($._space),
@@ -66,11 +124,11 @@ module.exports = grammar({
     )),
 
     match_declaration: $ => prec.right(seq(
-      u.keyword('Match'),
+      keyword('Match'),
       $._sep,
       choice(
         $._all,
-        u.list($._space, $.condition)
+        list($._space, $.condition)
       ),
       optional($._space),
       $._eol,
@@ -95,66 +153,66 @@ module.exports = grammar({
     _all: _ => alias(/[aA][lL][lL]/, 'all'),
 
     _match_canonical: $ => prec.right(seq(
-      u.keyword('canonical', 'criteria'),
+      keyword('canonical', 'criteria'),
       optional(seq($._sep, $._all))
     )),
 
     _match_final: $ => prec.right(seq(
-      u.keyword('final', 'criteria'),
+      keyword('final', 'criteria'),
       optional(seq($._sep, $._all))
     )),
 
     _match_exec: $ => seq(
-      u.keyword('exec', 'criteria'),
+      keyword('exec', 'criteria'),
       $._sep,
-      u.argument(choice(
-        alias(u.token(/\S/, $._file_token), $.string),
-        seq('"', alias(u.token(/[^"]/, $._file_token), $.string), '"')
+      argument(choice(
+        alias(token_(/\S/, $._file_token), $.string),
+        seq('"', alias(token_(/[^"]/, $._file_token), $.string), '"')
       ))
     ),
 
     _match_localnetwork: $ => seq(
-      u.keyword('localnetwork', 'criteria'),
+      keyword('localnetwork', 'criteria'),
       $._sep,
-      u.argument(choice(
-        u.list(',', alias(/\S+/, $.string)),
-        seq('"', u.list(',', alias(/[^"]+/, $.string)), '"')
+      argument(choice(
+        list(',', alias(/\S+/, $.string)),
+        seq('"', list(',', alias(/[^"]+/, $.string)), '"')
       ))
     ),
 
     _match_host: $ => seq(
-      u.keyword('host', 'criteria'),
+      keyword('host', 'criteria'),
       $._sep,
-      u.argument($._match_value)
+      argument($._match_value)
     ),
 
     _match_originalhost: $ => seq(
-      u.keyword('originalhost', 'criteria'),
+      keyword('originalhost', 'criteria'),
       $._sep,
-      u.argument($._match_value)
+      argument($._match_value)
     ),
 
     _match_tagged: $ => seq(
-      u.keyword('tagged', 'criteria'),
+      keyword('tagged', 'criteria'),
       $._sep,
-      u.argument($._match_value)
+      argument($._match_value)
     ),
 
     _match_user: $ => seq(
-      u.keyword('user', 'criteria'),
+      keyword('user', 'criteria'),
       $._sep,
-      u.argument($._match_value)
+      argument($._match_value)
     ),
 
     _match_localuser: $ => seq(
-      u.keyword('localuser', 'criteria'),
+      keyword('localuser', 'criteria'),
       $._sep,
-      u.argument($._match_value)
+      argument($._match_value)
     ),
 
     _match_value: $ => choice(
-      u.list(',', alias(u.pattern(/\S/), $.pattern)),
-      seq('"', u.list(',', alias(u.pattern(/[^"]/), $.pattern)), '"')
+      list(',', alias(pattern(/\S/), $.pattern)),
+      seq('"', list(',', alias(pattern(/[^"]/), $.pattern)), '"')
     ),
 
     _declarations: $ => prec.right(
@@ -266,9 +324,9 @@ module.exports = grammar({
     ),
 
     _add_keys_to_agent: $ => seq(
-      u.keyword('AddKeysToAgent'),
+      keyword('AddKeysToAgent'),
       $._sep,
-      u.argument($._add_keys_to_agent_arg)
+      argument($._add_keys_to_agent_arg)
     ),
 
     _add_keys_to_agent_arg: $ => choice(
@@ -282,120 +340,120 @@ module.exports = grammar({
     ),
 
     _address_family: $ => seq(
-      u.keyword('AddressFamily'),
+      keyword('AddressFamily'),
       $._sep,
-      u.argument(choice('any', 'inet', 'inet6'))
+      argument(choice('any', 'inet', 'inet6'))
     ),
 
     _batch_mode: $ => seq(
-      u.keyword('BatchMode'),
+      keyword('BatchMode'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _bind_address: $ => seq(
-      u.keyword('BindAddress'),
+      keyword('BindAddress'),
       $._sep,
-      u.argument($._pattern)
+      argument($._pattern)
     ),
 
     _bind_interface: $ => seq(
-      u.keyword('BindInterface'),
+      keyword('BindInterface'),
       $._sep,
-      u.argument($._pattern)
+      argument($._pattern)
     ),
 
     _canonical_domains: $ => seq(
-      u.keyword('CanonicalDomains'),
+      keyword('CanonicalDomains'),
       $._sep,
-      u.list($._space, u.argument($._pattern))
+      list($._space, argument($._pattern))
     ),
 
     _canonicalize_fallback_local: $ => seq(
-      u.keyword('CanonicalizeFallbackLocal'),
+      keyword('CanonicalizeFallbackLocal'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _canonicalize_hostname: $ => seq(
-      u.keyword('CanonicalizeHostname'),
+      keyword('CanonicalizeHostname'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _canonicalize_max_dots: $ => seq(
-      u.keyword('CanonicalizeMaxDots'),
+      keyword('CanonicalizeMaxDots'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _canonicalize_permitted_cnames: $ => seq(
-      u.keyword('CanonicalizePermittedCNAMEs'),
+      keyword('CanonicalizePermittedCNAMEs'),
       $._sep,
       choice(
         'none',
-        u.list($._space, u.argument($._cnames_map))
+        list($._space, argument($._cnames_map))
       )
     ),
 
     _cnames_map: $ => seq(
-      field('source_domain_list', u.list(',', $._pattern)),
+      field('source_domain_list', list(',', $._pattern)),
       ':',
-      field('target_domain_list', u.list(',', $._pattern)),
+      field('target_domain_list', list(',', $._pattern)),
     ),
 
     _ca_signature_algorithms: $ => seq(
-      u.keyword('CASignatureAlgorithms'),
+      keyword('CASignatureAlgorithms'),
       $._sep,
-      u.algorithms('+-', $.sig)
+      algorithms('+-', $.sig)
     ),
 
     _certificate_file: $ => seq(
-      u.keyword('CertificateFile'),
+      keyword('CertificateFile'),
       $._sep,
-      u.argument($._file_pattern_vars)
+      argument($._file_pattern_vars)
     ),
 
     _check_host_ip: $ => seq(
-      u.keyword('CheckHostIP'),
+      keyword('CheckHostIP'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _ciphers: $ => seq(
-      u.keyword('Ciphers'),
+      keyword('Ciphers'),
       $._sep,
-      u.algorithms('+-^', $.cipher)
+      algorithms('+-^', $.cipher)
     ),
 
     _clear_all_forwardings: $ => seq(
-      u.keyword('ClearAllForwardings'),
+      keyword('ClearAllForwardings'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _compression: $ => seq(
-      u.keyword('Compression'),
+      keyword('Compression'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _connection_attempts: $ => seq(
-      u.keyword('ConnectionAttempts'),
+      keyword('ConnectionAttempts'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _connect_timeout: $ => seq(
-      u.keyword('ConnectTimeout'),
+      keyword('ConnectTimeout'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _control_master: $ => seq(
-      u.keyword('ControlMaster'),
+      keyword('ControlMaster'),
       $._sep,
-      u.argument($._control_master_arg)
+      argument($._control_master_arg)
     ),
 
     _control_master_arg: $ => choice(
@@ -406,9 +464,9 @@ module.exports = grammar({
     ),
 
     _control_persist: $ => seq(
-      u.keyword('ControlPersist'),
+      keyword('ControlPersist'),
       $._sep,
-      u.argument($._control_persist_arg)
+      argument($._control_persist_arg)
     ),
 
     _control_persist_arg: $ => choice(
@@ -417,15 +475,15 @@ module.exports = grammar({
     ),
 
     _control_path: $ => seq(
-      u.keyword('ControlPath'),
+      keyword('ControlPath'),
       $._sep,
-      u.argument($._file_pattern_vars)
+      argument($._file_pattern_vars)
     ),
 
     _dynamic_forward: $ => seq(
-      u.keyword('DynamicForward'),
+      keyword('DynamicForward'),
       $._sep,
-      u.list($._space, u.argument($._dynamic_forward_value))
+      list($._space, argument($._dynamic_forward_value))
     ),
 
     _forward_value_inner: $ => seq(
@@ -441,45 +499,45 @@ module.exports = grammar({
     ),
 
     _enable_escape_command_line: $ => seq(
-      u.keyword('EnableEscapeCommandline'),
+      keyword('EnableEscapeCommandline'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _enable_ssh_keysign: $ => seq(
-      u.keyword('EnableSSHKeysign'),
+      keyword('EnableSSHKeysign'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _escape_char: $ => seq(
-      u.keyword('EscapeChar'),
+      keyword('EscapeChar'),
       $._sep,
-      u.argument(choice(/\S|\^[A-Za-z]/, 'none'))
+      argument(choice(/\S|\^[A-Za-z]/, 'none'))
     ),
 
     _exit_on_forward_failure: $ => seq(
-      u.keyword('ExitOnForwardFailure'),
+      keyword('ExitOnForwardFailure'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _fingerprint_hash: $ => seq(
-      u.keyword('FingerprintHash'),
+      keyword('FingerprintHash'),
       $._sep,
-      u.argument(choice('md5', 'sha256'))
+      argument(choice('md5', 'sha256'))
     ),
 
     _fork_after_authentication: $ => seq(
-      u.keyword('ForkAfterAuthentication'),
+      keyword('ForkAfterAuthentication'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _forward_agent: $ => seq(
-      u.keyword('ForwardAgent'),
+      keyword('ForwardAgent'),
       $._sep,
-      u.argument($._forward_agent_arg)
+      argument($._forward_agent_arg)
     ),
 
     _forward_agent_arg: $ => choice(
@@ -489,90 +547,90 @@ module.exports = grammar({
     ),
 
     _forward_x11: $ => seq(
-      u.keyword('ForwardX11'),
+      keyword('ForwardX11'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _forward_x11_timeout: $ => seq(
-      u.keyword('ForwardX11Timeout'),
+      keyword('ForwardX11Timeout'),
       $._sep,
-      u.argument($.time)
+      argument($.time)
     ),
 
     _forward_x11_trusted: $ => seq(
-      u.keyword('ForwardX11Trusted'),
+      keyword('ForwardX11Trusted'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _global_known_hosts_file: $ => seq(
-      u.keyword('GlobalKnownHostsFile'),
+      keyword('GlobalKnownHostsFile'),
       $._sep,
-      u.list($._space, u.argument($._string))
+      list($._space, argument($._string))
     ),
 
     _gssapi_authentication: $ => seq(
-      u.keyword('GSSAPIAuthentication'),
+      keyword('GSSAPIAuthentication'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _gssapi_delegate_credentials: $ => seq(
-      u.keyword('GSSAPIDelegateCredentials'),
+      keyword('GSSAPIDelegateCredentials'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _hash_known_hosts: $ => seq(
-      u.keyword('HashKnownHosts'),
+      keyword('HashKnownHosts'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _hostbased_accepted_algorithms: $ => seq(
       choice(
-        u.keyword('HostbasedAcceptedAlgorithms'),
-        u.keyword('HostbasedKeyTypes')
+        keyword('HostbasedAcceptedAlgorithms'),
+        keyword('HostbasedKeyTypes')
       ),
       $._sep,
-      u.algorithms('+-^', $.key_sig)
+      algorithms('+-^', $.key_sig)
     ),
 
     _hostbased_authentication: $ => seq(
-      u.keyword('HostbasedAuthentication'),
+      keyword('HostbasedAuthentication'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _host_key_algorithms: $ => seq(
-      u.keyword('HostKeyAlgorithms'),
+      keyword('HostKeyAlgorithms'),
       $._sep,
-      u.algorithms('+-^', $.key_sig)
+      algorithms('+-^', $.key_sig)
     ),
 
     _host_key_alias: $ => seq(
-      u.keyword('HostKeyAlias'),
+      keyword('HostKeyAlias'),
       $._sep,
-      u.argument($._string)
+      argument($._string)
     ),
 
     _hostname: $ => seq(
-      u.keyword('Hostname'),
+      keyword('Hostname'),
       $._sep,
-      u.argument($._hostname_string)
+      argument($._hostname_string)
     ),
 
     _identities_only: $ => seq(
-      u.keyword('IdentitiesOnly'),
+      keyword('IdentitiesOnly'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _identity_agent: $ => seq(
-      u.keyword('IdentityAgent'),
+      keyword('IdentityAgent'),
       $._sep,
-      u.argument($._identity_agent_arg)
+      argument($._identity_agent_arg)
     ),
 
     _identity_agent_arg: $ => choice(
@@ -583,28 +641,28 @@ module.exports = grammar({
     ),
 
     _identity_file: $ => seq(
-      u.keyword('IdentityFile'),
+      keyword('IdentityFile'),
       $._sep,
-      u.argument($._file_string)
+      argument($._file_string)
     ),
 
     _ignore_unknown: $ => seq(
-      u.keyword('IgnoreUnknown'),
+      keyword('IgnoreUnknown'),
       $._sep,
-      u.argument(u.list($._space, $._pattern))
+      argument(list($._space, $._pattern))
     ),
 
     _include: $ => seq(
-      u.keyword('Include'),
+      keyword('Include'),
       $._sep,
-      u.argument($._pattern)
+      argument($._pattern)
     ),
 
     _ipqos: $ => prec.right(seq(
-      u.keyword('IPQoS'),
+      keyword('IPQoS'),
       $._sep,
-      u.argument($._ipqos_arg),
-      optional(seq($._space, u.argument($._ipqos_arg)))
+      argument($._ipqos_arg),
+      optional(seq($._space, argument($._ipqos_arg)))
     )),
 
     _ipqos_arg: $ => choice(
@@ -615,37 +673,37 @@ module.exports = grammar({
 
     _kbd_interactive_authentication: $ => seq(
       choice(
-        u.keyword('KbdInteractiveAuthentication'),
-        u.keyword('ChallengeResponseAuthentication')
+        keyword('KbdInteractiveAuthentication'),
+        keyword('ChallengeResponseAuthentication')
       ),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _kex_algorithms: $ => seq(
-      u.keyword('KexAlgorithms'),
+      keyword('KexAlgorithms'),
       $._sep,
-      u.algorithms('+-^', $.kex)
+      algorithms('+-^', $.kex)
     ),
 
     _known_hosts_command: $ => seq(
-      u.keyword('KnownHostsCommand'),
+      keyword('KnownHostsCommand'),
       $._sep,
-      u.argument($._hosts_string)
+      argument($._hosts_string)
     ),
 
     _local_command: $ => seq(
-      u.keyword('LocalCommand'),
+      keyword('LocalCommand'),
       $._sep,
-      u.argument($._token_string)
+      argument($._token_string)
     ),
 
     _local_forward: $ => seq(
-      u.keyword('LocalForward'),
+      keyword('LocalForward'),
       $._sep,
-      u.argument($._forward_value1),
+      argument($._forward_value1),
       $._space,
-      u.argument($._forward_value2)
+      argument($._forward_value2)
     ),
 
     _forward_value1: $ => choice(
@@ -662,60 +720,60 @@ module.exports = grammar({
     ),
 
     _log_level: $ => seq(
-      u.keyword('LogLevel'),
+      keyword('LogLevel'),
       $._sep,
-      u.argument($.verbosity)
+      argument($.verbosity)
     ),
 
     _log_verbose: $ => seq(
-      u.keyword('LogVerbose'),
+      keyword('LogVerbose'),
       $._sep,
-      u.argument(choice(
-        u.list(',', $._log_verbose_value),
-        seq('"', u.list(',', $._log_verbose_quoted), '"')
+      argument(choice(
+        list(',', $._log_verbose_value),
+        seq('"', list(',', $._log_verbose_quoted), '"')
       ))
     ),
 
     _log_verbose_value: $ =>
-      u.override(/S/, $.number),
+      override(/S/, $.number),
 
     _log_verbose_quoted: $ =>
-      u.override(/[^"]/, $.number),
+      override(/[^"]/, $.number),
 
     _macs: $ => seq(
-      u.keyword('MACs'),
+      keyword('MACs'),
       $._sep,
-      u.algorithms('+-^', $.mac)
+      algorithms('+-^', $.mac)
     ),
 
     _no_host_authentication_for_localhost: $ => seq(
-      u.keyword('NoHostAuthenticationForLocalhost'),
+      keyword('NoHostAuthenticationForLocalhost'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _number_of_password_prompts: $ => seq(
-      u.keyword('NumberOfPasswordPrompts'),
+      keyword('NumberOfPasswordPrompts'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _password_authentication: $ => seq(
-      u.keyword('PasswordAuthentication'),
+      keyword('PasswordAuthentication'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _permit_local_command: $ => seq(
-      u.keyword('PermitLocalCommand'),
+      keyword('PermitLocalCommand'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _permit_remote_open: $ => seq(
-      u.keyword('PermitRemoteOpen'),
+      keyword('PermitRemoteOpen'),
       $._sep,
-      u.argument(u.list($._space, $._permit_remote_open_value))
+      argument(list($._space, $._permit_remote_open_value))
     ),
 
     _permit_remote_open_value: $ => choice(
@@ -736,27 +794,27 @@ module.exports = grammar({
     ),
 
     _pkcs11_provider: $ => seq(
-      u.keyword('PKCS11Provider'),
+      keyword('PKCS11Provider'),
       $._sep,
-      u.argument($._string)
+      argument($._string)
     ),
 
     _port: $ => seq(
-      u.keyword('Port'),
+      keyword('Port'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _preferred_authentications: $ => seq(
-      u.keyword('PreferredAuthentications'),
+      keyword('PreferredAuthentications'),
       $._sep,
-      u.argument(u.list(',', $.authentication))
+      argument(list(',', $.authentication))
     ),
 
     _proxy_command: $ => seq(
-      u.keyword('ProxyCommand'),
+      keyword('ProxyCommand'),
       $._sep,
-      u.argument($._proxy_command_arg)
+      argument($._proxy_command_arg)
     ),
 
     _proxy_command_arg: $ => choice(
@@ -765,13 +823,13 @@ module.exports = grammar({
     ),
 
     _proxy_jump: $ => seq(
-      u.keyword('ProxyJump'),
+      keyword('ProxyJump'),
       $._sep,
-      u.list(',', $._proxy_jump_value)
+      list(',', $._proxy_jump_value)
     ),
 
     _proxy_jump_value: $ => choice(
-      u.argument('none'),
+      argument('none'),
       seq(
         optional(seq(
           field('user', $._plain_string),
@@ -787,24 +845,24 @@ module.exports = grammar({
     ),
 
     _proxy_use_fdpass: $ => seq(
-      u.keyword('ProxyUseFdpass'),
+      keyword('ProxyUseFdpass'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _pubkey_accepted_algorithms: $ => seq(
       choice(
-        u.keyword('PubkeyAcceptedAlgorithms'),
-        u.keyword('PubkeyAcceptedKeyTypes')
+        keyword('PubkeyAcceptedAlgorithms'),
+        keyword('PubkeyAcceptedKeyTypes')
       ),
       $._sep,
-      u.algorithms('+-^', $.key_sig)
+      algorithms('+-^', $.key_sig)
     ),
 
     _pubkey_authentication: $ => seq(
-      u.keyword('PubkeyAuthentication'),
+      keyword('PubkeyAuthentication'),
       $._sep,
-      u.argument($._pubkey_authentication_arg)
+      argument($._pubkey_authentication_arg)
     ),
 
     _pubkey_authentication_arg: $ => choice(
@@ -814,42 +872,42 @@ module.exports = grammar({
     ),
 
     _rekey_limit: $ => prec.right(seq(
-      u.keyword('RekeyLimit'),
+      keyword('RekeyLimit'),
       $._sep,
       choice(
-        u.argument('none'),
-        u.argument($.bytes),
+        argument('none'),
+        argument($.bytes),
         seq(
-          u.argument($.bytes),
+          argument($.bytes),
           $._space,
-          u.argument($.time)
+          argument($.time)
         )
       )
     )),
 
     _remote_command: $ => seq(
-      u.keyword('RemoteCommand'),
+      keyword('RemoteCommand'),
       $._sep,
-      u.argument(alias(
-        u.token(/[^\r\n]/, $._file_token, $.variable),
+      argument(alias(
+        token_(/[^\r\n]/, $._file_token, $.variable),
         $.string
       ))
     ),
 
     _remote_forward: $ => prec.right(seq(
-      u.keyword('RemoteForward'),
+      keyword('RemoteForward'),
       $._sep,
-      u.argument($._forward_value1),
+      argument($._forward_value1),
       optional(seq(
         $._space,
-        u.argument($._forward_value2)
+        argument($._forward_value2)
       ))
     )),
 
     _request_tty: $ => seq(
-      u.keyword('RequestTTY'),
+      keyword('RequestTTY'),
       $._sep,
-      u.argument($._request_tty_arg)
+      argument($._request_tty_arg)
     ),
 
     _request_tty_arg: $ => choice(
@@ -859,21 +917,21 @@ module.exports = grammar({
     ),
 
     _required_rsa_size: $ => seq(
-      u.keyword('RequiredRSASize'),
+      keyword('RequiredRSASize'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _revoked_host_keys: $ => seq(
-      u.keyword('RevokedHostKeys'),
+      keyword('RevokedHostKeys'),
       $._sep,
-      u.argument($._file_string)
+      argument($._file_string)
     ),
 
     _security_key_provider: $ => seq(
-      u.keyword('SecurityKeyProvider'),
+      keyword('SecurityKeyProvider'),
       $._sep,
-      u.argument($._security_key_provider_arg)
+      argument($._security_key_provider_arg)
     ),
 
     _security_key_provider_arg: $ => choice(
@@ -882,43 +940,43 @@ module.exports = grammar({
     ),
 
     _send_env: $ => seq(
-      u.keyword('SendEnv'),
+      keyword('SendEnv'),
       $._sep,
-      u.list($._space, u.argument($._send_env_value))
+      list($._space, argument($._send_env_value))
     ),
 
     _send_env_value: $ => seq(
       optional('-'),
       alias(
-        u.pattern(/[a-zA-Z0-9_]/),
+        pattern(/[a-zA-Z0-9_]/),
         $.variable
       )
     ),
 
     _server_alive_count_max: $ => seq(
-      u.keyword('ServerAliveCountMax'),
+      keyword('ServerAliveCountMax'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _server_alive_interval: $ => seq(
-      u.keyword('ServerAliveInterval'),
+      keyword('ServerAliveInterval'),
       $._sep,
-      u.argument($.number)
+      argument($.number)
     ),
 
     _session_type: $ => seq(
-      u.keyword('SessionType'),
+      keyword('SessionType'),
       $._sep,
-      u.argument(choice(
+      argument(choice(
         'none', 'subsystem', 'default'
       ))
     ),
 
     _set_env: $ => seq(
-      u.keyword('SetEnv'),
+      keyword('SetEnv'),
       $._sep,
-      u.list($._space, u.argument($._set_env_value))
+      list($._space, argument($._set_env_value))
     ),
 
     _set_env_value: $ => seq(
@@ -928,27 +986,27 @@ module.exports = grammar({
     ),
 
     _stdin_null: $ => seq(
-      u.keyword('StdinNull'),
+      keyword('StdinNull'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _stream_local_bind_mask: $ => seq(
-      u.keyword('StreamLocalBindMask'),
+      keyword('StreamLocalBindMask'),
       $._sep,
-      u.argument(alias(/0?[0-7]{3}/, $.number))
+      argument(alias(/0?[0-7]{3}/, $.number))
     ),
 
     _stream_local_bind_unlink: $ => seq(
-      u.keyword('StreamLocalBindUnlink'),
+      keyword('StreamLocalBindUnlink'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _strict_host_key_checking: $ => seq(
-      u.keyword('StrictHostKeyChecking'),
+      keyword('StrictHostKeyChecking'),
       $._sep,
-      u.argument($._strict_host_key_checking_arg)
+      argument($._strict_host_key_checking_arg)
     ),
 
     _strict_host_key_checking_arg: $ => choice(
@@ -959,27 +1017,27 @@ module.exports = grammar({
     ),
 
     _syslog_facility: $ => seq(
-      u.keyword('SyslogFacility'),
+      keyword('SyslogFacility'),
       $._sep,
-      u.argument($.facility)
+      argument($.facility)
     ),
 
     _tcp_keep_alive: $ => seq(
-      u.keyword('TCPKeepAlive'),
+      keyword('TCPKeepAlive'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _tag: $ => seq(
-      u.keyword('Tag'),
+      keyword('Tag'),
       $._sep,
-      u.argument($._string)
+      argument($._string)
     ),
 
     _tunnel: $ => seq(
-      u.keyword('Tunnel'),
+      keyword('Tunnel'),
       $._sep,
-      u.argument($._tunnel_arg)
+      argument($._tunnel_arg)
     ),
 
     _tunnel_arg: $ => choice(
@@ -989,9 +1047,9 @@ module.exports = grammar({
     ),
 
     _tunnel_device: $ => seq(
-      u.keyword('TunnelDevice'),
+      keyword('TunnelDevice'),
       $._sep,
-      u.argument($._tunnel_device_arg)
+      argument($._tunnel_device_arg)
     ),
 
     _tunnel_device_arg: $ => seq(
@@ -1003,47 +1061,47 @@ module.exports = grammar({
     ),
 
     _update_host_keys: $ => seq(
-      u.keyword('UpdateHostKeys'),
+      keyword('UpdateHostKeys'),
       $._sep,
-      u.argument(choice($._boolean, 'ask'))
+      argument(choice($._boolean, 'ask'))
     ),
 
     _use_keychain: $ => seq(
-      u.keyword('UseKeychain'),
+      keyword('UseKeychain'),
       $._sep,
       $._boolean
     ),
 
     _user: $ => seq(
-      u.keyword('User'),
+      keyword('User'),
       $._sep,
-      u.argument($._string)
+      argument($._string)
     ),
 
     _user_known_hosts_file: $ => seq(
-      u.keyword('UserKnownHostsFile'),
+      keyword('UserKnownHostsFile'),
       $._sep,
-      u.list($._space, u.argument(
+      list($._space, argument(
         choice('none', $._file_string)
       ))
     ),
 
     _verify_host_key_dns: $ => seq(
-      u.keyword('VerifyHostKeyDNS'),
+      keyword('VerifyHostKeyDNS'),
       $._sep,
-      u.argument(choice($._boolean, 'ask'))
+      argument(choice($._boolean, 'ask'))
     ),
 
     _visual_host_key: $ => seq(
-      u.keyword('VisualHostKey'),
+      keyword('VisualHostKey'),
       $._sep,
-      u.argument($._boolean)
+      argument($._boolean)
     ),
 
     _xauth_location: $ => seq(
-      u.keyword('XAuthLocation'),
+      keyword('XAuthLocation'),
       $._sep,
-      u.argument($._string)
+      argument($._string)
     ),
 
     ipqos: _ => token(choice(
@@ -1075,15 +1133,96 @@ module.exports = grammar({
       'keyboard-interactive', 'password'
     )),
 
-    cipher: _ => u.query('cipher'),
+    // ssh -Q cipher
+    cipher: _ => token(choice(
+       '3des-cbc',
+       'aes128-cbc',
+       'aes192-cbc',
+       'aes256-cbc',
+       'aes128-ctr',
+       'aes192-ctr',
+       'aes256-ctr',
+       'aes128-gcm@openssh.com',
+       'aes256-gcm@openssh.com',
+       'chacha20-poly1305@openssh.com',
+    )),
 
-    kex: _ => u.query('kex'),
+    // ssh -Q kex
+    kex: _ => token(choice(
+      'diffie-hellman-group1-sha1',
+      'diffie-hellman-group14-sha1',
+      'diffie-hellman-group14-sha256',
+      'diffie-hellman-group16-sha512',
+      'diffie-hellman-group18-sha512',
+      'diffie-hellman-group-exchange-sha1',
+      'diffie-hellman-group-exchange-sha256',
+      'ecdh-sha2-nistp256',
+      'ecdh-sha2-nistp384',
+      'ecdh-sha2-nistp521',
+      'curve25519-sha256',
+      'curve25519-sha256@libssh.org',
+      'sntrup761x25519-sha512@openssh.com',
+    )),
 
-    key_sig: _ => u.query('key-sig'),
+    // ssh -Q key-sig
+    key_sig: _ => token(choice(
+      'ssh-ed25519',
+      'ssh-ed25519-cert-v01@openssh.com',
+      'sk-ssh-ed25519@openssh.com',
+      'sk-ssh-ed25519-cert-v01@openssh.com',
+      'ecdsa-sha2-nistp256',
+      'ecdsa-sha2-nistp256-cert-v01@openssh.com',
+      'ecdsa-sha2-nistp384',
+      'ecdsa-sha2-nistp384-cert-v01@openssh.com',
+      'ecdsa-sha2-nistp521',
+      'ecdsa-sha2-nistp521-cert-v01@openssh.com',
+      'sk-ecdsa-sha2-nistp256@openssh.com',
+      'sk-ecdsa-sha2-nistp256-cert-v01@openssh.com',
+      'webauthn-sk-ecdsa-sha2-nistp256@openssh.com',
+      'ssh-dss',
+      'ssh-dss-cert-v01@openssh.com',
+      'ssh-rsa',
+      'ssh-rsa-cert-v01@openssh.com',
+      'rsa-sha2-256',
+      'rsa-sha2-256-cert-v01@openssh.com',
+      'rsa-sha2-512',
+      'rsa-sha2-512-cert-v01@openssh.com',
+    )),
 
-    mac: _ => u.query('mac'),
+    // ssh -Q mac
+    mac: _ => token(choice(
+      'hmac-sha1',
+      'hmac-sha1-96',
+      'hmac-sha2-256',
+      'hmac-sha2-512',
+      'hmac-md5',
+      'hmac-md5-96',
+      'umac-64@openssh.com',
+      'umac-128@openssh.com',
+      'hmac-sha1-etm@openssh.com',
+      'hmac-sha1-96-etm@openssh.com',
+      'hmac-sha2-256-etm@openssh.com',
+      'hmac-sha2-512-etm@openssh.com',
+      'hmac-md5-etm@openssh.com',
+      'hmac-md5-96-etm@openssh.com',
+      'umac-64-etm@openssh.com',
+      'umac-128-etm@openssh.com',
+    )),
 
-    sig: _ => u.query('sig'),
+    // ssh -Q sig
+    sig: _ => token(choice(
+      'ssh-ed25519',
+      'sk-ssh-ed25519@openssh.com',
+      'ecdsa-sha2-nistp256',
+      'ecdsa-sha2-nistp384',
+      'ecdsa-sha2-nistp521',
+      'sk-ecdsa-sha2-nistp256@openssh.com',
+      'webauthn-sk-ecdsa-sha2-nistp256@openssh.com',
+      'ssh-dss',
+      'ssh-rsa',
+      'rsa-sha2-256',
+      'rsa-sha2-512',
+    )),
 
     _file_token: $ => alias(/%[%CdhikLlnpru]/, $.token),
 
@@ -1105,27 +1244,27 @@ module.exports = grammar({
     variable: $ => seq('${', field('name', $._var_name), '}'),
 
     _file_string: $ => choice(
-      alias(u.token(/\S/, $._file_token, $.variable), $.string),
-      seq('"', alias(u.token(/[^"]/, $._file_token, $.variable), $.string), '"'),
+      alias(token_(/\S/, $._file_token, $.variable), $.string),
+      seq('"', alias(token_(/[^"]/, $._file_token, $.variable), $.string), '"'),
     ),
 
     _hosts_string: $ => alias(
-      u.token(/[^\r\n]/, $._hosts_token, $.variable),
+      token_(/[^\r\n]/, $._hosts_token, $.variable),
       $.string
     ),
 
     _hostname_string: $ => choice(
-      alias(u.token(/\S/, $._hostname_token), $.string),
-      seq('"', alias(u.token(/[^"]/, $._hostname_token), $.string), '"')
+      alias(token_(/\S/, $._hostname_token), $.string),
+      seq('"', alias(token_(/[^"]/, $._hostname_token), $.string), '"')
     ),
 
     _proxy_string: $ => alias(
-      u.token(/[^\r\n]/, $._proxy_token),
+      token_(/[^\r\n]/, $._proxy_token),
       $.string
     ),
 
     _token_string: $ => alias(
-      u.token(/[^\r\n]/, $.token),
+      token_(/[^\r\n]/, $.token),
       $.string
     ),
 
@@ -1137,18 +1276,18 @@ module.exports = grammar({
     _plain_string: $ => alias(repeat1(/\S/), $.string),
 
     _file_pattern: $ => choice(
-      alias(u.pattern(/\S/, $._file_token), $.pattern),
-      seq('"', alias(u.pattern(/[^"]/, $._file_token), $.pattern), '"'),
+      alias(pattern(/\S/, $._file_token), $.pattern),
+      seq('"', alias(pattern(/[^"]/, $._file_token), $.pattern), '"'),
     ),
 
     _file_pattern_vars: $ => choice(
-      alias(u.pattern(/\S/, $.variable, $._file_token), $.pattern),
-      seq('"', alias(u.pattern(/[^"]/, $.variable, $._file_token), $.pattern), '"')
+      alias(pattern(/\S/, $.variable, $._file_token), $.pattern),
+      seq('"', alias(pattern(/[^"]/, $.variable, $._file_token), $.pattern), '"')
     ),
 
     _pattern: $ => choice(
-      alias(u.pattern(/\S/), $.pattern),
-      seq('"', alias(u.pattern(/[^"]/), $.pattern), '"')
+      alias(pattern(/\S/), $.pattern),
+      seq('"', alias(pattern(/[^"]/), $.pattern), '"')
     ),
 
     _boolean: _ => choice('yes', 'no'),

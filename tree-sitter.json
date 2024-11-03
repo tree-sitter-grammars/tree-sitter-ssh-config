@@ -1,0 +1,30 @@
+{
+  "grammars": [
+    {
+      "name": "ssh_config",
+      "camelcase": "SSHConfig",
+      "scope": "text.ssh_config",
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm",
+      "content-regex": "^\\s*IdentityFile",
+      "file-types": [
+        "ssh_config"
+      ]
+    }
+  ],
+  "metadata": {
+    "description": "OpenSSH config grammar for tree-sitter",
+    "version": "0.4.0",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "ObserverOfTime",
+        "email": "chronobserver@disroot.org",
+        "url": "https://observeroftime.github.io/"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config"
+    }
+  }
+}

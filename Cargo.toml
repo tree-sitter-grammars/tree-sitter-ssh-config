@@ -1,27 +1,27 @@
 [package]
 name = "tree-sitter-ssh-config"
 description = "OpenSSH config grammar for tree-sitter"
-version = "0.3.0"
-keywords = ["incremental", "parsing", "ssh"]
-categories = ["parsing", "text-editors"]
+version = "0.4.0"
 authors = ["ObserverOfTime <chronobserver@disroot.org>"]
+license = "MIT"
+readme = "README.md"
+keywords = ["incremental", "parsing", "tree-sitter", "ssh"]
+categories = ["parser-implementations", "parsing", "text-editors"]
 repository = "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config"
 edition = "2021"
-license = "MIT"
+autoexamples = false
 
 build = "bindings/rust/build.rs"
-include = [
-  "bindings/rust/*",
-  "grammar.js",
-  "queries/*",
-  "src/*",
-]
+include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*"]
 
 [lib]
 path = "bindings/rust/lib.rs"
 
 [dependencies]
-tree-sitter = ">=0.21.0"
+tree-sitter-language = "0.1"
 
 [build-dependencies]
-cc = "^1.0.94"
+cc = "1.1.22"
+
+[dev-dependencies]
+tree-sitter = "0.24.3"

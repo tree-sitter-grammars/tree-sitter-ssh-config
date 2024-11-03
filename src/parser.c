@@ -4054,21 +4054,6 @@ static const TSStateId ts_primary_state_ids[STATE_COUNT] = {
   [840] = 805,
 };
 
-static TSCharacterRange aux_sym__file_token_token1_character_set_1[] = {
-  {'%', '%'}, {'C', 'C'}, {'L', 'L'}, {'d', 'd'}, {'h', 'i'}, {'k', 'l'}, {'n', 'n'}, {'p', 'p'},
-  {'r', 'r'}, {'u', 'u'},
-};
-
-static TSCharacterRange aux_sym__hosts_token_token1_character_set_1[] = {
-  {'%', '%'}, {'C', 'C'}, {'H', 'I'}, {'K', 'L'}, {'d', 'd'}, {'f', 'f'}, {'h', 'i'}, {'k', 'l'},
-  {'n', 'n'}, {'p', 'p'}, {'r', 'r'}, {'t', 'u'},
-};
-
-static TSCharacterRange sym_token_character_set_1[] = {
-  {'%', '%'}, {'C', 'C'}, {'H', 'I'}, {'K', 'L'}, {'T', 'T'}, {'d', 'd'}, {'f', 'f'}, {'h', 'i'},
-  {'k', 'l'}, {'n', 'n'}, {'p', 'p'}, {'r', 'r'}, {'t', 'u'},
-};
-
 static bool ts_lex(TSLexer *lexer, TSStateId state) {
   START_LEXER();
   eof = lexer->eof(lexer);
