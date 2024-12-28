@@ -378,7 +378,7 @@ module.exports = grammar({
     _canonicalize_hostname: $ => seq(
       keyword('CanonicalizeHostname'),
       $._sep,
-      argument($._boolean)
+      argument(choice('always', $._boolean))
     ),
 
     _canonicalize_max_dots: $ => seq(

@@ -1790,8 +1790,17 @@
           "type": "FIELD",
           "name": "argument",
           "content": {
-            "type": "SYMBOL",
-            "name": "_boolean"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "always"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_boolean"
+              }
+            ]
           }
         }
       ]

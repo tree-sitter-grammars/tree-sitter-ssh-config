@@ -4,6 +4,7 @@
       "name": "ssh_config",
       "camelcase": "SSHConfig",
       "scope": "text.ssh_config",
+      "path": ".",
       "highlights": "queries/highlights.scm",
       "injections": "queries/injections.scm",
       "content-regex": "^\\s*IdentityFile",
