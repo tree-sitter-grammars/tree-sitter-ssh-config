@@ -4,7 +4,8 @@
       "name": "ssh_config",
       "camelcase": "SSHConfig",
       "scope": "text.ssh_config",
-      "path": ".",
+      "title": "OpenSSH config",
+      "class-name": "TreeSitterSSHConfig",
       "highlights": "queries/highlights.scm",
       "injections": "queries/injections.scm",
       "content-regex": "^\\s*IdentityFile",
@@ -25,7 +26,8 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config"
+      "repository": "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config",
+      "funding": "https://github.com/sponsors/ObserverOfTime"
     }
   }
 }
