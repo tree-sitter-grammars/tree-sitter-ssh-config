@@ -73,3 +73,21 @@ ProxyJump bar
 (config
   (parameter
     host: (string)))
+
+================
+Match exec (#13)
+================
+
+Match exec "[ -n \"$all_proxy\" ]"
+    ProxyCommand nc -X 5 -x 127.0.0.1:15235 %h %p
+
+----
+
+(config
+  (match_declaration
+    (condition
+      argument: (string))
+    (parameter
+      argument: (string
+        (token)
+        (token)))))

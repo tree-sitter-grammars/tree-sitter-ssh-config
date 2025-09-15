@@ -27,14 +27,14 @@ const list = (sep, rule) =>
   prec.right(seq(rule, repeat(seq(sep, rule))));
 
 /**
- * @param content {RegExp}
+ * @param content {RuleOrLiteral}
  * @param extra {...Rule}
  */
 const pattern = (content, ...extra) =>
   repeat1(choice('*', '?', content, ...extra));
 
 /**
- * @param content {RegExp}
+ * @param content {RuleOrLiteral}
  * @param token {Rule}
  * @param extra {...Rule}
  */
@@ -52,7 +52,7 @@ const algorithms = (prefix, option) =>
   ));
 
 /**
- * @param content {RegExp}
+ * @param content {RuleOrLiteral}
  * @param rule {SymbolRule<'number'>}
  */
 const override = (content, rule) =>
@@ -167,7 +167,7 @@ module.exports = grammar({
       $._sep,
       argument(choice(
         alias(token_(/\S/, $._file_token), $.string),
-        seq('"', alias(token_(/[^"]/, $._file_token), $.string), '"')
+        seq('"', alias(token_($._char, $._file_token), $.string), '"')
       ))
     ),
 
@@ -176,7 +176,7 @@ module.exports = grammar({
       $._sep,
       argument(choice(
         list(',', alias(/\S+/, $.string)),
-        seq('"', list(',', alias(/[^"]+/, $.string)), '"')
+        seq('"', list(',', alias(repeat1($._char), $.string)), '"')
       ))
     ),
 
@@ -212,7 +212,7 @@ module.exports = grammar({
 
     _match_value: $ => choice(
       list(',', alias(pattern(/\S/), $.pattern)),
-      seq('"', list(',', alias(pattern(/[^"]/), $.pattern)), '"')
+      seq('"', list(',', alias(pattern($._char), $.pattern)), '"')
     ),
 
     _declarations: $ => prec.right(
@@ -738,7 +738,7 @@ module.exports = grammar({
       override(/S/, $.number),
 
     _log_verbose_quoted: $ =>
-      override(/[^"]/, $.number),
+      override($._char, $.number),
 
     _macs: $ => seq(
       keyword('MACs'),
@@ -786,7 +786,7 @@ module.exports = grammar({
       ),
       seq(
         '"',
-        field('host', choice('*', alias(/[^"]+/, $.string))),
+        field('host', choice('*', alias(repeat1($._char), $.string))),
         ':',
         field('port', choice('*', $.number)),
         '"'
@@ -1245,7 +1245,7 @@ module.exports = grammar({
 
     _file_string: $ => choice(
       alias(token_(/\S/, $._file_token, $.variable), $.string),
-      seq('"', alias(token_(/[^"]/, $._file_token, $.variable), $.string), '"'),
+      seq('"', alias(token_($._char, $._file_token, $.variable), $.string), '"'),
     ),
 
     _hosts_string: $ => alias(
@@ -1255,7 +1255,7 @@ module.exports = grammar({
 
     _hostname_string: $ => choice(
       alias(token_(/\S/, $._hostname_token), $.string),
-      seq('"', alias(token_(/[^"]/, $._hostname_token), $.string), '"')
+      seq('"', alias(token_($._char, $._hostname_token), $.string), '"')
     ),
 
     _proxy_string: $ => alias(
@@ -1270,24 +1270,24 @@ module.exports = grammar({
 
     _string: $ => choice(
       $._plain_string,
-      seq('"', alias(repeat1(/[^"]/), $.string), '"')
+      seq('"', alias(repeat1($._char), $.string), '"')
     ),
 
     _plain_string: $ => alias(repeat1(/\S/), $.string),
 
     _file_pattern: $ => choice(
       alias(pattern(/\S/, $._file_token), $.pattern),
-      seq('"', alias(pattern(/[^"]/, $._file_token), $.pattern), '"'),
+      seq('"', alias(pattern($._char, $._file_token), $.pattern), '"'),
     ),
 
     _file_pattern_vars: $ => choice(
       alias(pattern(/\S/, $.variable, $._file_token), $.pattern),
-      seq('"', alias(pattern(/[^"]/, $.variable, $._file_token), $.pattern), '"')
+      seq('"', alias(pattern($._char, $.variable, $._file_token), $.pattern), '"')
     ),
 
     _pattern: $ => choice(
       alias(pattern(/\S/), $.pattern),
-      seq('"', alias(pattern(/[^"]/), $.pattern), '"')
+      seq('"', alias(pattern($._char), $.pattern), '"')
     ),
 
     _boolean: _ => choice('yes', 'no'),
@@ -1334,6 +1334,8 @@ module.exports = grammar({
       $._space,
       alias(/[ \t]*=[ \t]*/, '=')
     ),
+
+    _char: _ => /[^"]|\\"/,
 
     _space: _ => /[ \t]+/,
 
