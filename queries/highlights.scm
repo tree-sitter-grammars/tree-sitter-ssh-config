@@ -26,6 +26,16 @@
   "none" "any"
   ; CanonicalizeHostname
   "always"
+  ; ChannelTimeout
+  "global"
+  "agent-connection"
+  "direct-tcpip"
+  "direct-streamlocal@openssh.com"
+  "forwarded-tcpip"
+  "forwarded-streamlocal@openssh.com"
+  "session"
+  "tun-connection"
+  "x11-connection"
   ; ControlMaster
   "autoask"
   ; FingerprintHash
@@ -36,10 +46,14 @@
   "force"
   ; SessionType
   "subsystem" "default"
+  ; ObscureKeystrokeTiming
+  "interval"
   ; StrictHostKeyChecking
   "accept-new" "off"
   ; Tunnel
   "point-to-point" "ethernet"
+  ; WarnWeakCrypto
+  "no-pq-kex"
   (ipqos)
   (verbosity)
   (facility)

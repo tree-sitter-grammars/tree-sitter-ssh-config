@@ -81,6 +81,7 @@ module.exports = grammar({
     $._forward_agent_arg,
     $._identity_agent_arg,
     $._ipqos_arg,
+    $._obscure_keystroke_timing_arg,
     $._proxy_command_arg,
     $._request_tty_arg,
     $._security_key_provider_arg,
@@ -237,6 +238,7 @@ module.exports = grammar({
       $._canonicalize_permitted_cnames,
       $._ca_signature_algorithms,
       $._certificate_file,
+      $._channel_timeout,
       $._check_host_ip,
       $._ciphers,
       $._clear_all_forwardings,
@@ -257,6 +259,7 @@ module.exports = grammar({
       $._forward_x11,
       $._forward_x11_timeout,
       $._forward_x11_trusted,
+      $._gateway_ports,
       $._global_known_hosts_file,
       $._gssapi_authentication,
       $._gssapi_delegate_credentials,
@@ -273,6 +276,7 @@ module.exports = grammar({
       $._include,
       $._ipqos,
       $._kbd_interactive_authentication,
+      $._kbd_interactive_devices,
       $._kex_algorithms,
       $._known_hosts_command,
       $._local_command,
@@ -282,6 +286,7 @@ module.exports = grammar({
       $._macs,
       $._no_host_authentication_for_localhost,
       $._number_of_password_prompts,
+      $._obscure_keystroke_timing,
       $._password_authentication,
       $._permit_local_command,
       $._permit_remote_open,
@@ -294,6 +299,7 @@ module.exports = grammar({
       $._pubkey_accepted_algorithms,
       $._pubkey_authentication,
       $._rekey_limit,
+      $._refuse_connection,
       $._remote_command,
       $._remote_forward,
       $._request_tty,
@@ -319,7 +325,9 @@ module.exports = grammar({
       $._user,
       $._user_known_hosts_file,
       $._verify_host_key_dns,
+      $._version_addendum,
       $._visual_host_key,
+      $._warn_weak_crypto,
       $._xauth_location,
     ),
 
@@ -414,6 +422,29 @@ module.exports = grammar({
       argument($._file_pattern_vars)
     ),
 
+    _channel_timeout: $ => seq(
+      keyword('ChannelTimeout'),
+      $._sep,
+      list($._space, argument($._channel_timeout_value))
+    ),
+
+    _channel_timeout_value: $ => seq(
+      choice(
+        'global',
+        'agent-connection',
+        'direct-tcpip',
+        'direct-streamlocal@openssh.com',
+        'forwarded-tcpip',
+        'forwarded-streamlocal@openssh.com',
+        'session',
+        'tun-connection',
+        'x11-connection',
+        '*',
+      ),
+      '=',
+      $.time
+    ),
+
     _check_host_ip: $ => seq(
       keyword('CheckHostIP'),
       $._sep,
@@ -463,6 +494,12 @@ module.exports = grammar({
       'autoask'
     ),
 
+    _control_path: $ => seq(
+      keyword('ControlPath'),
+      $._sep,
+      argument($._file_pattern_vars)
+    ),
+
     _control_persist: $ => seq(
       keyword('ControlPersist'),
       $._sep,
@@ -472,12 +509,6 @@ module.exports = grammar({
     _control_persist_arg: $ => choice(
       $._boolean,
       $.time
-    ),
-
-    _control_path: $ => seq(
-      keyword('ControlPath'),
-      $._sep,
-      argument($._file_pattern_vars)
     ),
 
     _dynamic_forward: $ => seq(
@@ -560,6 +591,12 @@ module.exports = grammar({
 
     _forward_x11_trusted: $ => seq(
       keyword('ForwardX11Trusted'),
+      $._sep,
+      argument($._boolean)
+    ),
+
+    _gateway_ports: $ => seq(
+      keyword('GatewayPorts'),
       $._sep,
       argument($._boolean)
     ),
@@ -680,6 +717,12 @@ module.exports = grammar({
       argument($._boolean)
     ),
 
+    _kbd_interactive_devices: $ => seq(
+      keyword('KbdInteractiveDevices'),
+      $._sep,
+      argument(list(',', $._plain_string))
+    ),
+
     _kex_algorithms: $ => seq(
       keyword('KexAlgorithms'),
       $._sep,
@@ -756,6 +799,17 @@ module.exports = grammar({
       keyword('NumberOfPasswordPrompts'),
       $._sep,
       argument($.number)
+    ),
+
+    _obscure_keystroke_timing: $ => seq(
+      keyword('ObscureKeystrokeTiming'),
+      $._sep,
+      argument($._obscure_keystroke_timing_arg)
+    ),
+
+    _obscure_keystroke_timing_arg: $ => choice(
+      $._boolean,
+      seq('interval', ':', $.number)
     ),
 
     _password_authentication: $ => seq(
@@ -884,6 +938,12 @@ module.exports = grammar({
         )
       )
     )),
+
+    _refuse_connection: $ => seq(
+      keyword('RefuseConnection'),
+      $._sep,
+      argument(alias(repeat1(/[^\r\n]/), $.string))
+    ),
 
     _remote_command: $ => seq(
       keyword('RemoteCommand'),
@@ -1092,10 +1152,22 @@ module.exports = grammar({
       argument(choice($._boolean, 'ask'))
     ),
 
+    _version_addendum: $ => seq(
+      keyword('VersionAddendum'),
+      $._sep,
+      argument(choice('none', $._string))
+    ),
+
     _visual_host_key: $ => seq(
       keyword('VisualHostKey'),
       $._sep,
       argument($._boolean)
+    ),
+
+    _warn_weak_crypto: $ => seq(
+      keyword('WarnWeakCrypto'),
+      $._sep,
+      argument(choice($._boolean, 'no-pq-kex'))
     ),
 
     _xauth_location: $ => seq(
@@ -1161,7 +1233,9 @@ module.exports = grammar({
       'ecdh-sha2-nistp521',
       'curve25519-sha256',
       'curve25519-sha256@libssh.org',
+      'sntrup761x25519-sha512',
       'sntrup761x25519-sha512@openssh.com',
+      'mlkem768x25519-sha256',
     )),
 
     // ssh -Q key-sig
@@ -1179,8 +1253,9 @@ module.exports = grammar({
       'sk-ecdsa-sha2-nistp256@openssh.com',
       'sk-ecdsa-sha2-nistp256-cert-v01@openssh.com',
       'webauthn-sk-ecdsa-sha2-nistp256@openssh.com',
-      'ssh-dss',
-      'ssh-dss-cert-v01@openssh.com',
+      'webauthn-sk-ecdsa-sha2-nistp256-cert-v01@openssh.com',
+      'ssh-dss', // deprecated
+      'ssh-dss-cert-v01@openssh.com', // deprecated
       'ssh-rsa',
       'ssh-rsa-cert-v01@openssh.com',
       'rsa-sha2-256',
@@ -1218,7 +1293,7 @@ module.exports = grammar({
       'ecdsa-sha2-nistp521',
       'sk-ecdsa-sha2-nistp256@openssh.com',
       'webauthn-sk-ecdsa-sha2-nistp256@openssh.com',
-      'ssh-dss',
+      'ssh-dss', // deprecated
       'ssh-rsa',
       'rsa-sha2-256',
       'rsa-sha2-512',

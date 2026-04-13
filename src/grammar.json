@@ -1125,6 +1125,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_channel_timeout"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_check_host_ip"
         },
         {
@@ -1205,6 +1209,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_gateway_ports"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_global_known_hosts_file"
         },
         {
@@ -1269,6 +1277,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_kbd_interactive_devices"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_kex_algorithms"
         },
         {
@@ -1302,6 +1314,10 @@
         {
           "type": "SYMBOL",
           "name": "_number_of_password_prompts"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_obscure_keystroke_timing"
         },
         {
           "type": "SYMBOL",
@@ -1350,6 +1366,10 @@
         {
           "type": "SYMBOL",
           "name": "_rekey_limit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_refuse_connection"
         },
         {
           "type": "SYMBOL",
@@ -1453,7 +1473,15 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_version_addendum"
+        },
+        {
+          "type": "SYMBOL",
           "name": "_visual_host_key"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_warn_weak_crypto"
         },
         {
           "type": "SYMBOL",
@@ -2099,6 +2127,124 @@
         }
       ]
     },
+    "_channel_timeout": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "ChannelTimeout",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "ChannelTimeout"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "PREC_RIGHT",
+          "value": 0,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "argument",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_channel_timeout_value"
+                }
+              },
+              {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_space"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "argument",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "_channel_timeout_value"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_channel_timeout_value": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "global"
+            },
+            {
+              "type": "STRING",
+              "value": "agent-connection"
+            },
+            {
+              "type": "STRING",
+              "value": "direct-tcpip"
+            },
+            {
+              "type": "STRING",
+              "value": "direct-streamlocal@openssh.com"
+            },
+            {
+              "type": "STRING",
+              "value": "forwarded-tcpip"
+            },
+            {
+              "type": "STRING",
+              "value": "forwarded-streamlocal@openssh.com"
+            },
+            {
+              "type": "STRING",
+              "value": "session"
+            },
+            {
+              "type": "STRING",
+              "value": "tun-connection"
+            },
+            {
+              "type": "STRING",
+              "value": "x11-connection"
+            },
+            {
+              "type": "STRING",
+              "value": "*"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "SYMBOL",
+          "name": "time"
+        }
+      ]
+    },
     "_check_host_ip": {
       "type": "SEQ",
       "members": [
@@ -2392,6 +2538,37 @@
         }
       ]
     },
+    "_control_path": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "ControlPath",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "ControlPath"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_file_pattern_vars"
+          }
+        }
+      ]
+    },
     "_control_persist": {
       "type": "SEQ",
       "members": [
@@ -2433,37 +2610,6 @@
         {
           "type": "SYMBOL",
           "name": "time"
-        }
-      ]
-    },
-    "_control_path": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "keyword",
-          "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "PATTERN",
-              "value": "ControlPath",
-              "flags": "i"
-            },
-            "named": false,
-            "value": "ControlPath"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_sep"
-        },
-        {
-          "type": "FIELD",
-          "name": "argument",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_file_pattern_vars"
-          }
         }
       ]
     },
@@ -2924,6 +3070,37 @@
             },
             "named": false,
             "value": "ForwardX11Trusted"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_boolean"
+          }
+        }
+      ]
+    },
+    "_gateway_ports": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "GatewayPorts",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "GatewayPorts"
           }
         },
         {
@@ -3705,6 +3882,62 @@
         }
       ]
     },
+    "_kbd_interactive_devices": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "KbdInteractiveDevices",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "KbdInteractiveDevices"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "PREC_RIGHT",
+            "value": 0,
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_plain_string"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_plain_string"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
     "_kex_algorithms": {
       "type": "SEQ",
       "members": [
@@ -4407,6 +4640,63 @@
             "type": "SYMBOL",
             "name": "number"
           }
+        }
+      ]
+    },
+    "_obscure_keystroke_timing": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "ObscureKeystrokeTiming",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "ObscureKeystrokeTiming"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_obscure_keystroke_timing_arg"
+          }
+        }
+      ]
+    },
+    "_obscure_keystroke_timing_arg": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_boolean"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "interval"
+            },
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "number"
+            }
+          ]
         }
       ]
     },
@@ -5207,6 +5497,45 @@
           }
         ]
       }
+    },
+    "_refuse_connection": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "RefuseConnection",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "RefuseConnection"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "REPEAT1",
+              "content": {
+                "type": "PATTERN",
+                "value": "[^\\r\\n]"
+              }
+            },
+            "named": true,
+            "value": "string"
+          }
+        }
+      ]
     },
     "_remote_command": {
       "type": "SEQ",
@@ -6358,6 +6687,46 @@
         }
       ]
     },
+    "_version_addendum": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "VersionAddendum",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "VersionAddendum"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "none"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_string"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "_visual_host_key": {
       "type": "SEQ",
       "members": [
@@ -6385,6 +6754,46 @@
           "content": {
             "type": "SYMBOL",
             "name": "_boolean"
+          }
+        }
+      ]
+    },
+    "_warn_weak_crypto": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "keyword",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "WarnWeakCrypto",
+              "flags": "i"
+            },
+            "named": false,
+            "value": "WarnWeakCrypto"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_sep"
+        },
+        {
+          "type": "FIELD",
+          "name": "argument",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_boolean"
+              },
+              {
+                "type": "STRING",
+                "value": "no-pq-kex"
+              }
+            ]
           }
         }
       ]
@@ -6755,7 +7164,15 @@
           },
           {
             "type": "STRING",
+            "value": "sntrup761x25519-sha512"
+          },
+          {
+            "type": "STRING",
             "value": "sntrup761x25519-sha512@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "mlkem768x25519-sha256"
           }
         ]
       }
@@ -6816,6 +7233,10 @@
           {
             "type": "STRING",
             "value": "webauthn-sk-ecdsa-sha2-nistp256@openssh.com"
+          },
+          {
+            "type": "STRING",
+            "value": "webauthn-sk-ecdsa-sha2-nistp256-cert-v01@openssh.com"
           },
           {
             "type": "STRING",
@@ -7917,6 +8338,7 @@
     "_forward_agent_arg",
     "_identity_agent_arg",
     "_ipqos_arg",
+    "_obscure_keystroke_timing_arg",
     "_proxy_command_arg",
     "_request_tty_arg",
     "_security_key_provider_arg",
