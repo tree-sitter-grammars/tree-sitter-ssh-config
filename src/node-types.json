@@ -242,6 +242,10 @@
             "named": false
           },
           {
+            "type": "agent-connection",
+            "named": false
+          },
+          {
             "type": "always",
             "named": false
           },
@@ -282,6 +286,14 @@
             "named": false
           },
           {
+            "type": "direct-streamlocal@openssh.com",
+            "named": false
+          },
+          {
+            "type": "direct-tcpip",
+            "named": false
+          },
+          {
             "type": "ethernet",
             "named": false
           },
@@ -294,6 +306,18 @@
             "named": false
           },
           {
+            "type": "forwarded-streamlocal@openssh.com",
+            "named": false
+          },
+          {
+            "type": "forwarded-tcpip",
+            "named": false
+          },
+          {
+            "type": "global",
+            "named": false
+          },
+          {
             "type": "host-bound",
             "named": false
           },
@@ -303,6 +327,10 @@
           },
           {
             "type": "inet6",
+            "named": false
+          },
+          {
+            "type": "interval",
             "named": false
           },
           {
@@ -330,6 +358,10 @@
             "named": false
           },
           {
+            "type": "no-pq-kex",
+            "named": false
+          },
+          {
             "type": "none",
             "named": false
           },
@@ -347,6 +379,10 @@
           },
           {
             "type": "point-to-point",
+            "named": false
+          },
+          {
+            "type": "session",
             "named": false
           },
           {
@@ -370,6 +406,10 @@
             "named": true
           },
           {
+            "type": "tun-connection",
+            "named": false
+          },
+          {
             "type": "unbound",
             "named": false
           },
@@ -380,6 +420,10 @@
           {
             "type": "verbosity",
             "named": true
+          },
+          {
+            "type": "x11-connection",
+            "named": false
           },
           {
             "type": "yes",
@@ -504,6 +548,10 @@
             "named": false
           },
           {
+            "type": "ChannelTimeout",
+            "named": false
+          },
+          {
             "type": "CheckHostIP",
             "named": false
           },
@@ -592,6 +640,10 @@
             "named": false
           },
           {
+            "type": "GatewayPorts",
+            "named": false
+          },
+          {
             "type": "GlobalKnownHostsFile",
             "named": false
           },
@@ -652,6 +704,10 @@
             "named": false
           },
           {
+            "type": "KbdInteractiveDevices",
+            "named": false
+          },
+          {
             "type": "KexAlgorithms",
             "named": false
           },
@@ -685,6 +741,10 @@
           },
           {
             "type": "NumberOfPasswordPrompts",
+            "named": false
+          },
+          {
+            "type": "ObscureKeystrokeTiming",
             "named": false
           },
           {
@@ -733,6 +793,10 @@
           },
           {
             "type": "PubkeyAuthentication",
+            "named": false
+          },
+          {
+            "type": "RefuseConnection",
             "named": false
           },
           {
@@ -840,7 +904,15 @@
             "named": false
           },
           {
+            "type": "VersionAddendum",
+            "named": false
+          },
+          {
             "type": "VisualHostKey",
+            "named": false
+          },
+          {
+            "type": "WarnWeakCrypto",
             "named": false
           },
           {
@@ -1132,6 +1204,10 @@
     "named": false
   },
   {
+    "type": "ChannelTimeout",
+    "named": false
+  },
+  {
     "type": "CheckHostIP",
     "named": false
   },
@@ -1220,6 +1296,10 @@
     "named": false
   },
   {
+    "type": "GatewayPorts",
+    "named": false
+  },
+  {
     "type": "GlobalKnownHostsFile",
     "named": false
   },
@@ -1284,6 +1364,10 @@
     "named": false
   },
   {
+    "type": "KbdInteractiveDevices",
+    "named": false
+  },
+  {
     "type": "KexAlgorithms",
     "named": false
   },
@@ -1321,6 +1405,10 @@
   },
   {
     "type": "NumberOfPasswordPrompts",
+    "named": false
+  },
+  {
+    "type": "ObscureKeystrokeTiming",
     "named": false
   },
   {
@@ -1369,6 +1457,10 @@
   },
   {
     "type": "PubkeyAuthentication",
+    "named": false
+  },
+  {
+    "type": "RefuseConnection",
     "named": false
   },
   {
@@ -1480,7 +1572,15 @@
     "named": false
   },
   {
+    "type": "VersionAddendum",
+    "named": false
+  },
+  {
     "type": "VisualHostKey",
+    "named": false
+  },
+  {
+    "type": "WarnWeakCrypto",
     "named": false
   },
   {
@@ -1493,6 +1593,10 @@
   },
   {
     "type": "accept-new",
+    "named": false
+  },
+  {
+    "type": "agent-connection",
     "named": false
   },
   {
@@ -1544,6 +1648,14 @@
     "named": false
   },
   {
+    "type": "direct-streamlocal@openssh.com",
+    "named": false
+  },
+  {
+    "type": "direct-tcpip",
+    "named": false
+  },
+  {
     "type": "ethernet",
     "named": false
   },
@@ -1564,6 +1676,18 @@
     "named": false
   },
   {
+    "type": "forwarded-streamlocal@openssh.com",
+    "named": false
+  },
+  {
+    "type": "forwarded-tcpip",
+    "named": false
+  },
+  {
+    "type": "global",
+    "named": false
+  },
+  {
     "type": "host",
     "named": false
   },
@@ -1577,6 +1701,10 @@
   },
   {
     "type": "inet6",
+    "named": false
+  },
+  {
+    "type": "interval",
     "named": false
   },
   {
@@ -1612,6 +1740,10 @@
     "named": false
   },
   {
+    "type": "no-pq-kex",
+    "named": false
+  },
+  {
     "type": "none",
     "named": false
   },
@@ -1625,6 +1757,10 @@
   },
   {
     "type": "point-to-point",
+    "named": false
+  },
+  {
+    "type": "session",
     "named": false
   },
   {
@@ -1648,6 +1784,10 @@
     "named": true
   },
   {
+    "type": "tun-connection",
+    "named": false
+  },
+  {
     "type": "unbound",
     "named": false
   },
@@ -1662,6 +1802,10 @@
   {
     "type": "verbosity",
     "named": true
+  },
+  {
+    "type": "x11-connection",
+    "named": false
   },
   {
     "type": "yes",
