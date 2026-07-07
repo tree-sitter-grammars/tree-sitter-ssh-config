@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
   "grammars": [
     {
       "name": "ssh_config",
@@ -16,7 +17,7 @@
   ],
   "metadata": {
     "description": "OpenSSH config grammar for tree-sitter",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "license": "MIT",
     "authors": [
       {
@@ -26,8 +27,7 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config",
-      "funding": "https://github.com/sponsors/ObserverOfTime"
+      "repository": "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config"
     }
   }
 }

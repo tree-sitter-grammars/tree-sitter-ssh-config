@@ -1,9 +1,12 @@
 {
   "name": "tree-sitter-ssh-config",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "OpenSSH config grammar for tree-sitter",
-  "repository": "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config",
-  "funding": "https://github.com/sponsors/ObserverOfTime",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tree-sitter-grammars/tree-sitter-ssh-config.git"
+  },
   "license": "MIT",
   "author": {
     "name": "ObserverOfTime",
@@ -29,15 +32,16 @@
     "*.wasm"
   ],
   "dependencies": {
-    "node-addon-api": "^8.3.1",
+    "node-addon-api": "^8.5.0",
     "node-gyp-build": "^4.8.4"
   },
   "devDependencies": {
     "prebuildify": "^6.0.1",
-    "tree-sitter-cli": "^0.25.6"
+    "tree-sitter": "^0.25.0",
+    "tree-sitter-cli": "^0.26.10"
   },
   "peerDependencies": {
-    "tree-sitter": "^0.22.4"
+    "tree-sitter": "^0.25.0"
   },
   "peerDependenciesMeta": {
     "tree-sitter": {

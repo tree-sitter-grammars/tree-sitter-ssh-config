@@ -1,10 +1,11 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 
 import Foundation
 import PackageDescription
 
+let dir = Context.packageDirectory
 var sources = ["src/parser.c"]
-if FileManager.default.fileExists(atPath: "src/scanner.c") {
+if FileManager.default.fileExists(atPath: "\(dir)/src/scanner.c") {
     sources.append("src/scanner.c")
 }
 
@@ -14,7 +15,7 @@ let package = Package(
         .library(name: "TreeSitterSSHConfig", targets: ["TreeSitterSSHConfig"]),
     ],
     dependencies: [
-        .package(name: "SwiftTreeSitter", url: "https://github.com/tree-sitter/swift-tree-sitter", from: "0.9.0"),
+        .package(url: "https://github.com/tree-sitter/swift-tree-sitter", from: "0.10.0"),
     ],
     targets: [
         .target(
@@ -31,7 +32,7 @@ let package = Package(
         .testTarget(
             name: "TreeSitterSSHConfigTests",
             dependencies: [
-                "SwiftTreeSitter",
+                .product(name: "SwiftTreeSitter", package: "swift-tree-sitter"),
                 "TreeSitterSSHConfig",
             ],
             path: "bindings/swift/TreeSitterSSHConfigTests"

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 project(tree-sitter-ssh-config
-        VERSION "0.4.0"
+        VERSION "0.5.0"
         DESCRIPTION "OpenSSH config grammar for tree-sitter"
         HOMEPAGE_URL "https://github.com/tree-sitter-grammars/tree-sitter-ssh-config"
         LANGUAGES C)
@@ -17,9 +17,19 @@ endif()
 
 include(GNUInstallDirs)
 
-find_program(TREE_SITTER_CLI tree-sitter DOC "Tree-sitter CLI")
+find_program(TREE_SITTER_CLI tree-sitter DOC "Tree-sitter CLI" REQUIRED)
+
+add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/src/grammar.json"
+                          "${CMAKE_CURRENT_SOURCE_DIR}/src/node-types.json"
+                   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/grammar.js"
+                   COMMAND "${TREE_SITTER_CLI}" generate grammar.js --no-parser
+                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+                   COMMENT "Generating grammar.json")
 
 add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/src/parser.c"
+                   BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/src/tree_sitter/parser.h"
+                              "${CMAKE_CURRENT_SOURCE_DIR}/src/tree_sitter/alloc.h"
+                              "${CMAKE_CURRENT_SOURCE_DIR}/src/tree_sitter/array.h"
                    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/grammar.json"
                    COMMAND "${TREE_SITTER_CLI}" generate src/grammar.json
                             --abi=${TREE_SITTER_ABI_VERSION}
@@ -59,7 +69,7 @@ install(TARGETS tree-sitter-ssh-config
 
 file(GLOB QUERIES queries/*.scm)
 install(FILES ${QUERIES}
-        DESTINATION "${CMAKE_INSTALL_DATADIR}/tree-sitter/queries/ssh_config")
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/tree-sitter/queries/ssh-config")
 
 add_custom_target(ts-test "${TREE_SITTER_CLI}" test
                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"

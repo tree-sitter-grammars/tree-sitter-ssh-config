@@ -64,7 +64,7 @@ const override = (content, rule) =>
     field('line', choice('*', rule))
   );
 
-module.exports = grammar({
+export default grammar({
   name: 'ssh_config',
 
   extras: _ => [],
