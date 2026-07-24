@@ -91,3 +91,16 @@ Match exec "[ -n \"$all_proxy\" ]"
       argument: (string
         (token)
         (token)))))
+
+====================
+Inline comment (#16)
+====================
+
+Hostname foo  # test
+
+---
+
+(config
+  (parameter
+    (string))
+  (comment))

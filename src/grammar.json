@@ -114,6 +114,18 @@
                 ]
               },
               {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "comment"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
                 "type": "SYMBOL",
                 "name": "_eol"
               }
@@ -230,6 +242,18 @@
             ]
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "comment"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "SYMBOL",
             "name": "_eol"
           },
@@ -308,6 +332,18 @@
               {
                 "type": "SYMBOL",
                 "name": "_space"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "comment"
               },
               {
                 "type": "BLANK"
@@ -8285,7 +8321,7 @@
     },
     "comment": {
       "type": "PATTERN",
-      "value": "#.*"
+      "value": "#[^\\r\\n]*"
     },
     "_sep": {
       "type": "CHOICE",

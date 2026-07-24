@@ -109,6 +109,7 @@ export default grammar({
         optional($._space),
         $.parameter,
         optional($._space),
+        optional($.comment),
         $._eol
       )
     )),
@@ -120,6 +121,7 @@ export default grammar({
         seq(optional('!'), $._pattern)
       )),
       optional($._space),
+      optional($.comment),
       $._eol,
       $._declarations
     )),
@@ -132,6 +134,7 @@ export default grammar({
         list($._space, $.condition)
       ),
       optional($._space),
+      optional($.comment),
       $._eol,
       optional($._declarations)
     )),
@@ -1403,7 +1406,7 @@ export default grammar({
       )
     ),
 
-    comment: _ => /#.*/,
+    comment: _ => /#[^\r\n]*/,
 
     _sep: $ => choice(
       $._space,
